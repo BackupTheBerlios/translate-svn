@@ -54,9 +54,31 @@ function translateInit()
   {
       alert("no bundle");
   }
+  
+  
+  initOptionsMenu();
      	
   initMenus();
    
+}
+
+function initOptionsMenu();
+{
+	var menuPopup = document.getElementById("langSelect");
+	var menuItem ;
+	
+	
+	for(var i = 1; i < languagePairs.length ; i++)
+	{
+	  menuItem = document.createElement("menuitem");
+	  menuItem.setAttribute("label",languagePairs[i][0]);
+	  menuItem.setAttribute("name","languageSet");
+	  menuItem.setAttribute("oncommand","setLang("+ i +")");
+	  menuItem.setAttribute("type","radio");
+	  
+	  menuPopup.appendChild(menuItem);              
+                    
+  }
 }
 
 

@@ -20,8 +20,8 @@
                 <menuseparator id="useragentswitcher-options-separator"/>
                 <menu label="&translate.menu.options.label;">
                     <menupopup id="langSelect">
-                        <menuitem label="EN" name="languageSet" oncommand="setLang(0)" type="radio"/>
-                        <menuitem label="DE" name="languageSet" oncommand="setLang(2)" type="radio"/>
+                       <!-- <menuitem label="EN" name="languageSet" oncommand="setLang(0)" type="radio"/>
+                        <menuitem label="DE" name="languageSet" oncommand="setLang(2)" type="radio"/> -->
                     </menupopup>
                 </menu>
             </menupopup>
