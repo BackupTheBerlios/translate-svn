@@ -10,7 +10,7 @@
   <!-- locale information -->
   <RDF:Description about="urn:mozilla:locale:de-DE"
         chrome:displayName="Deutsch"
-        chrome:author="Paul Grave"
+        chrome:author="Oliver Forstmann"
         chrome:name="de-DE">
     <chrome:packages>
       <RDF:Seq about="urn:mozilla:locale:de-DE:packages">

@@ -10,7 +10,7 @@
   <!-- locale information -->
   <RDF:Description about="urn:mozilla:locale:ro-RO"
         chrome:displayName="Româna"
-        chrome:author="Paul Grave"
+        chrome:author="Sorina Grave"
         chrome:name="ro-RO">
     <chrome:packages>
       <RDF:Seq about="urn:mozilla:locale:ro-RO:packages">

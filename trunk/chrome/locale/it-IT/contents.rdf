@@ -10,7 +10,7 @@
   <!-- locale information -->
   <RDF:Description about="urn:mozilla:locale:it-IT"
         chrome:displayName="Italiano"
-        chrome:author="Paul Grave"
+        chrome:author="Giuliano Masseroni (extenzilla.it)"
         chrome:name="it-IT">
     <chrome:packages>
       <RDF:Seq about="urn:mozilla:locale:it-IT:packages">

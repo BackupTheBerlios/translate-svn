@@ -8,7 +8,7 @@
   <!-- locale information -->
   <RDF:Description about="urn:mozilla:locale:fr-FR"
         chrome:displayName="Français"
-        chrome:author="Paul Grave"
+        chrome:author="Marie Léger-St-Jean"
         chrome:name="fr-FR">
     <chrome:packages>
       <RDF:Seq about="urn:mozilla:locale:fr-FR:packages">
