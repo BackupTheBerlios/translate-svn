@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://gm-notifier/locale/translate_prefs.dtd">
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        id="translate-preferences"
+        title="&translate.prefs.name;"
+        buttons="accept, cancel"
+        style="padding:0px; margin:0px;"
+        ondialogaccept="translate_prefs_accept()" onload="gm_prefs_load()">
+  <!--
+  <script type="application/x-javascript" src="chrome://gm-notifier/content/gm-prefs.js"/>
+-->
+
+  <description value="&translate.prefs.name;"
+               style="background-color:white; min-width:400px; padding:5px; margin:0px;
+                      font-size:1.2em;"/>
+
+  <groupbox>
+    <caption label="&translate.prefs.groupbox.ui;"/>
+    <!--<checkbox id="gm.prefs.statusbar.enabled" label="&gm-notifier.prefs.statusbar.show;"/>-->
+
+    <hbox align="center">
+      <menulist id="translate.prefs.language.selection">
+        <menupopup>
+          <menuitem value="0" label="1"/>
+          <menuitem value="1" label="2"/>
+          <menuitem value="2" label="3"/>
+      </menulist>
+    </hbox>
+<!--
+    <checkbox id="gm.prefs.ui.notification.enabled" label="&gm-notifier.prefs.notification.enable;"/>
+    -->
+  </groupbox>
+<!--
+  <groupbox>
+    <caption label="&gm-notifier.prefs.groupbox.connection;"/>
+    <hbox align="center">
+      <label value="&gm-notifier.prefs.newmail.check.label-1;"/>
+      <textbox id="gm.prefs.update.interval" style="width:3em;" maxlength="4" value=""/>
+      <label value="&gm-notifier.prefs.newmail.check.label-2;" />
+    </hbox>
+
+    <checkbox id="gm.prefs.autologin.enabled" label="&gm-notifier.prefs.autologin;"/>
+  </groupbox>
+-->
+</dialog>
