@@ -36,6 +36,47 @@ function onTranslatePopup()
         var item;
         var sep;
         
+     item = document.getElementById("translate-context");    
+        sep = document.getElementById("translateSeparator");
+        
+        var lang = 2;
+        
+               
+       
+        
+        var menuPopupElement = document.createElement("menupopup");
+    
+for(var i = 1; i < languagePairs[lang].length ; i++)
+    {
+	
+    	
+    	var languagePair = languagePairs[lang][i] + "_" + languagePairs[lang][0];
+    	
+    	var menuItemLabel = "&translate.context.menu." + languagePair + ".label;";
+    	
+		var menuItemTooltiptext = "&translate." + languagePair + ".tooltip;" ;
+    	
+		var menuItemOncommand = "translateSelection('" + languagePair + "');";
+    	
+		var menuItemElement = document.createElement("menuitem");
+    	
+    	   	
+    	
+    	menuItemElement.setAttribute("label",menuItemLabel);
+    	menuItemElement.setAttribute("tooltiptext",menuItemTooltiptext);
+    	menuItemElement.setAttribute("oncommand",menuItemOncommand);
+    	
+    	
+		menuPopupElement.appendChild(menuItemElement);
+    	
+    	
+    }
+        
+        item.appendChild(menuPopupElement);
+        
+        
+        
+        
         item = document.getElementById("translate-context");    
         sep = document.getElementById("translateSeparator");
         
@@ -44,6 +85,11 @@ function onTranslatePopup()
                 
         menuText = "Translate " + "\"" + selectedText + "\"";
         item.setAttribute("label", menuText);
+        
+        
+        
+        
+        
     }
     else
     {
@@ -54,6 +100,11 @@ function onTranslatePopup()
         item.hidden = true;
     }
     
+    
+
+    
+    document.getElementById("translateSeparator");.appendChild(menuItemElement);
+   
 }
 
 
