@@ -1,0 +1,47 @@
+<!ENTITY translate.toolbar.label "Tradu">
+<!ENTITY translate.toolbar.tooltip "Tradu aceastã paginã">
+
+<!ENTITY translate.toolbar.quick.label "Traducerea rapidã">
+<!ENTITY translate.toolbar.quick.tooltip "Traducerea -> English">
+
+<!ENTITY translate.toolbar.menu.fr_en.label "Tradu din Francezã">
+<!ENTITY translate.toolbar.menu.es_en.label "Tradu din Spaniolã">
+<!ENTITY translate.toolbar.menu.it_en.label "Tradu din Italianã">
+<!ENTITY translate.toolbar.menu.pt_en.label "Tradu din Portughezã">
+<!ENTITY translate.toolbar.menu.de_en.label "Tradu din Germanã">
+<!ENTITY translate.toolbar.menu.ru_en.label "Tradu din Rusã">
+<!ENTITY translate.toolbar.menu.ja_en.label "Tradu din Japanese">
+<!ENTITY translate.toolbar.menu.ko_en.label "Tradu din Korean">
+<!ENTITY translate.toolbar.menu.zh_en.label "Tradu din Chinese">
+
+<!ENTITY translate.fr_en.tooltip "Francezã -> Englezã">
+<!ENTITY translate.es_en.tooltip "Spaniolã -> Englezã">
+<!ENTITY translate.it_en.tooltip "Italianã -> Englezã">
+<!ENTITY translate.pt_en.tooltip "Portughezã   -> Englezã">
+<!ENTITY translate.de_en.tooltip "Germanã -> Englezã">
+<!ENTITY translate.ru_en.tooltip "Rusã -> Englezã">
+<!ENTITY translate.ja_en.tooltip "Japonezã -> Englezã">
+<!ENTITY translate.ko_en.tooltip "Coreanã -> Englezã">
+<!ENTITY translate.zh_en.tooltip "Chinezã -> Englezã">
+
+
+
+<!ENTITY translate.context.label "Translate">
+<!ENTITY translate.context.menu.fr_en.label "din Francezã">
+<!ENTITY translate.context.menu.es_en.label "din Spaniolã">
+<!ENTITY translate.context.menu.it_en.label "din Italianã">
+<!ENTITY translate.context.menu.pt_en.label "din Germanã">
+<!ENTITY translate.context.menu.de_en.label "din Germanã">
+<!ENTITY translate.context.menu.ru_en.label "din Rusã">
+<!ENTITY translate.context.menu.ja_en.label "din Japonezã">
+<!ENTITY translate.context.menu.ko_en.label "din Coreanã">
+<!ENTITY translate.context.menu.zh_en.label "din Chinezã">
+
+
+
+
+
+
+
+
+
