@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE window SYSTEM "chrome://translate/locale/translate.dtd" >
+
+<?xml-stylesheet href="chrome://translate/skin/translate.css" type="text/css"?>
+
+
+
+<overlay id="translateToolbarOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script type="application/x-javascript" src="chrome://translate/content/translate.js"/>
+  
+  
+  <stringbundleset id="stringbundleset">
+        <stringbundle id="bundle_translate" src="chrome://translate/locale/translate.properties"/>
+</stringbundleset>
+
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton  label="&translate.toolbar.label;"  class="translate-tool-pg" id="translate-pg"  tooltiptext="&translate.toolbar.tooltip;" type="menu-button" oncommand="if (event.target==this) quick_translate();">
+   <menupopup>
+    <menuitem label="&translate.toolbar.quick.label;" tooltiptext="&translate.toolbar.quick.tooltip;" oncommand="quick_translate();"/>
+		<menuitem label="&translate.toolbar.menu.fr_en.label;" tooltiptext="&translate.fr_en.tooltip;" oncommand="translateFrom('fr_en');"/>
+		<menuitem label="&translate.toolbar.menu.es_en.label;" tooltiptext="&translate.es_en.tooltip;" oncommand="translateFrom('es_en');"/>
+		<menuitem label="&translate.toolbar.menu.it_en.label;" tooltiptext="&translate.it_en.tooltip;" oncommand="translateFrom('it_en');"/>
+		<menuitem label="&translate.toolbar.menu.pt_en.label;" tooltiptext="&translate.pt_en.tooltip;" oncommand="translateFrom('pt_en');"/>		
+		<menuitem label="&translate.toolbar.menu.de_en.label;" tooltiptext="&translate.de_en.tooltip;" oncommand="translateFrom('de_en');"/>
+		<menuitem label="&translate.toolbar.menu.ru_en.label;" tooltiptext="&translate.ru_en.tooltip;" oncommand="translateFrom('ru_en');"/>
+		<menuitem label="&translate.toolbar.menu.ja_en.label;" tooltiptext="&translate.ja_en.tooltip;" oncommand="translateFrom('ja_en');"/>
+		<menuitem label="&translate.toolbar.menu.ko_en.label;" tooltiptext="&translate.ko_en.tooltip;" oncommand="translateFrom('ko_en');"/>
+		<menuitem label="&translate.toolbar.menu.ja_en.label;" tooltiptext="&translate.ja_en.tooltip;" oncommand="translateFrom('zh_en');"/>
+   </menupopup>
+
+
+ </toolbarbutton>
+
+  </toolbarpalette>
+
+	<popup id="contentAreaContextMenu">
+		<menuseparator id="translateSeparator"/>
+        <menu label="&translate.context.label;"  id="translate-context">
+            <menupopup>
+		<menuitem label="&translate.context.menu.fr_en.label;" tooltiptext="&translate.fr_en.tooltip;" oncommand="translateSelection('fr_en');"/>
+		<menuitem label="&translate.context.menu.es_en.label;" tooltiptext="&translate.es_en.tooltip;" oncommand="translateSelection('es_en');"/>
+		<menuitem label="&translate.context.menu.it_en.label;" tooltiptext="&translate.it_en.tooltip;" oncommand="translateSelection('it_en');"/>
+		<menuitem label="&translate.context.menu.pt_en.label;" tooltiptext="&translate.pt_en.tooltip;" oncommand="translateSelection('pt_en');"/>		
+		<menuitem label="&translate.context.menu.de_en.label;" tooltiptext="&translate.de_en.tooltip;" oncommand="translateSelection('de_en');"/>
+		<menuitem label="&translate.context.menu.ru_en.label;" tooltiptext="&translate.ru_en.tooltip;" oncommand="translateSelection('ru_en');"/>
+		<menuitem label="&translate.context.menu.ja_en.label;" tooltiptext="&translate.ja_en.tooltip;" oncommand="translateSelection('ja_en');"/>
+		<menuitem label="&translate.context.menu.ko_en.label;" tooltiptext="&translate.ko_en.tooltip;" oncommand="translateSelection('ko_en');"/>
+		<menuitem label="&translate.context.menu.zh_en.label;" tooltiptext="&translate.zh_en.tooltip;" oncommand="translateSelection('zh_en');"/>
+                    </menupopup>
+                </menu>
+                </popup>
+
+
+
+
+</overlay>
+
