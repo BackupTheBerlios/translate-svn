@@ -268,7 +268,7 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
 		languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][i] + "_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0];
 
     	//add menuitems to the  context menu
-    	if(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE))
+    	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED))
     	{ 
 	    	contextMenuItemLabel = gPGTranslate.translateBundle.getString("context.menu." + languagePair + ".label");
 	   		contextMenuItemTooltiptext = 	gPGTranslate.translateBundle.getString(languagePair + ".tooltip");
@@ -300,7 +300,7 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
     // here's where we add menus if they aren't already there, if they are, then we remove them then add the new ones
     if(contextItem.hasChildNodes())  //if Firefox has already started, then replace existing childnodes, otherwise append them
     {
-    		if(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE))
+    		if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED))
     			contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
 
 
@@ -334,7 +334,7 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
     else
   	{
   			// adds both context menu and toolbar menu
-  			if(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE))
+  			if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED))
   		  		contextItem.appendChild(contextMenuPopupElement);
 
     			
@@ -415,7 +415,8 @@ PGTranslate.prototype.translateSelection = function(aLanguage)
 PGTranslate.prototype.onClose = function()
 {
 	window.getBrowser().removeProgressListener(this.myListener);
-	gPGTranslate.savePrefs();
+	gPGTranslate = null;
+	//gPGTranslate.savePrefs();
 }
 
 
