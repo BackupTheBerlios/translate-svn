@@ -20,7 +20,7 @@
 	</RDF:Seq>
 
 	<RDF:Description RDF:about="urn:mozilla:package:translate"
-		chrome:displayName="Translate 0.5.6"
+		chrome:displayName="Translate 0.5.7"
 		chrome:author="Paul Grave"
 		chrome:authorURL="mailto:paul@ctomer.com"
 		chrome:name="translate"

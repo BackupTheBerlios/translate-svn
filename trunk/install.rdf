@@ -3,7 +3,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>{4E38B095-A1A0-46cd-9BA2-B3708444965A}</em:id>
 		<em:name>Translate</em:name>
-		<em:version>0.5.6</em:version>
+		<em:version>0.5.7</em:version>
 		<em:description>Translate web pages and/or selected text to different languages</em:description>
 		<em:creator>Paul Grave</em:creator>
 		<em:contributor>Sorina Grave</em:contributor>

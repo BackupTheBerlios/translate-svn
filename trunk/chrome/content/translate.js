@@ -1,5 +1,5 @@
 const PGTRANSLATE_QUICKTRANSLATIONSITE = "http://translate.google.com/translate_c?u=";
-const PGTRANSLATE_TRANSLATIONSITE = "http://babelfish.altavista.com/babelfish/trurl_load?";
+const PGTRANSLATE_TRANSLATIONSITE = "http://babelfish.altavista.com/babelfish/trurl_pagecontent?";
 const PGTRANSLATE_SELECTIONSITE = "http://babelfish.altavista.com/babelfish/tr?"
 const PGTRANSLATE_FIRSTARG = "url";
 const PGTRANSLATE_SELECTFIRSTARG = "urltext";
@@ -15,6 +15,13 @@ window.addEventListener("load",translateInit,false);
 window.addEventListener("close", translateBrowserClose, false);
 //document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",onTranslatePopup,false);
 //document.getElementById("nav-bar").addEventListener("dragdrop", checkJustDraged, false);
+//document.getElementById("urlbar").addEventListener("change", checkCurrentPage, false);
+
+
+
+
+
+
 
 function quickTranslate()
 {
@@ -78,6 +85,7 @@ function fillToolbutton()
 
 function translateInit()  // load prefs, initalise options menu and fill other menus
 {
+
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",onTranslatePopup,false);
 
 	// get the variables strong in translate.properties
@@ -116,7 +124,7 @@ function initOptionsMenu()  //read through the array found in languagePairs and 
 	  menuItem.setAttribute("oncommand","setLang("+ i +")");
 	  menuItem.setAttribute("type","radio");
 
-	  menuPopup.appendChild(menuItem);
+  menuPopup.appendChild(menuItem);
 	}
 }
 
@@ -281,7 +289,7 @@ function quick_translate()
 
 function translateFrom(lang)
 {
-	window.content.document.location.href= PGTRANSLATE_TRANSLATIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + lang + PGTRANSLATE_AMP + PGTRANSLATE_FIRSTARG + PGTRANSLATE_EQUALS + window.content.document.location.href;
+	window.content.document.location.href = PGTRANSLATE_TRANSLATIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + lang + PGTRANSLATE_AMP + PGTRANSLATE_FIRSTARG + PGTRANSLATE_EQUALS + window.content.document.location.href;
 }
 
 function translateSelection(lang)
