@@ -220,7 +220,7 @@
 			</Description>
 		</em:targetApplication>
 	</RDF:Description>
-		</RDF:Description>
+		
 	
 	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.5">
 		<em:version>0.6.0.5</em:version>

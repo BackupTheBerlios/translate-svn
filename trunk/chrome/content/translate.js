@@ -380,8 +380,18 @@ PGTranslate.prototype.onTranslatePopup = function ()
 
         sep.hidden = false;  //display separator
         item.hidden = false; //display menu
-
-        menuText = gPGTranslate.translateBundle.getString("context.menu.prefix") + " " + "\"" + selectedText + "\"";
+		
+		if(gPGTranslate.translateBundle.getString("context.menu.prefix.position") == "0")
+		{
+        	menuText = gPGTranslate.translateBundle.getString("context.menu.prefix") + " " + "\"" + selectedText + "\"";
+        }
+    	else
+    	{
+ 
+        	menuText = "\"" + selectedText + "\"" + " " +  gPGTranslate.translateBundle.getString("context.menu.prefix") ;
+    	}
+        
+        
         item.setAttribute("label", menuText);
 	}
 	else
