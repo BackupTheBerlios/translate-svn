@@ -7,7 +7,7 @@ const secondArg = "lp";
 const equals = "=";
 const amp = "&";
 
-var glocale = 0 ;  // language variable (0 = English)
+var glocale;  // language variable (0 = English)
 var gTranslateBundle;  //holds variable found in translate.properties
 
 // Attach translateInit to the window "load" event
@@ -42,6 +42,10 @@ function translateInit()  // load prefs, initalise options menu and fill other m
 	if(preferencesService.prefHasUserValue("translate.userlanguage"))
 	{
   		glocale = preferencesService.getIntPref("translate.userlanguage");
+	}
+	else
+	{
+		glocale = 0 ;
 	}
   
 	initOptionsMenu();
@@ -127,13 +131,14 @@ function initMenus()  //initialises the context menu and the toolbar menu
     toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[glocale][0]); 
     
     //setup quick translate  (english uses googles quick translate, all other languages default to english translation)
+    
     if(glocale == 0)
     {
     	toolbarItem.setAttribute("oncommand","if (event.target==this)   quick_translate();");
     }
     else
     {
-    	toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + glanguagePairs[glocale][0] + "');");
+    	toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom(\'en_" + glanguagePairs[glocale][0] + "\');");
     }
     
     // here's where we add menus if they aren't already there, if they are, then we remove them then add the new ones 
