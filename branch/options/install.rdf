@@ -21,6 +21,7 @@
 				<em:locale>locale/ro-RO/</em:locale>
 			</Description>
 		</em:file>
+	<em:optionsURL>chrome://translate/content/options/options.xul</em:optionsURL>
 
 		<em:updateURL>http://www.ctomer.com/extensions/translate/update.rdf</em:updateURL>
 		<em:targetApplication>
