@@ -1,18 +1,15 @@
-var quicktranslationSite = "http://translate.google.com/translate?u=";
+const quicktranslationSite = "http://translate.google.com/translate?u=";
 
-var translationSite = "http://babelfish.altavista.com/babelfish/trurl_load?";
-var selectionSite = "http://babelfish.altavista.com/babelfish/tr?"
+const translationSite = "http://babelfish.altavista.com/babelfish/trurl_load?";
+const selectionSite = "http://babelfish.altavista.com/babelfish/tr?"
 
-var firstArg = "url";
-var selectFirstArg = "urltext";
-var secondArg = "lp";
-var equals = "=";
-var amp = "&";
+const firstArg = "url";
+const selectFirstArg = "urltext";
+const secondArg = "lp";
+const equals = "=";
+const amp = "&";
+
 var glocale =2 ;
-
-
-
-
 
 var languagePairs = new Array();
 languagePairs[0] = new Array("en","fr", "de", "es", "it","nl", "pt", "el", "ko","ja", "zh", "zt", "ru");
@@ -46,38 +43,18 @@ function translateInit()
   {
       alert("no bundle");
   }
-   
-  
-   
-
+     
   initMenus();
-   
    
 }
 
 
 function readPrefs()
 {
-	
 }
-
 
 function initToolbarMenu()
 {
-	 
-   
-  
-  
-	 
-	
-    	
-
-    	
- 
-        
-   
-	
-	
 }
 
 function initMenus()
@@ -168,20 +145,12 @@ function onTranslatePopup()
        // alert("work");
      		item = document.getElementById("translate-context");    
         sep = document.getElementById("translateSeparator");
-        
-        
          
-       
-   
         sep.hidden = false;
         item.hidden = false;
                 
         menuText = "Translate " + "\"" + selectedText + "\"";
-        item.setAttribute("label", menuText);
-        
-        
-        
-        
+        item.setAttribute("label", menuText);     
         
     }
     else
@@ -192,11 +161,6 @@ function onTranslatePopup()
         sep.hidden = true;
         item.hidden = true;
     }
-    
-    
-
-    
-   
 }
 
 
@@ -208,7 +172,6 @@ function quick_translate()
 
 function translateFrom(lang)
 {
-
  window.content.document.location.href= translationSite + secondArg + equals + lang + amp + firstArg + equals + window.content.document.location.href;
 }
 
