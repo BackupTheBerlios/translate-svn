@@ -1,14 +1,14 @@
-const quicktranslationSite = "http://translate.google.com/translate_c?u=";
-const translationSite = "http://babelfish.altavista.com/babelfish/trurl_load?";
-const selectionSite = "http://babelfish.altavista.com/babelfish/tr?"
-const firstArg = "url";
-const selectFirstArg = "urltext";
-const secondArg = "lp";
-const equals = "=";
-const amp = "&";
+const PGTRANSLATE_QUICKTRANSLATIONSITE = "http://translate.google.com/translate_c?u=";
+const PGTRANSLATE_TRANSLATIONSITE = "http://babelfish.altavista.com/babelfish/trurl_load?";
+const PGTRANSLATE_SELECTIONSITE = "http://babelfish.altavista.com/babelfish/tr?"
+const PGTRANSLATE_FIRSTARG = "url";
+const PGTRANSLATE_SELECTFIRSTARG = "urltext";
+const PGTRANSLATE_SECONDARG = "lp";
+const PGTRANSLATE_EQUALS = "=";
+const PGTRANSLATE_AMP = "&";
 
-var glocale;  // language variable (0 = English)
-var gTranslateBundle;  //holds variable found in translate.properties
+var gPGTranslateLocale;  // language variable (0 = English)
+var gPGTranslateBundle;  //holds variable found in translate.properties
 
 // Attach translateInit to the window "load" event
 window.addEventListener("load",translateInit,false);
@@ -18,25 +18,25 @@ window.addEventListener("close", translateBrowserClose, false);
 
 function quickTranslate()
 {
-	if(glocale == 0)
+	if(gPGTranslateLocale == 0)
 	{
 		quick_translate();
 	}
 	else
 	{
-		translateFrom("en_" + glanguagePairs[glocale][0]);
+		translateFrom("en_" + glanguagePairs[gPGTranslateLocale][0]);
 	}
 }
 
 function translateBrowserClose()  	//Write preferences on browser shutdown
 {
 	const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
-	preferencesService.setIntPref("translate.userlanguage", glocale);
+	preferencesService.setIntPref("translate.userlanguage", gPGTranslateLocale);
 }
 
 function setLang(languageTo)  //function is executed from the options menu, sets language and intialises the menus
 {
-	glocale = languageTo;
+	gPGTranslateLocale = languageTo;
 	initMenus();
 }
 
@@ -58,13 +58,13 @@ function fillToolbutton()
 	}
 
 
-   	for(var i = 1; i < glanguagePairs[glocale].length ; i++)
+   	for(var i = 1; i < glanguagePairs[gPGTranslateLocale].length ; i++)
 	{
 
-		languagePair = glanguagePairs[glocale][i] + "_" + glanguagePairs[glocale][0];
+		languagePair = glanguagePairs[gPGTranslateLocale][i] + "_" + glanguagePairs[gPGTranslateLocale][0];
 		//add menuitems to the toolbutton menu
-		toolbarMenuItemLabel = gTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
-      	toolbarMenuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
+		toolbarMenuItemLabel = gPGTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
+      	toolbarMenuItemTooltiptext = 	gPGTranslateBundle.getString(languagePair + ".tooltip");
     	toolbarMenuItemOncommand = "translateFrom('" + languagePair + "');";
 
    		toolbarMenuItemElement = document.createElement("menuitem");
@@ -81,8 +81,8 @@ function translateInit()  // load prefs, initalise options menu and fill other m
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",onTranslatePopup,false);
 
 	// get the variables strong in translate.properties
-	gTranslateBundle = document.getElementById("bundle-translate");
-	if (! gTranslateBundle)
+	gPGTranslateBundle = document.getElementById("bundle-translate");
+	if (! gPGTranslateBundle)
 	{
 		alert("no bundle");  // alert if tranlate.properties is invalid
 	}
@@ -91,11 +91,11 @@ function translateInit()  // load prefs, initalise options menu and fill other m
 	const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
 	if(preferencesService.prefHasUserValue("translate.userlanguage"))
 	{
-  		glocale = preferencesService.getIntPref("translate.userlanguage");
+  		gPGTranslateLocale = preferencesService.getIntPref("translate.userlanguage");
 	}
 	else
 	{
-		glocale = 0 ;
+		gPGTranslateLocale = 0 ;
 	}
 
 	initOptionsMenu();
@@ -112,7 +112,7 @@ function initOptionsMenu()  //read through the array found in languagePairs and 
 	  menuItem = document.createElement("menuitem");
 	  menuItem.setAttribute("label",glanguageUnicode[i]);
 	  menuItem.setAttribute("name","languageSet");
-	  menuItem.setAttribute("tooltiptext", gTranslateBundle.getString("tool.menu."+glanguagePairs[i][0]+".tooltip"));
+	  menuItem.setAttribute("tooltiptext", gPGTranslateBundle.getString("tool.menu."+glanguagePairs[i][0]+".tooltip"));
 	  menuItem.setAttribute("oncommand","setLang("+ i +")");
 	  menuItem.setAttribute("type","radio");
 
@@ -151,13 +151,13 @@ function initMenus()  //initialises the context menu and the toolbar menu
 
 
 
-   for(var i = 1; i < glanguagePairs[glocale].length ; i++)
+   for(var i = 1; i < glanguagePairs[gPGTranslateLocale].length ; i++)
    {
-		languagePair = glanguagePairs[glocale][i] + "_" + glanguagePairs[glocale][0];
+		languagePair = glanguagePairs[gPGTranslateLocale][i] + "_" + glanguagePairs[gPGTranslateLocale][0];
 
     	//add menuitems to the  context menu
-    	contextMenuItemLabel = gTranslateBundle.getString("context.menu." + languagePair + ".label");
-   		contextMenuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
+    	contextMenuItemLabel = gPGTranslateBundle.getString("context.menu." + languagePair + ".label");
+   		contextMenuItemTooltiptext = 	gPGTranslateBundle.getString(languagePair + ".tooltip");
     	contextMenuItemOncommand = "translateSelection('" + languagePair + "');";
 
    		contextMenuItemElement = document.createElement("menuitem");
@@ -168,8 +168,8 @@ function initMenus()  //initialises the context menu and the toolbar menu
 		contextMenuPopupElement.appendChild(contextMenuItemElement);
 
 		//add menuitems to the toolbutton menu
-		toolMenuItemLabel = gTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
-      	toolMenuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
+		toolMenuItemLabel = gPGTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
+      	toolMenuItemTooltiptext = 	gPGTranslateBundle.getString(languagePair + ".tooltip");
     	toolMenuItemOncommand = "translateFrom('" + languagePair + "');";
 
    		toolMenuItemElement = document.createElement("menuitem");
@@ -222,13 +222,13 @@ function initMenus()  //initialises the context menu and the toolbar menu
     			toolMenu.insertBefore(toolMenuPopupElement.childNodes[0],toolMenuSeperator);
     		}
             var langSelected = document.getElementById("langSelect");
-    		langSelected.childNodes[glocale].setAttribute("checked","true");
+    		langSelected.childNodes[gPGTranslateLocale].setAttribute("checked","true");
   	}
 
 
 
 	//set toolbar button class, which inturns sets the icon
-  	toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[glocale][0]);
+  	toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[gPGTranslateLocale][0] + " toolbarbutton-1");
 
 
 
@@ -276,19 +276,19 @@ function onTranslatePopup()
 
 function quick_translate()
 {
-	window.content.document.location.href = quicktranslationSite + window.content.document.location.href;
+	window.content.document.location.href = PGTRANSLATE_QUICKTRANSLATIONSITE + window.content.document.location.href;
 }
 
 function translateFrom(lang)
 {
-	window.content.document.location.href= translationSite + secondArg + equals + lang + amp + firstArg + equals + window.content.document.location.href;
+	window.content.document.location.href= PGTRANSLATE_TRANSLATIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + lang + PGTRANSLATE_AMP + PGTRANSLATE_FIRSTARG + PGTRANSLATE_EQUALS + window.content.document.location.href;
 }
 
 function translateSelection(lang)
 {
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var searchStr = focusedWindow.__proto__.getSelection.call(focusedWindow);
-	getBrowser().addTab(selectionSite + secondArg + equals + lang + amp + selectFirstArg + equals + encodeURIComponent(searchStr.toString()));
+	getBrowser().addTab(PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + lang + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString()));
 }
 
 
