@@ -1,14 +1,19 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
-.translate-tool-pg
+.translate-tool-en
 {
     list-style-image: url("chrome://translate/skin/toolbar_32.png");
 }
 
-
-
-
-toolbar[iconsize="small"] .translate-tool-pg {
+toolbar[iconsize="small"] .translate-tool-en {
   list-style-image: url("chrome://translate/skin/toolbar_16.png");
 }
 
+.translate-tool-de
+{
+    list-style-image: url("chrome://translate/skin/toolbar_32_de.png");
+}
+
+toolbar[iconsize="small"] .translate-tool-de {
+  list-style-image: url("chrome://translate/skin/toolbar_16_de.png");
+}
