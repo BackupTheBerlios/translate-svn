@@ -20,6 +20,15 @@ var gTranslateBundle;
 
 // Attach translateInit to the window "load" event
 window.addEventListener("load",translateInit,false);
+window.addEventListener("close", translateBrowserClose, false);
+
+function translateBrowserClose()
+{
+	    const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
+		preferencesService.setIntPref("translate.userlanguage", glocale);
+}
+
+
 
 
 function setLang(languageTo)
@@ -42,6 +51,8 @@ function translateInit()
       alert("no bundle");
   }
   
+  const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
+  glocale = preferencesService.getIntPref("translate.userlanguage");
   
   initOptionsMenu();
      	
