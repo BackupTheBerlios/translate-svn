@@ -7,67 +7,144 @@ const PGTRANSLATE_SECONDARG = "lp";
 const PGTRANSLATE_EQUALS = "=";
 const PGTRANSLATE_AMP = "&";
 
-var gPGTranslateLocale;  // language variable (0 = English)
-var gPGTranslateBundle;  //holds variable found in translate.properties
 
-// Attach translateInit to the window "load" event
-window.addEventListener("load",translateInit,false);
-window.addEventListener("close", translateBrowserClose, false);
-//document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",onTranslatePopup,false);
-//document.getElementById("nav-bar").addEventListener("dragdrop", checkJustDraged, false);
-//document.getElementById("urlbar").addEventListener("change", checkCurrentPage, false);
+String.prototype.trim = function() {
 
-const NOTIFY_LOCATION =  Components.interfaces.nsIWebProgress.NOTIFY_LOCATION;
-
-function registerMyListener()
+ // skip leading and trailing whitespace
+ // and return everything in between
+  var x=this;
+  x=x.replace(/^\s*(.*)/, "$1");
+  x=x.replace(/(.*?)\s*$/, "$1");
+  return x;
+}
+	
+function PGTranslate() // lets initialise some of the variables that we are going to use
 {
-  window.getBrowser().addProgressListener(myListener , NOTIFY_LOCATION);
+	/*
+	this.pref_theLanguage;
+	this.pref_displayContextMenu ;
+	this.pref_displayToolMenu ;
+	*/
+	this.translateBundle;  //holds variable found in translate.properties
+	
+	this.PGTranslate_prefs = new PGTranslate_prefs();
+	
+	
+	this.myListener =           //listens for page refreshs, if the page refreshed is an image then translate is disabled
+	{
+		onStateChange:function(aProgress,aRequest,aFlag,aStatus){},
+		onLocationChange:function(aProgress,aRequest,aLocation)
+		{
+			gPGTranslate.enableTranslate(aLocation.asciiSpec);
+		},
+		onProgressChange:function(a,b,c,d,e,f){},
+		onStatusChange:function(a,b,c,d){},
+		onSecurityChange:function(a,b,c){},
+		onLinkIconAvailable:function(a){}
+	}
+	
+	this.initPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED , "bool", true);
+    this.initPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED , "bool", true);
+    this.initPref(this.PGTranslate_prefs.PREF_LANGUAGE , "int", 0);
+}
+                  
+
+
+PGTranslate.prototype.initPref = function (aPrefName, aPrefType, aDefaultValue){
+
+  switch (aPrefType) {
+    case "bool" :
+      var prefExists = this.PGTranslate_prefs.getBoolPref(aPrefName);
+      if (prefExists == null)
+        this.PGTranslate_prefs.setBoolPref(aPrefName, aDefaultValue);
+      break;
+
+    case "int" :
+      var prefExists = this.PGTranslate_prefs.getIntPref(aPrefName);
+      if (prefExists == null)
+        this.PGTranslate_prefs.setIntPref(aPrefName, aDefaultValue);
+      break;
+
+    case "char" :
+      var prefExists = this.PGTranslate_prefs.getCharPref(aPrefName);
+      if (prefExists == null)
+        this.PGTranslate_prefs.setCharPref(aPrefName, aDefaultValue);
+      break;
+  }
 }
 
-function unregisterMyListener()
+  	detectLang();
+
+
+PGTranslate.prototype.onLoad = function()
 {
-  window.getBrowser().removeProgressListener(myListener);
+	PREFERENCESSERVICE = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
+	const NOTIFY_LOCATION =  Components.interfaces.nsIWebProgress.NOTIFY_LOCATION;
+	
+	
+		//	this.PGTranslate_prefs.getBoolPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED);
+	//alert(this.PGTranslate_prefs.getBoolPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED));
+	//alert(this.PGTranslate_prefs.getBoolPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED));
+	//alert(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE));
+	
+	window.getBrowser().addProgressListener(gPGTranslate.myListener , NOTIFY_LOCATION);
+	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",gPGTranslate.onTranslatePopup,false);
+	// get the variables strong in translate.properties
+	gPGTranslate.translateBundle = document.getElementById("bundle-translate");
+	if (! gPGTranslate.translateBundle)
+	{
+		alert("no bundle");  // alert if tranlate.properties is invalid
+	}
+
+	// read the preferences file and set the language if their is one
+	/*
+	if(PREFERENCESSERVICE.prefHasUserValue("translate.userlanguage"))
+	{
+  		gPGTranslate.setTheLanguage(PREFERENCESSERVICE.getIntPref("translate.userlanguage"));
+	}
+	else
+	{
+		gPGTranslate.setTheLanguage(0) ;
+	}
+	if(PREFERENCESSERVICE.prefHasUserValue("translate.displayContextMenu"))
+	{
+  		PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) = PREFERENCESSERVICE.getBoolPref("translate.displayContextMenu");
+	}
+	else
+	{
+		PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) = true;
+	}
+	if(PREFERENCESSERVICE.prefHasUserValue("translate.displayToolMenu"))
+	{
+  		gPGTranslate.pref_displayToolMenu = PREFERENCESSERVICE.getBoolPref("translate.displayToolMenu");
+	}
+	else
+	{
+		gPGTranslate.pref_displayToolMenu = true;
+	}
+	
+	*/
+	gPGTranslate.initMenus();
 }
 
-window.addEventListener("load",registerMyListener,false);
-window.addEventListener("unload",unregisterMyListener,false);
+PGTranslate.prototype.enableTranslate  = function (aUri)
 
 
 
-var myListener =
+
+
+
+
+
+
 {
-  onStateChange:function(aProgress,aRequest,aFlag,aStatus)
-  {
-
-  },
-  onLocationChange:function(aProgress,aRequest,aLocation)
-  {
-
-  	enableTranslate(aLocation.asciiSpec );
-
-  	},
-  onProgressChange:function(a,b,c,d,e,f){},
-  onStatusChange:function(a,b,c,d){},
-  onSecurityChange:function(a,b,c){},
-
-  /*XXX
-    This is not nsIWebProgressListenr method,
-    just killing a error in tabbrowser.xml
-    Maybe a bug.
-  */
-  onLinkIconAvailable:function(a){}
-}
-
-
-function enableTranslate(uri)
-{
-	var ext = uri.toLowerCase();
+	
+	var ext = aUri.toLowerCase();
 	ext = ext.split(".");
-
+	//alert(ext);
+	
 	var toolbarItem = document.getElementById("translate-pg");
 	var toolbarMenu = document.getElementById("translate-pg-menu");
-
-
 
 	if( ext == null)
 	{
@@ -80,7 +157,6 @@ function enableTranslate(uri)
 		toolbarItem.disabled = true;
 		toolbarMenu.disabled = true;
 		//toolbarMenu.allowevents = false;
-
 		//alert("dis: " + toolbarMenu.disabled);
 	}
 	else
@@ -89,37 +165,34 @@ function enableTranslate(uri)
 		toolbarMenu.disabled = false;
 		//alert("else: " + toolbarMenu.disabled);
 	}
-
 }
 
 
-
-function quickTranslate()
+PGTranslate.prototype.quickTranslate = function ()
 {
-	if(gPGTranslateLocale == 0)
+	if(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE) == 0)
 	{
-		quick_translate();
+		gPGTranslate.quick_translate();
 	}
 	else
 	{
-		translateFrom("en_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][0]);
+		gPGTranslate.translateFrom("en_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0]);
 	}
 }
 
-function translateBrowserClose()  	//Write preferences on browser shutdown
-{
-	const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
-	preferencesService.setIntPref("translate.userlanguage", gPGTranslateLocale);
+
+
+PGTranslate.prototype.savePrefs = function ()
+{ /*
+	preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
+	preferencesService.setIntPref("translate.userlanguage", this.PGTranslate_prefs.getIntPref(this.PGTranslate_prefs.PREF_LANGUAGE));
+	preferencesService.setBoolPref("translate.displayContextMenu", gPGTranslate.pref_displayContextMenu);
+	preferencesService.setBoolPref("translate.displayToolMenu", gPGTranslate.pref_displayToolMenu);
+	*/
 }
 
-function setLang(languageTo)  //function is executed from the options menu, sets language and intialises the menus
-{
-	gPGTranslateLocale = languageTo;
-	initMenus();
-}
 
-
-function fillToolbutton()
+PGTranslate.prototype.fillToolbutton = function ()
 {
 	var languagePair;
 	var toolbarItem = document.getElementById("translate-pg");
@@ -136,14 +209,13 @@ function fillToolbutton()
 	}
 
 
-   	for(var i = 1; i < PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale].length ; i++)
+   	for(var i = 1; i < PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)].length ; i++)
 	{
-
-		languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][i] + "_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][0];
+		languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][i] + "_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0];
 		//add menuitems to the toolbutton menu
-		toolbarMenuItemLabel = gPGTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
-      	toolbarMenuItemTooltiptext = 	gPGTranslateBundle.getString(languagePair + ".tooltip");
-    	toolbarMenuItemOncommand = "translateFrom('" + languagePair + "');";
+		toolbarMenuItemLabel = gPGTranslate.translateBundle.getString("toolbar.menu." + languagePair + ".label");
+      	toolbarMenuItemTooltiptext = 	gPGTranslate.translateBundle.getString(languagePair + ".tooltip");
+    	toolbarMenuItemOncommand = "gPGTranslate.translateFrom('" + languagePair + "');";
 
    		toolbarMenuItemElement = document.createElement("menuitem");
     	toolbarMenuItemElement.setAttribute("label",toolbarMenuItemLabel);
@@ -154,59 +226,18 @@ function fillToolbutton()
     }
 }
 
-function translateInit()  // load prefs, initalise options menu and fill other menus
+
+PGTranslate.prototype.openPrefs = function()  
 {
-
-	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",onTranslatePopup,false);
-
-	// get the variables strong in translate.properties
-	gPGTranslateBundle = document.getElementById("bundle-translate");
-	if (! gPGTranslateBundle)
-	{
-		alert("no bundle");  // alert if tranlate.properties is invalid
-	}
-
-	// read the preferences file and set the language if their is one
-	const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
-	if(preferencesService.prefHasUserValue("translate.userlanguage"))
-	{
-  		gPGTranslateLocale = preferencesService.getIntPref("translate.userlanguage");
-	}
-	else
-	{
-		gPGTranslateLocale = 0 ;
-	}
-
-	initOptionsMenu();
-	initMenus();
+	window.openDialog("chrome://translate/content/translate-preferences.xul", "_blank", "chrome,resizable=no,dependent=yes");
 }
 
-function initOptionsMenu()  //read through the array found in languagePairs and add available languages to the options menu
-{
-	var menuPopup = document.getElementById("langSelect");
-	var menuItem ;
-
-	for(var i = 0;i < PGTRANSLATE_LANGUAGEPAIRS.length ; i++)
-	{
-	  menuItem = document.createElement("menuitem");
-	  menuItem.setAttribute("label",PGTRANSLATE_LANGUAGEUNICODE[i]);
-	  menuItem.setAttribute("name","languageSet");
-	  menuItem.setAttribute("tooltiptext", gPGTranslateBundle.getString("tool.menu."+PGTRANSLATE_LANGUAGEPAIRS[i][0]+".tooltip"));
-	  menuItem.setAttribute("oncommand","setLang("+ i +")");
-	  menuItem.setAttribute("type","radio");
-
-  menuPopup.appendChild(menuItem);
-	}
-}
-
-function initMenus()  //initialises the context menu and the toolbar menu
+PGTranslate.prototype.initMenus = function()  //initialises the context menu and the toolbar menu
 {
    var languagePair;
 
-
    // set up context menu variables
    var contextItem = document.getElementById("translate-context");
-
    var contextMenuPopupElement = document.createElement("menupopup");
 
    var contextMenuItemLabel;
@@ -221,153 +252,188 @@ function initMenus()  //initialises the context menu and the toolbar menu
 	//set up toolmenu variables
 	var toolMenu = document.getElementById("translate-tool-menu");
 	var toolMenuSeperator = document.getElementById("translate-options-separator");
+	
+	var tool = document.getElementById("translate-pg-menu");
+	
+	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED))
+	{
+		tool.hidden = !gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED);
+		
+	}
+	else
+	{
+		
+		tool.hidden = !gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED);	
+	}
+	
+	
 	var toolMenuPopupElement = document.createElement("menupopup");
 	var toolMenuItemLabel;
 	var toolMenuItemTooltiptext;
    	var toolMenuItemOncommand ;
    	var toolMenuItemElement;
 
-
-
-
-   for(var i = 1; i < PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale].length ; i++)
+   for(var i = 1; i < PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)].length ; i++)
    {
-		languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][i] + "_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][0];
+		languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][i] + "_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0];
 
     	//add menuitems to the  context menu
-    	contextMenuItemLabel = gPGTranslateBundle.getString("context.menu." + languagePair + ".label");
-   		contextMenuItemTooltiptext = 	gPGTranslateBundle.getString(languagePair + ".tooltip");
-    	contextMenuItemOncommand = "translateSelection('" + languagePair + "');";
-
-   		contextMenuItemElement = document.createElement("menuitem");
-    	contextMenuItemElement.setAttribute("label",contextMenuItemLabel);
-    	contextMenuItemElement.setAttribute("tooltiptext",contextMenuItemTooltiptext);
-    	contextMenuItemElement.setAttribute("oncommand",contextMenuItemOncommand);
-
-		contextMenuPopupElement.appendChild(contextMenuItemElement);
-
-		//add menuitems to the toolbutton menu
-		toolMenuItemLabel = gPGTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
-      	toolMenuItemTooltiptext = 	gPGTranslateBundle.getString(languagePair + ".tooltip");
-    	toolMenuItemOncommand = "translateFrom('" + languagePair + "');";
-
-   		toolMenuItemElement = document.createElement("menuitem");
-    	toolMenuItemElement.setAttribute("label",toolMenuItemLabel);
-    	toolMenuItemElement.setAttribute("tooltiptext",toolMenuItemTooltiptext);
-    	toolMenuItemElement.setAttribute("oncommand",toolMenuItemOncommand);
-
-		toolMenuPopupElement.appendChild(toolMenuItemElement);
+    	if(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE))
+    	{ 
+	    	contextMenuItemLabel = gPGTranslate.translateBundle.getString("context.menu." + languagePair + ".label");
+	   		contextMenuItemTooltiptext = 	gPGTranslate.translateBundle.getString(languagePair + ".tooltip");
+	    	contextMenuItemOncommand = "gPGTranslate.translateSelection('" + languagePair + "');";
+	
+	   		contextMenuItemElement = document.createElement("menuitem");
+	    	contextMenuItemElement.setAttribute("label",contextMenuItemLabel);
+	    	contextMenuItemElement.setAttribute("tooltiptext",contextMenuItemTooltiptext);
+	    	contextMenuItemElement.setAttribute("oncommand",contextMenuItemOncommand);
+	
+			contextMenuPopupElement.appendChild(contextMenuItemElement);
+		}
+		if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED))
+		{
+			//add menuitems to the toolbutton menu
+			toolMenuItemLabel = gPGTranslate.translateBundle.getString("toolbar.menu." + languagePair + ".label");
+		  	toolMenuItemTooltiptext = 	gPGTranslate.translateBundle.getString(languagePair + ".tooltip");
+			toolMenuItemOncommand = "gPGTranslate.translateFrom('" + languagePair + "');";
+		
+			toolMenuItemElement = document.createElement("menuitem");
+			toolMenuItemElement.setAttribute("label",toolMenuItemLabel);
+			toolMenuItemElement.setAttribute("tooltiptext",toolMenuItemTooltiptext);
+			toolMenuItemElement.setAttribute("oncommand",toolMenuItemOncommand);
+		
+			toolMenuPopupElement.appendChild(toolMenuItemElement);
+		}
 
     }
-
-
-
-
-
     // here's where we add menus if they aren't already there, if they are, then we remove them then add the new ones
     if(contextItem.hasChildNodes())  //if Firefox has already started, then replace existing childnodes, otherwise append them
     {
-    		contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
+    		if(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE))
+    			contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
 
 
     		// deals with adding languages to the tool menu, basically we add a clone of the toolbar menu.
     		// Tricky part is to remove existing menuitems
-    		var toolChildren = toolMenu.childNodes;
-
-    	 	for (var i in toolChildren)
-    	 	{
-    	 		if(toolChildren[i].nodeName == "menuitem")
-    	 		{
-    	 			toolMenu.removeChild(toolChildren[i]);
-    	 		}
-    	 	}
-
-    	 	var nodeLength = toolMenuPopupElement.childNodes.length;
-    		for( var i = 0 ; i < nodeLength  ;i++)
-    		{
-    			toolMenu.insertBefore(toolMenuPopupElement.childNodes[0],toolMenuSeperator);
+    		
+    		
+    		
+    		
+    		if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED))
+			{
+    		
+	    		var toolChildren = toolMenu.childNodes;
+	
+	    	 	for (var i in toolChildren)
+	    	 	{
+	    	 		if(toolChildren[i].nodeName == "menuitem" && toolChildren[i].id != "translate-options")
+	    	 			toolMenu.removeChild(toolChildren[i]);    	 		
+	    	 	}
+	
+	    	 	var nodeLength = toolMenuPopupElement.childNodes.length;
+	    		for( var i = 0 ; i < nodeLength  ;i++)
+	    		{
+	    			toolMenu.insertBefore(toolMenuPopupElement.childNodes[0],toolMenuSeperator);
+	    		}
     		}
+ 
+    		
+    		
     }
     else
   	{
   			// adds both context menu and toolbar menu
-  		  	contextItem.appendChild(contextMenuPopupElement);
+  			if(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE))
+  		  		contextItem.appendChild(contextMenuPopupElement);
 
-    		// creates list of translation languages in the tool menu
-    		var nodeLength = toolMenuPopupElement.childNodes.length;
-
-    		for( var i = 0 ; i < nodeLength  ;i++)
-    		{
-    			toolMenu.insertBefore(toolMenuPopupElement.childNodes[0],toolMenuSeperator);
-    		}
-            var langSelected = document.getElementById("langSelect");
-    		langSelected.childNodes[gPGTranslateLocale].setAttribute("checked","true");
+    			
+    		if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED))  // creates list of translation languages in the tool menu  	
+			{
+	    		var nodeLength = toolMenuPopupElement.childNodes.length;
+	    		for( var i = 0 ; i < nodeLength  ;i++)
+	    		{
+	    			toolMenu.insertBefore(toolMenuPopupElement.childNodes[0],toolMenuSeperator);
+	    		}
+  			}
   	}
-
-
-
 	//set toolbar button class, which inturns sets the icon
-  	toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][0] + " toolbarbutton-1");
-
-
-
+  	toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0] + " toolbarbutton-1");
 }
 
-function onTranslatePopup()
+PGTranslate.prototype.onTranslatePopup = function ()
 {
 	// Get the selected text
+ 	var item = document.getElementById("translate-context");
+    var sep = document.getElementById("translateSeparator");
+	/*
+	item.hidden = !PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED);
+	sep.hidden = !PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED);
+	*/
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var selection = focusedWindow.__proto__.getSelection.call(focusedWindow);
-    // if the selected text is blank then don't display the context menu, otherwise, display the first 14 characters + ...
-    if (selection!="")
-    {
+	
+	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) && selection!="")
+	{
+		
+		
+	    // if the selected text is blank then don't display the context menu, otherwise, display the first 14 characters + ...
+   
     	//text selected so display the context menu
-    	var selectedText = selection.toString()
+    	var selectedText = selection.toString() ;
+    	selectedText = selectedText.trim();
         if (selectedText.length > 15)  // crop selected text if necessary
         {
             selectedText = selectedText.substr(0,15) + "...";
         }
         var menuText;
-        var item;
-        var sep;
-   		item = document.getElementById("translate-context");
-        sep = document.getElementById("translateSeparator");
+
 
         sep.hidden = false;  //display separator
         item.hidden = false; //display menu
 
-        menuText = gPGTranslateBundle.getString("context.menu.prefix") + " " + "\"" + selectedText + "\"";
+        menuText = gPGTranslate.translateBundle.getString("context.menu.prefix") + " " + "\"" + selectedText + "\"";
         item.setAttribute("label", menuText);
-
-    }
-    else
-    {
-    	//no text selected so hide the context menu
-        item = document.getElementById("translate-context");
-        sep = document.getElementById("translateSeparator");
-
-        sep.hidden = true;
-        item.hidden = true;
-    }
+	}
+	else
+	{
+	    	//no text selected so hide the context menu
+	       	
+	        sep.hidden = true;
+	        item.hidden = true;
+	}
+	
 }
 
-// these are the functions which perform the actual translations, nothing complex here
 
-function quick_translate()
+PGTranslate.prototype.quick_translate = function()
 {
 	window.content.document.location.href = PGTRANSLATE_QUICKTRANSLATIONSITE + window.content.document.location.href;
 }
 
-function translateFrom(lang)
+PGTranslate.prototype.translateFrom = function(aLanguage)
 {
-	window.content.document.location.href = PGTRANSLATE_TRANSLATIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + lang + PGTRANSLATE_AMP + PGTRANSLATE_FIRSTARG + PGTRANSLATE_EQUALS + window.content.document.location.href;
+	window.content.document.location.href = PGTRANSLATE_TRANSLATIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_FIRSTARG + PGTRANSLATE_EQUALS + window.content.document.location.href;
 }
 
-function translateSelection(lang)
+PGTranslate.prototype.translateSelection = function(aLanguage)
 {
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var searchStr = focusedWindow.__proto__.getSelection.call(focusedWindow);
-	getBrowser().addTab(PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + lang + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString()));
+	getBrowser().addTab(PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString()));
+}
+PGTranslate.prototype.onClose = function()
+{
+	window.getBrowser().removeProgressListener(this.myListener);
+	gPGTranslate.savePrefs();
 }
 
 
+//  Need to make sure only browser
+//  windows have gPGTranslate attached.
+if(window.location == "chrome://browser/content/browser.xul")
+{
+	var gPGTranslate = new PGTranslate(); 
+	window.addEventListener("load",gPGTranslate.onLoad,false);
+	window.addEventListener("close", gPGTranslate.onClose, false);
+}

@@ -25,7 +25,8 @@
 		chrome:authorURL="mailto:paul@ctomer.com"
 		chrome:name="translate"
 		chrome:extension="true"
-		chrome:description="Translate web pages" >
+		chrome:description="Translate web pages"
+		chrome:settingsURL="chrome://translate/content/translate-preferences.xul">
 	</RDF:Description>
 
 </RDF:RDF>
