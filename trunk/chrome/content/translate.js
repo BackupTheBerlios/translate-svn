@@ -35,7 +35,7 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 		onStateChange:function(aProgress,aRequest,aFlag,aStatus){},
 		onLocationChange:function(aProgress,aRequest,aLocation)
 		{
-			gPGTranslate.enableTranslate(aLocation.asciiSpec);
+			//gPGTranslate.enableTranslate(aLocation.asciiSpec);
 		},
 		onProgressChange:function(a,b,c,d,e,f){},
 		onStatusChange:function(a,b,c,d){},
@@ -128,34 +128,35 @@ PGTranslate.prototype.onLoad = function()
 
 PGTranslate.prototype.enableTranslate  = function (aUri)
 {
-	
-	var ext = aUri.toLowerCase();
-	ext = ext.split(".");
-	//alert(ext);
-	
-	var toolbarItem = document.getElementById("translate-pg");
-	var toolbarMenu = document.getElementById("translate-pg-menu");
-	var disableItem ;
-
-	if( ext == null)
+	if(aUri != null)
 	{
-		disableItem = false;
-	}
-	else if ( ext[ext.length-1] == "gif" || ext[ext.length-1] == "png" || ext[ext.length-1] == "jpg")
-	{
-		disableItem = true;
-	}
-	else
-	{
-		disableItem = false;
-	}
+		var ext = aUri.toLowerCase();
+		ext = ext.split(".");
+		//alert(ext);
+		
+		var toolbarItem = document.getElementById("translate-pg");
+		var toolbarMenu = document.getElementById("translate-pg-menu");
+		var disableItem ;
 	
-	if(toolbarItem != null)
-		toolbarItem.disabled = disableItem;
-	
-	if(toolbarMenu != null)
-		toolbarMenu.disabled = disableItem;	
-	
+		if( ext == null)
+		{
+			disableItem = false;
+		}
+		else if ( ext[ext.length-1] == "gif" || ext[ext.length-1] == "png" || ext[ext.length-1] == "jpg")
+		{
+			disableItem = true;
+		}
+		else
+		{
+			disableItem = false;
+		}
+		
+		if(toolbarItem != null)
+			toolbarItem.disabled = disableItem;
+		
+		if(toolbarMenu != null)
+			toolbarMenu.disabled = disableItem;	
+	}
 	
 }
 
