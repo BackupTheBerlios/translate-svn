@@ -142,32 +142,74 @@ function initMenus()
     toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + glanguagePairs[glocale][0] + "');");
     
     
+    
+    
+    
+    
+    
     // add menus  
 
-    if(contextItem.hasChildNodes())
+    if(contextItem.hasChildNodes())  //if Firefox has already started, then replace existing childnodes, otherwise append them
     { 
     		contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
     		toolbarItem.replaceChild(toolbarMenuPopupElement,toolbarItem.firstChild);
     		
     		var toolChildren = toolMenu.childNodes;
-    		var loopCounter = 0;
-    		for( var toolChild in  toolChildren)
+    		 	
+    	 	for (var i in toolChildren)
+    	 	{
+    	 		//alert(toolChildren[i].nodeName);
+    	 		if(toolChildren[i].nodeName == "menuitem")
+    	 		{
+    	 		//	alert("removing");
+    	 			toolMenu.removeChild(toolChildren[i]);
+    	 		}
+    	 		//alert(i);	
+    	 	}
+    	 	
+    	 	
+    		var cloneMenu = toolbarMenuPopupElement.cloneNode(true);  // use a clone because insertBefore moves elements and does NOT copy
+    		var nodeLength = cloneMenu.childNodes.length;
+    		for( var i = 0 ; i < nodeLength  ;i++)
     		{
-    		if(toolChild.tagName == "menuitem")
-    		{
-    			toolChildren.removeChild(toolChild);
+    			//alert(cloneMenu.childNodes.length);
+    			toolMenu.insertBefore(cloneMenu.childNodes[0],toolMenuSeperator);
     		}
+    			
+    	
     		
-    		loopCounter ++;
-    	  }
-    	  toolMenu.insertBefore(toolbarMenuItemElement,toolMenuSeperator);
     }
     else
-  	{   
+  	{
+  			// adds both context menu and toolbar menu   
   		  	contextItem.appendChild(contextMenuPopupElement);
-    			toolbarItem.appendChild(toolbarMenuPopupElement); 
-    			toolMenu.insertBefore(toolbarMenuItemElement,toolMenuSeperator);	
-  	}   
+    		toolbarItem.appendChild(toolbarMenuPopupElement); 
+    		
+    		
+    		// creates list of translation languages in the tool menu	
+    		
+    		
+    		var cloneMenu = toolbarMenuPopupElement.cloneNode(true);  // use a clone because insertBefore moves elements and does NOT copy
+    		
+    		var nodeLength = cloneMenu.childNodes.length;
+    		for( var i = 0 ; i < nodeLength  ;i++)
+    		{
+    			//alert(cloneMenu.childNodes.length);
+    			toolMenu.insertBefore(cloneMenu.childNodes[0],toolMenuSeperator);
+    		}
+  
+    		
+    		
+    
+    		
+  	}
+  	
+  	
+  	
+  	
+  	
+  	
+  	   
 }
 
 function onTranslatePopup()
