@@ -8,7 +8,21 @@ var selectFirstArg = "urltext";
 var secondArg = "lp";
 var equals = "=";
 var amp = "&";
-
+var languagePairs = new Array();
+languagePairs[0] = new Array("en","fr", "de", "es", "it","nl", "pt", "el", "ko","ja", "zh", "zt", "ru");
+languagePairs[1] = new Array("fr","en", "de", "es", "it","pl", "nl", "el");
+languagePairs[2] =  new Array("de","en", "fr");
+languagePairs[3] =  new Array("es","en", "fr");
+ languagePairs[4] =  new Array("it","en", "fr");
+ languagePairs[5] =  new Array("el","en", "fr");
+ languagePairs[6] =  new Array("ko","en");
+ languagePairs[7] =  new Array("ja","en");
+ languagePairs[8] =  new Array("zh","en");
+ languagePairs[9] =  new Array("zt","en");
+ languagePairs[10] =  new Array("nl","en", "fr");
+ languagePairs[11] =  new Array("ru","en");
+ languagePairs[12] =  new Array("pt","en", "fr");
+ 
 // Attach translateInit to the window "load" event
 window.addEventListener("load",translateInit,false);
 
@@ -22,7 +36,7 @@ function onTranslatePopup()
 	// Get the selected text
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var selection = focusedWindow.__proto__.getSelection.call(focusedWindow);      
-    
+   // alert("work");
     // if the selected text is blank then don't display the context menu, otherwise, display the first 14 characters + ...
     if (selection!="")
     {
@@ -35,22 +49,22 @@ function onTranslatePopup()
         var menuText;
         var item;
         var sep;
-        
-     item = document.getElementById("translate-context");    
+       // alert("work");
+     		item = document.getElementById("translate-context");    
         sep = document.getElementById("translateSeparator");
         
-        var lang = 2;
+       // var locale = 2;
         
                
        
         
-        var menuPopupElement = document.createElement("menupopup");
-    alert(languagePairs[lang].length);
-for(var i = 1; i < languagePairs[lang].length ; i++)
+       /* var menuPopupElement = document.createElement("menupopup");
+    alert(languagePairs[locale].length);
+for(var i = 1; i < languagePairs[local].length ; i++)
     {
 	
     	alert("for ok");
-    	var languagePair = languagePairs[lang][i] + "_" + languagePairs[lang][0];
+    	var languagePair = languagePairs[locale][i] + "_" + languagePairs[locale][0];
     	alert(languagePair);
     	var menuItemLabel = "&translate.context.menu." + languagePair + ".label;";
     	alert(menuItemLabel);
@@ -75,10 +89,9 @@ for(var i = 1; i < languagePairs[lang].length ; i++)
         item.appendChild(menuPopupElement);
         
         
+        */
         
-        
-        item = document.getElementById("translate-context");    
-        sep = document.getElementById("translateSeparator");
+     
         
         sep.hidden = false;
         item.hidden = false;
@@ -103,7 +116,6 @@ for(var i = 1; i < languagePairs[lang].length ; i++)
     
 
     
-    document.getElementById("translateSeparator");.appendChild(menuItemElement);
    
 }
 
