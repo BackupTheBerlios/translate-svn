@@ -401,7 +401,7 @@ PGTranslate.prototype.quick_translate = function()
 
 PGTranslate.prototype.translateFrom = function(aLanguage)
 {
-	window.content.document.location.href = PGTRANSLATE_TRANSLATIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_FIRSTARG + PGTRANSLATE_EQUALS + window.content.document.location.href;
+	window.content.document.location.href = PGTRANSLATE_TRANSLATIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_FIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(window.content.document.location.href);
 }
 
 PGTranslate.prototype.translateSelection = function(aLanguage)
