@@ -111,11 +111,23 @@
     </em:targetApplication>
   </RDF:Description>
 
+      <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.5">
+    <em:version>0.5.5</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>1.0</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.5.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
 
 
 	<RDF:Description RDF:about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}">
-		<em:version>0.5.4</em:version>
-		<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.4.xpi</em:updateLink>
+		<em:version>0.5.5</em:version>
+		<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.5.xpi</em:updateLink>
 	</RDF:Description>
 
 </RDF:RDF>
