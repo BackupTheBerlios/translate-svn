@@ -8,7 +8,7 @@
         title="&translate.prefs;"
         buttons="accept, cancel"
         style="padding:0px; margin:0px;"
-        ondialogaccept="translate_prefs_accept()" onload="translate_prefs_load()">
+        ondialogaccept="gPGTranslate_prefs.accept()" onload="gPGTranslate_prefs.onload()">
 
   <script type="application/x-javascript" src="chrome://translate/content/translate-prefs.js"/>
 	<script type="application/x-javascript" src="chrome://translate/content/language_pairs.js"/>
@@ -23,43 +23,18 @@
 <groupbox>
 <caption label="Menus"/>
 <hbox align="center">
-<checkbox label="Display Tools menu" />
-<checkbox label="Display context menu" />
+<checkbox label="Display Tools menu"  id="translate.prefs.displayTools"/>
+<checkbox label="Display Context menu" id="translate.prefs.contextMenu" />
 </hbox>
 </groupbox>
 
-
-
-  <groupbox>
+<groupbox>
     <caption label="&translate.prefs.groupbox.ui;"/>
-    <!--<checkbox id="gm.prefs.statusbar.enabled" label="&gm-notifier.prefs.statusbar.show;"/>-->
-
     <hbox align="center">
      <label value="Select your langauge"/>    
       <menulist id="translate.prefs.language.selection">
-        <!--<menupopup>
-          <menuitem value="0" label="1"/>
-          <menuitem value="1" label="2"/>
-          <menuitem value="2" label="3"/>
-        </menupopup>-->
-      </menulist>
-      
+      <!-- PGTranslate_prefs.prototype.initListBox fills the listbox with listitems  -->
+      </menulist>   
     </hbox> 
      </groupbox>
-<!--
-    <checkbox id="gm.prefs.ui.notification.enabled" label="&gm-notifier.prefs.notification.enable;"/>
-    -->
-
-<!--
-  <groupbox>
-    <caption label="&gm-notifier.prefs.groupbox.connection;"/>
-    <hbox align="center">
-      <label value="&gm-notifier.prefs.newmail.check.label-1;"/>
-      <textbox id="gm.prefs.update.interval" style="width:3em;" maxlength="4" value=""/>
-      <label value="&gm-notifier.prefs.newmail.check.label-2;" />
-    </hbox>
-
-    <checkbox id="gm.prefs.autologin.enabled" label="&gm-notifier.prefs.autologin;"/>
-  </groupbox>
--->
 </dialog>
