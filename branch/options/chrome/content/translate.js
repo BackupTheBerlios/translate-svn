@@ -43,7 +43,7 @@ function translateInit()
   }
   
   
- initOptionsMenu();
+  initOptionsMenu();
      	
   initMenus();
    
@@ -54,11 +54,9 @@ function initOptionsMenu()
 	var menuPopup = document.getElementById("langSelect");
 	var menuItem ;
 	
-	//alert(glanguagePairs.length);
 	for(var i = 0;i < glanguagePairs.length ; i++)
 	{
 	  menuItem = document.createElement("menuitem");
-	//  alert(glanguagePairs[i][0]);
 	  menuItem.setAttribute("label",glanguagePairs[i][0]);
 	  menuItem.setAttribute("name","languageSet");
 	  menuItem.setAttribute("oncommand","setLang("+ i +")");
@@ -106,10 +104,7 @@ function initMenus()
    {
 	
     	languagePair = glanguagePairs[glocale][i] + "_" + glanguagePairs[glocale][0];
-    	
-    	
-    	
-    	
+    	    	
     	//setup up context menu
     	contextMenuItemLabel = gTranslateBundle.getString("context.menu." + languagePair + ".label");
       
@@ -135,7 +130,7 @@ function initMenus()
     	toolbarMenuItemElement.setAttribute("oncommand",toolbarMenuItemOncommand);    	 	
 			
 			toolbarMenuPopupElement.appendChild(toolbarMenuItemElement);
-			toolMenu.insertBefore(toolbarMenuItemElement,toolMenuSeperator);
+			
     	
     }
         
@@ -151,16 +146,27 @@ function initMenus()
 
     if(contextItem.hasChildNodes())
     { 
-    contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
-    toolbarItem.replaceChild(toolbarMenuPopupElement,toolbarItem.firstChild);
+    		contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
+    		toolbarItem.replaceChild(toolbarMenuPopupElement,toolbarItem.firstChild);
+    		
+    		var toolChildren = toolMenu.childNodes;
+    		var loopCounter = 0;
+    		for( var toolChild in  toolChildren)
+    		{
+    		if(toolChild.tagName == "menuitem")
+    		{
+    			toolChildren.removeChild(toolChild);
+    		}
+    		
+    		loopCounter ++;
+    	  }
+    	  toolMenu.insertBefore(toolbarMenuItemElement,toolMenuSeperator);
     }
-  else
+    else
   	{   
   		  	contextItem.appendChild(contextMenuPopupElement);
-    toolbarItem.appendChild(toolbarMenuPopupElement); 	
-
-    
-
+    			toolbarItem.appendChild(toolbarMenuPopupElement); 
+    			toolMenu.insertBefore(toolbarMenuItemElement,toolMenuSeperator);	
   	}   
 }
 
