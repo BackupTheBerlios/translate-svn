@@ -73,7 +73,7 @@ PGTranslate.prototype.initPref = function (aPrefName, aPrefType, aDefaultValue){
   }
 }
 
-  	detectLang();
+ 
 
 
 PGTranslate.prototype.onLoad = function()
