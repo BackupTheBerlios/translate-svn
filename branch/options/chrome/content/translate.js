@@ -68,8 +68,9 @@ function initOptionsMenu()
 	for(var i = 0;i < glanguagePairs.length ; i++)
 	{
 	  menuItem = document.createElement("menuitem");
-	  menuItem.setAttribute("label",glanguagePairs[i][0]);
+	  menuItem.setAttribute("label",glanguageUnicode[i]);
 	  menuItem.setAttribute("name","languageSet");
+	  menuItem.setAttribute("tooltiptext", gTranslateBundle.getString("tool.menu."+glanguagePairs[i][0]+".tooltip"));
 	  menuItem.setAttribute("oncommand","setLang("+ i +")");
 	  menuItem.setAttribute("type","radio");
 	  
