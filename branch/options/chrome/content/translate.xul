@@ -14,7 +14,7 @@
 
 
     <menupopup id="menu_ToolsPopup">
-        <menu label="&translate.menu.label;">
+        <menu label="&translate.menu.label;"  insertbefore="prefSep">
             <menupopup id="translate-tool-menu">
                <!-- <menuitem label="fr" id="useragentswitcher-default-menu"/> -->
                 <menuseparator id="translate-options-separator"/>
