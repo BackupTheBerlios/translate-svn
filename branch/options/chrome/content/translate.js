@@ -11,20 +11,7 @@ const amp = "&";
 
 var glocale =2 ;
 
-var languagePairs = new Array();
-languagePairs[0] = new Array("en","fr", "de", "es", "it","nl", "pt", "el", "ko","ja", "zh", "zt", "ru");
-languagePairs[1] = new Array("fr","en", "de", "es", "it","pt", "nl", "el");
-languagePairs[2] =  new Array("de","en", "fr");
-languagePairs[3] =  new Array("es","en", "fr");
-languagePairs[4] =  new Array("it","en", "fr");
-languagePairs[5] =  new Array("el","en", "fr");
-languagePairs[6] =  new Array("ko","en");
-languagePairs[7] =  new Array("ja","en");
-languagePairs[8] =  new Array("zh","en");
-languagePairs[9] =  new Array("zt","en");
-languagePairs[10] =  new Array("nl","en", "fr");
-languagePairs[11] =  new Array("ru","en");
-languagePairs[12] =  new Array("pt","en", "fr");
+
  
  
 var gTranslateBundle;
@@ -67,12 +54,12 @@ function initOptionsMenu()
 	var menuPopup = document.getElementById("langSelect");
 	var menuItem ;
 	
-	//alert(languagePairs.length);
-	for(var i = 0;i < languagePairs.length ; i++)
+	//alert(glanguagePairs.length);
+	for(var i = 0;i < glanguagePairs.length ; i++)
 	{
 	  menuItem = document.createElement("menuitem");
-	//  alert(languagePairs[i][0]);
-	  menuItem.setAttribute("label",languagePairs[i][0]);
+	//  alert(glanguagePairs[i][0]);
+	  menuItem.setAttribute("label",glanguagePairs[i][0]);
 	  menuItem.setAttribute("name","languageSet");
 	  menuItem.setAttribute("oncommand","setLang("+ i +")");
 	  menuItem.setAttribute("type","radio");
@@ -115,10 +102,10 @@ function initMenus()
    var toolMenu = document.getElementById("translate-tool-menu");
    var toolMenuSeperator = document.getElementById("translate-options-separator");
    
-	 for(var i = 1; i < languagePairs[glocale].length ; i++)
+	 for(var i = 1; i < glanguagePairs[glocale].length ; i++)
    {
 	
-    	languagePair = languagePairs[glocale][i] + "_" + languagePairs[glocale][0];
+    	languagePair = glanguagePairs[glocale][i] + "_" + glanguagePairs[glocale][0];
     	
     	
     	
@@ -154,10 +141,10 @@ function initMenus()
         
         
     //set toolbar icon    
-    toolbarItem.setAttribute("class","translate-tool-" + languagePairs[glocale][0]); 
+    toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[glocale][0]); 
     
     //
-    toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + languagePairs[glocale][0] + "');");
+    toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + glanguagePairs[glocale][0] + "');");
     
     
     // add menus  
