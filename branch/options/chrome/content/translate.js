@@ -149,9 +149,15 @@ function initMenus()
     //set toolbar icon    
     toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[glocale][0]); 
     
-    //
-    toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + glanguagePairs[glocale][0] + "');");
-    
+    //setup quick translate
+    if(glocale = 0)
+    {
+    	toolbarItem.setAttribute("oncommand","quick_translate();");
+    }
+    else
+    {
+    	toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + glanguagePairs[glocale][0] + "');");
+    }
     
     
     
