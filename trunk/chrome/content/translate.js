@@ -265,7 +265,7 @@ function onTranslatePopup()
         sep.hidden = false;  //display separator
         item.hidden = false; //display menu
 
-        menuText = "Translate " + "\"" + selectedText + "\"";
+        menuText = gPGTranslateBundle.getString("context.menu.prefix") + " " + "\"" + selectedText + "\"";
         item.setAttribute("label", menuText);
 
     }
