@@ -20,12 +20,12 @@
 	</RDF:Seq>	
 	
 	<RDF:Description RDF:about="urn:mozilla:package:translate"
-		chrome:displayName="Translate 0.4.2"
+		chrome:displayName="Translate 0.4.3"
 		chrome:author="Paul Grave"
 		chrome:authorURL="mailto:paul@ctomer.com"
 		chrome:name="translate"
 		chrome:extension="true"
-		chrome:description="Translate web pages">
+		chrome:description="Translate web pages" >
 	</RDF:Description>
 
 </RDF:RDF>

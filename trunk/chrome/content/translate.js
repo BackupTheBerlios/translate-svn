@@ -1,20 +1,232 @@
-var quicktranslationSite = "http://translate.google.com/translate?u=";
+const quicktranslationSite = "http://translate.google.com/translate?u=";
 
-var translationSite = "http://babelfish.altavista.com/babelfish/trurl_load?";
-var selectionSite = "http://babelfish.altavista.com/babelfish/tr?"
+const translationSite = "http://babelfish.altavista.com/babelfish/trurl_load?";
+const selectionSite = "http://babelfish.altavista.com/babelfish/tr?"
 
-var firstArg = "url";
-var selectFirstArg = "urltext";
-var secondArg = "lp";
-var equals = "=";
-var amp = "&";
+const firstArg = "url";
+const selectFirstArg = "urltext";
+const secondArg = "lp";
+const equals = "=";
+const amp = "&";
+
+var glocale = 2 ;
+
+
+ 
+ 
+var gTranslateBundle;
+
+
 
 // Attach translateInit to the window "load" event
 window.addEventListener("load",translateInit,false);
+window.addEventListener("close", translateBrowserClose, false);
+
+function translateBrowserClose()
+{
+	    const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
+		preferencesService.setIntPref("translate.userlanguage", glocale);
+}
+
+
+
+
+function setLang(languageTo)
+{
+	
+	glocale = languageTo;
+	initMenus();
+}
+
+
+
 
 function translateInit()
 {
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",onTranslatePopup,false);
+	gTranslateBundle = document.getElementById("bundle-translate");
+	
+	  if (! gTranslateBundle)
+  {
+      alert("no bundle");
+  }
+  
+  const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
+  glocale = preferencesService.getIntPref("translate.userlanguage");
+  
+  initOptionsMenu();
+     	
+  initMenus();
+   
+}
+
+function initOptionsMenu()
+{
+	var menuPopup = document.getElementById("langSelect");
+	var menuItem ;
+	
+	for(var i = 0;i < glanguagePairs.length ; i++)
+	{
+	  menuItem = document.createElement("menuitem");
+	  menuItem.setAttribute("label",glanguageUnicode[i]);
+	  menuItem.setAttribute("name","languageSet");
+	  menuItem.setAttribute("tooltiptext", gTranslateBundle.getString("tool.menu."+glanguagePairs[i][0]+".tooltip"));
+	  menuItem.setAttribute("oncommand","setLang("+ i +")");
+	  menuItem.setAttribute("type","radio");
+	  
+	  menuPopup.appendChild(menuItem);              
+                    
+  }
+}
+
+
+function readPrefs()
+{
+}
+
+function initToolbarMenu()
+{
+}
+
+function initMenus()
+{
+   var languagePair;
+   
+   var contextItem = document.getElementById("translate-context");
+   
+   var contextMenuPopupElement = document.createElement("menupopup");
+   
+   var contextMenuItemLabel;
+   var contextMenuItemTooltiptext;
+   var contextMenuItemOncommand;
+   
+   var contextMenuItemElement;
+   
+   var toolbarItem = document.getElementById("translate-pg");
+   var toolbarMenuPopupElement = document.createElement("menupopup");  
+   var toolbarMenuItemLabel;
+   var toolbarMenuItemTooltiptext;
+   var toolbarMenuItemOncommand ;
+   var toolbarMenuItemElement;
+
+   var toolMenu = document.getElementById("translate-tool-menu");
+   var toolMenuSeperator = document.getElementById("translate-options-separator");
+   
+	 for(var i = 1; i < glanguagePairs[glocale].length ; i++)
+   {
+	
+    	languagePair = glanguagePairs[glocale][i] + "_" + glanguagePairs[glocale][0];
+    	    	
+    	//setup up context menu
+    	contextMenuItemLabel = gTranslateBundle.getString("context.menu." + languagePair + ".label");
+      
+      
+      contextMenuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
+    	contextMenuItemOncommand = "translateSelection('" + languagePair + "');";
+   		
+   		contextMenuItemElement = document.createElement("menuitem");    	
+    	contextMenuItemElement.setAttribute("label",contextMenuItemLabel);
+    	contextMenuItemElement.setAttribute("tooltiptext",contextMenuItemTooltiptext);
+    	contextMenuItemElement.setAttribute("oncommand",contextMenuItemOncommand);
+			
+			contextMenuPopupElement.appendChild(contextMenuItemElement);
+			
+			//setup toolbutton menu
+			toolbarMenuItemLabel = gTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
+      toolbarMenuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
+    	toolbarMenuItemOncommand = "translateFrom('" + languagePair + "');";
+   		
+   		toolbarMenuItemElement = document.createElement("menuitem");   	
+    	toolbarMenuItemElement.setAttribute("label",toolbarMenuItemLabel);
+    	toolbarMenuItemElement.setAttribute("tooltiptext",toolbarMenuItemTooltiptext);
+    	toolbarMenuItemElement.setAttribute("oncommand",toolbarMenuItemOncommand);    	 	
+			
+			toolbarMenuPopupElement.appendChild(toolbarMenuItemElement);
+			
+    	
+    }
+        
+        
+    //set toolbar icon    
+    toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[glocale][0]); 
+    
+    //setup quick translate
+    if(glocale == 0)
+    {
+    	toolbarItem.setAttribute("oncommand","quick_translate();");
+    }
+    else
+    {
+    	toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + glanguagePairs[glocale][0] + "');");
+    }
+   
+    
+    
+    
+    
+    // add menus  
+
+    if(contextItem.hasChildNodes())  //if Firefox has already started, then replace existing childnodes, otherwise append them
+    { 
+    		contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
+    		toolbarItem.replaceChild(toolbarMenuPopupElement,toolbarItem.firstChild);
+    		
+    		var toolChildren = toolMenu.childNodes;
+    		 	
+    	 	for (var i in toolChildren)
+    	 	{
+    	 		//alert(toolChildren[i].nodeName);
+    	 		if(toolChildren[i].nodeName == "menuitem")
+    	 		{
+    	 		//	alert("removing");
+    	 			toolMenu.removeChild(toolChildren[i]);
+    	 		}
+    	 		//alert(i);	
+    	 	}
+    	 	
+    	 	
+    		var cloneMenu = toolbarMenuPopupElement.cloneNode(true);  // use a clone because insertBefore moves elements and does NOT copy
+    		var nodeLength = cloneMenu.childNodes.length;
+    		for( var i = 0 ; i < nodeLength  ;i++)
+    		{
+    			//alert(cloneMenu.childNodes.length);
+    			toolMenu.insertBefore(cloneMenu.childNodes[0],toolMenuSeperator);
+    		}
+    		
+    	
+    		
+    }
+    else
+  	{
+  			// adds both context menu and toolbar menu   
+  		  	contextItem.appendChild(contextMenuPopupElement);
+    		toolbarItem.appendChild(toolbarMenuPopupElement); 
+    		
+    		
+    		// creates list of translation languages in the tool menu	
+    		
+    		
+    		var cloneMenu = toolbarMenuPopupElement.cloneNode(true);  // use a clone because insertBefore moves elements and does NOT copy
+    		var nodeLength = cloneMenu.childNodes.length;
+    		
+    		for( var i = 0 ; i < nodeLength  ;i++)
+    		{
+    			//alert(cloneMenu.childNodes.length);
+    			toolMenu.insertBefore(cloneMenu.childNodes[0],toolMenuSeperator);
+    			
+    		}
+            var langSelected = document.getElementById("langSelect");
+    		langSelected.childNodes[glocale].setAttribute("checked","true");
+   			//alert(langSelected.childNodes[glocale].getAttribute("checked"));
+    		
+  	}
+  	
+  	
+  	
+  	
+  	
+  	
+  	   
 }
 
 function onTranslatePopup()
@@ -22,7 +234,7 @@ function onTranslatePopup()
 	// Get the selected text
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var selection = focusedWindow.__proto__.getSelection.call(focusedWindow);      
-    
+   // alert("work");
     // if the selected text is blank then don't display the context menu, otherwise, display the first 14 characters + ...
     if (selection!="")
     {
@@ -35,15 +247,16 @@ function onTranslatePopup()
         var menuText;
         var item;
         var sep;
-        
-        item = document.getElementById("translate-context");    
+       // alert("work");
+     		item = document.getElementById("translate-context");    
         sep = document.getElementById("translateSeparator");
-        
+         
         sep.hidden = false;
         item.hidden = false;
                 
         menuText = "Translate " + "\"" + selectedText + "\"";
-        item.setAttribute("label", menuText);
+        item.setAttribute("label", menuText);     
+        
     }
     else
     {
@@ -53,7 +266,6 @@ function onTranslatePopup()
         sep.hidden = true;
         item.hidden = true;
     }
-    
 }
 
 
@@ -65,7 +277,6 @@ function quick_translate()
 
 function translateFrom(lang)
 {
-
  window.content.document.location.href= translationSite + secondArg + equals + lang + amp + firstArg + equals + window.content.document.location.href;
 }
 

@@ -4,44 +4,7 @@
 <!ENTITY translate.toolbar.quick.label "Quick Translate">
 <!ENTITY translate.toolbar.quick.tooltip "Quick translate -> English">
 
-<!ENTITY translate.toolbar.menu.fr_en.label "Translate from French">
-<!ENTITY translate.toolbar.menu.es_en.label "Translate from Spanish">
-<!ENTITY translate.toolbar.menu.it_en.label "Translate from Italian">
-<!ENTITY translate.toolbar.menu.pt_en.label "Translate from Portugese">
-<!ENTITY translate.toolbar.menu.de_en.label "Translate from German">
-<!ENTITY translate.toolbar.menu.ru_en.label "Translate from Russian">
-<!ENTITY translate.toolbar.menu.ja_en.label "Translate from Japanese">
-<!ENTITY translate.toolbar.menu.ko_en.label "Translate from Korean">
-<!ENTITY translate.toolbar.menu.zh_en.label "Translate from Chinese">
-
-<!ENTITY translate.fr_en.tooltip "French -> English">
-<!ENTITY translate.es_en.tooltip "Spanish -> English">
-<!ENTITY translate.it_en.tooltip "Italian -> English">
-<!ENTITY translate.pt_en.tooltip "Portugese -> English">
-<!ENTITY translate.de_en.tooltip "German -> English">
-<!ENTITY translate.ru_en.tooltip "Russian -> English">
-<!ENTITY translate.ja_en.tooltip "Japanese -> English">
-<!ENTITY translate.ko_en.tooltip "Korean -> English">
-<!ENTITY translate.zh_en.tooltip "Chinese -> English">
-
-
-
 <!ENTITY translate.context.label "Translate">
-<!ENTITY translate.context.menu.fr_en.label "from French">
-<!ENTITY translate.context.menu.es_en.label "from Spanish">
-<!ENTITY translate.context.menu.it_en.label "from Italian">
-<!ENTITY translate.context.menu.pt_en.label "from Portugese">
-<!ENTITY translate.context.menu.de_en.label "from German">
-<!ENTITY translate.context.menu.ru_en.label "from Russian">
-<!ENTITY translate.context.menu.ja_en.label "from Japanese">
-<!ENTITY translate.context.menu.ko_en.label "from Korean">
-<!ENTITY translate.context.menu.zh_en.label "from Chinese">
 
-
-
-
-
-
-
-
-
+<!ENTITY translate.menu.label "Translate">
+<!ENTITY translate.menu.options.label "Options">
