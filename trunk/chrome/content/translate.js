@@ -17,9 +17,77 @@ window.addEventListener("close", translateBrowserClose, false);
 //document.getElementById("nav-bar").addEventListener("dragdrop", checkJustDraged, false);
 //document.getElementById("urlbar").addEventListener("change", checkCurrentPage, false);
 
+const NOTIFY_LOCATION =  Components.interfaces.nsIWebProgress.NOTIFY_LOCATION;
+
+function registerMyListener()
+{
+  window.getBrowser().addProgressListener(myListener , NOTIFY_LOCATION);
+}
+
+function unregisterMyListener()
+{
+  window.getBrowser().removeProgressListener(myListener);
+}
+
+window.addEventListener("load",registerMyListener,false);
+window.addEventListener("unload",unregisterMyListener,false);
 
 
 
+var myListener =
+{
+  onStateChange:function(aProgress,aRequest,aFlag,aStatus)
+  {
+
+  },
+  onLocationChange:function(aProgress,aRequest,aLocation)
+  {
+
+  	enableTranslate(aLocation.asciiSpec );
+
+  	},
+  onProgressChange:function(a,b,c,d,e,f){},
+  onStatusChange:function(a,b,c,d){},
+  onSecurityChange:function(a,b,c){},
+
+  /*XXX
+    This is not nsIWebProgressListenr method,
+    just killing a error in tabbrowser.xml
+    Maybe a bug.
+  */
+  onLinkIconAvailable:function(a){}
+}
+
+
+function enableTranslate(uri)
+{
+	var ext = uri.toLowerCase();
+	ext = ext.split(".");
+
+	var toolbarItem = document.getElementById("translate-pg");
+	var toolbarMenu = document.getElementById("transate-pg-menu");
+
+
+	if( ext == null)
+	{
+		toolbarItem.disabled = false;
+		toolbarMenu.disabled = false;
+		//alert("null: " + toolbarItem.disabled);
+	}
+	else if ( ext[ext.length-1] == "gif" || ext[ext.length-1] == "png" || ext[ext.length-1] == "jpg")
+	{
+		toolbarItem.disabled = true;
+		toolbarMenu.disabled = true;
+		//alert("dis: " + toolbarItem.disabled);
+	}
+	else
+	{
+		toolbarItem.disabled = false;
+		toolbarMenu.disabled = false;
+		//alert("else: " +toolbarItem.disabled);
+	}
+
+}
 
 
 
