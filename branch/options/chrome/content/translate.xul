@@ -13,7 +13,7 @@
 </stringbundleset>
 
 <toolbarpalette id="BrowserToolbarPalette">
-<toolbarbutton  label="&translate.toolbar.label;"  class="translate-tool-pg" id="translate-pg"  tooltiptext="&translate.toolbar.tooltip;" type="menu-button" oncommand="if (event.target==this) quick_translate();">
+<toolbarbutton  label="&translate.toolbar.label;"  class="translate-tool-en" id="translate-pg"  tooltiptext="&translate.toolbar.tooltip;" type="menu-button" oncommand="if (event.target==this) quick_translate();">
 <!--
 <menupopup>
     <menuitem label="&translate.toolbar.quick.label;" tooltiptext="&translate.toolbar.quick.tooltip;" oncommand="quick_translate();"/>

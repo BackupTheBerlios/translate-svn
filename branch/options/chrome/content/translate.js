@@ -10,6 +10,10 @@ var equals = "=";
 var amp = "&";
 var glocale =2 ;
 
+
+
+
+
 var languagePairs = new Array();
 languagePairs[0] = new Array("en","fr", "de", "es", "it","nl", "pt", "el", "ko","ja", "zh", "zt", "ru");
 languagePairs[1] = new Array("fr","en", "de", "es", "it","pt", "nl", "el");
@@ -129,6 +133,15 @@ function initMenus()
     	
     }
         
+        
+    //set toolbar icon    
+    toolbarItem.setAttribute("class","translate-tool-" + languagePairs[glocale][0]); 
+    
+    //
+    toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + languagePairs[glocale][0] + "');");
+    
+    
+    // add menus      
     contextItem.appendChild(contextMenuPopupElement);
     toolbarItem.appendChild(toolbarMenuPopupElement);
         
