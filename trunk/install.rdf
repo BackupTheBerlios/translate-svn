@@ -9,6 +9,7 @@
 		<em:contributor>Sorina Grave</em:contributor>
 		<em:contributor>Asa Dotzler</em:contributor>
 		<em:contributor>Oliver Forstmann</em:contributor>
+		<em:contributor>Giuliano Masseroni</em:contributor>
 		<em:homepageURL>http://ctomer.com/archives/translate/</em:homepageURL>
 		<em:iconURL>chrome://translate/skin/icon.png</em:iconURL>
 		<em:file>
@@ -19,6 +20,7 @@
 				<em:locale>locale/de-DE/</em:locale>
 				<em:locale>locale/fr-FR/</em:locale>
 				<em:locale>locale/ro-RO/</em:locale>
+				<em:locale>locale/it-IT/</em:locale>
 			</Description>
 		</em:file>
 		<em:updateURL>http://www.ctomer.com/extensions/translate/update.rdf</em:updateURL>
