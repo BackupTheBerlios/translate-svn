@@ -175,7 +175,7 @@ function initMenus()
     			//alert(cloneMenu.childNodes.length);
     			toolMenu.insertBefore(cloneMenu.childNodes[0],toolMenuSeperator);
     		}
-    			
+    		
     	
     		
     }
@@ -190,17 +190,17 @@ function initMenus()
     		
     		
     		var cloneMenu = toolbarMenuPopupElement.cloneNode(true);  // use a clone because insertBefore moves elements and does NOT copy
-    		
     		var nodeLength = cloneMenu.childNodes.length;
+    		
     		for( var i = 0 ; i < nodeLength  ;i++)
     		{
     			//alert(cloneMenu.childNodes.length);
     			toolMenu.insertBefore(cloneMenu.childNodes[0],toolMenuSeperator);
+    			
     		}
-  
-    		
-    		
-    
+            var langSelected = document.getElementById("langSelect");
+    		langSelected.childNodes[glocale].setAttribute("checked","true");
+   			//alert(langSelected.childNodes[glocale].getAttribute("checked"));
     		
   	}
   	
