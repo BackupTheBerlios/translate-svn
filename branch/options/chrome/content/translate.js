@@ -68,7 +68,7 @@ function initOptionsMenu()
 	var menuItem ;
 	
 	//alert(languagePairs.length);
-	for(var i = 1; i < languagePairs.length ; i++)
+	for(var i = 0;i < languagePairs.length ; i++)
 	{
 	  menuItem = document.createElement("menuitem");
 	//  alert(languagePairs[i][0]);
@@ -112,7 +112,7 @@ function initMenus()
    var toolbarMenuItemOncommand ;
    var toolbarMenuItemElement;
 
-   
+   var toolMenu = document.getElementById("translate-tool-menu");
    
 	 for(var i = 1; i < languagePairs[glocale].length ; i++)
    {
@@ -147,7 +147,7 @@ function initMenus()
     	toolbarMenuItemElement.setAttribute("oncommand",toolbarMenuItemOncommand);    	 	
 			
 			toolbarMenuPopupElement.appendChild(toolbarMenuItemElement);
-			
+			toolMenu.appendChild(toolbarMenuItemElement);
     	
     }
         

@@ -15,9 +15,9 @@
 
     <menupopup id="menu_ToolsPopup">
         <menu label="&translate.menu.label;">
-            <menupopup>
-                <menuitem label="fr" id="useragentswitcher-default-menu"/>
-                <menuseparator id="useragentswitcher-options-separator"/>
+            <menupopup id="translate-tool-menu">
+               <!-- <menuitem label="fr" id="useragentswitcher-default-menu"/> -->
+                <menuseparator id="translate-options-separator"/>
                 <menu label="&translate.menu.options.label;">
                     <menupopup id="langSelect">
                        <!-- <menuitem label="EN" name="languageSet" oncommand="setLang(0)" type="radio"/>
