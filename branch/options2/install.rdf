@@ -12,6 +12,7 @@
 		<em:contributor>Giuliano Masseroni</em:contributor>
 		<em:homepageURL>http://ctomer.com/archives/translate/</em:homepageURL>
 		<em:iconURL>chrome://translate/skin/icon.png</em:iconURL>
+		<em:optionsURL>chrome://translate/content/translate-preferences.xul</em:optionsURL>
 		<em:file>
 			<Description about="urn:mozilla:extension:file:translate.jar">
 				<em:package>content/</em:package>
