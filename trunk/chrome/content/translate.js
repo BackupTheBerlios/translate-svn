@@ -24,7 +24,7 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 	{
 		onStateChange:function(aProgress,aRequest,aFlag,aStatus)
 		{
-			gPGTranslate.detectLang(aFlag);	
+			//gPGTranslate.detectLang(aFlag);	
 		},
 		onLocationChange:function(aProgress,aRequest,aLocation)
 		{
@@ -146,6 +146,7 @@ PGTranslate.prototype.enableTranslate  = function (aUri)
 	fv.findNext();*/
 }
 
+/*
 PGTranslate.prototype.detectLang = function (aStatus)
 {
 	const STATE_STOP =  Components.interfaces.nsIWebProgressListener.STATE_STOP;
@@ -180,7 +181,7 @@ PGTranslate.prototype.count = function (aWordlist)
 	
 	return counter;
 }
-
+*/
 
 
 PGTranslate.prototype.quickTranslate = function ()
