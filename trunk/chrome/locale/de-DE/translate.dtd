@@ -4,44 +4,7 @@
 <!ENTITY translate.toolbar.quick.label "Quick Translate">
 <!ENTITY translate.toolbar.quick.tooltip "Quick translate -> Englisch">
 
-<!ENTITY translate.toolbar.menu.fr_en.label "Uebersetz vom Franzsoesischen">
-<!ENTITY translate.toolbar.menu.es_en.label "Uebersetz vom Spanischen">
-<!ENTITY translate.toolbar.menu.it_en.label "Uebersetz vom Italienischen">
-<!ENTITY translate.toolbar.menu.pt_en.label "Uebersetz vom Portugisischen">
-<!ENTITY translate.toolbar.menu.de_en.label "Uebersetz vom Deutsch">
-<!ENTITY translate.toolbar.menu.ru_en.label "Uebersetz vom Russischen">
-<!ENTITY translate.toolbar.menu.ja_en.label "Uebersetz vom Japanischen">
-<!ENTITY translate.toolbar.menu.ko_en.label "Uebersetz vom Koreanischennischenn">
-<!ENTITY translate.toolbar.menu.zh_en.label "Uebersetz vom Chinesischen">
-
-<!ENTITY translate.fr_en.tooltip "Franzsoesisch -> Englisch">
-<!ENTITY translate.es_en.tooltip "Spanisch -> Englisch">
-<!ENTITY translate.it_en.tooltip "Italienisch -> Englisch">
-<!ENTITY translate.pt_en.tooltip "Portugisisch -> Englisch">
-<!ENTITY translate.de_en.tooltip "Deutsch -> Englisch">
-<!ENTITY translate.ru_en.tooltip "Russisch -> Englisch">
-<!ENTITY translate.ja_en.tooltip "Japanisch -> Englisch">
-<!ENTITY translate.ko_en.tooltip "Koreanischennisch -> Englisch">
-<!ENTITY translate.zh_en.tooltip "Chinesisch -> Englisch">
-
-
-
 <!ENTITY translate.context.label "Translate">
-<!ENTITY translate.context.menu.fr_en.label "vom Franzsoesischen">
-<!ENTITY translate.context.menu.es_en.label "vom Spanischen">
-<!ENTITY translate.context.menu.it_en.label "vom Italienischen">
-<!ENTITY translate.context.menu.pt_en.label "vom Portugisischen">
-<!ENTITY translate.context.menu.de_en.label "vom Deutsch">
-<!ENTITY translate.context.menu.ru_en.label "vom Russischen">
-<!ENTITY translate.context.menu.ja_en.label "vom Japanischen">
-<!ENTITY translate.context.menu.ko_en.label "vom Koreanischennischenn">
-<!ENTITY translate.context.menu.zh_en.label "vom Chinesischen">
 
-
-
-
-
-
-
-
-
+<!ENTITY translate.menu.label "Translate">
+<!ENTITY translate.menu.options.label "Einstellugen">
