@@ -25,6 +25,64 @@ var	_Container = null;
 var	_urlArc = null;
 var	_nameArc = null;
 var	_descArc = null;
+var _shortcutUrlArc = null;
+
+
+function myexport()
+{
+	
+	dump("starting bookmark export\n");
+	//var stream = Components.classes['@mozilla.org/network/file-output-stream;1']
+    		                 .createInstance(Components.interfaces.nsIFileOutputStream);
+
+		var foldersets=[[this._FavoritesFolder.clone(),this._BookmarksFolder]];
+
+		while(foldersets.length>0)
+		{
+			var folderset= foldersets.shift();
+			var folder=folderset[1];
+			folder.QueryInterface(Components.interfaces.nsIRDFResource);
+			this._Container.Init(this._ds, folder);
+			var elements=this._Container.GetElements();
+			while(elements.hasMoreElements())
+			{
+				dump("has elements\n");
+				var resource=elements.getNext();
+				resource.QueryInterface(Components.interfaces.nsIRDFResource).Value;
+//				var name=this._getLiteral(resource,this._nameArc);
+//				name=name.replace(/\"/g,"\'");
+//				name=name.replace(/[\\\/\*:<>\?\|]/g,"-");
+//				var tempFile=folderset[0].clone();
+
+				if(this._rdfcUtils.IsContainer(this._ds,resource))
+				{
+					/*
+					tempFile.append(name);
+					if(!tempFile.exists())
+						tempFile.create(1,0666);
+					foldersets.push([tempFile,resource]);
+					*/
+				}
+				else if(this._ds.hasArcOut(resource,this._urlArc))
+				{
+					var keyword=this._getLiteral(resource,this._shortcutUrlArc);
+					var myURL=this._getLiteral(resource,this._urlArc);
+					dump(keyword + "..."+ myURL + "\n");
+					
+					/*
+					var url=this._getLiteral(resource,this._urlArc);
+					var fileContents="[InternetShortcut]\r\nURL="+url+"\r\n";
+					tempFile.append(name+".url");
+		      		stream.init(tempFile, 0x20|0x02|0x08, 0666, 0);
+		      		stream.write(fileContents, fileContents.length);
+		      		stream.close();
+      				*/
+				}
+			}
+		//}
+	
+}
+
 
 function init ()
 {
@@ -44,46 +102,13 @@ function init ()
     this._typeArc=this._rdfService.GetResource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
     this._shortcutUrlArc=this._rdfService.GetResource( "http://home.netscape.com/NC-rdf#ShortcutURL"); 
     
-    
-    export();   
+    this._BookmarksFolder=this._rdfService.GetResource(aFolderID);
+	this._FavoritesFolder=Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
+	this._FavoritesFolder.initWithPath(aFilePath);
+    myexport();   
 }
 
-function export ()
-{
-	var elements=this._Container.GetElements();
-	while(elements.hasMoreElements())
-	{
-			var resource=elements.getNext();
-			resource.QueryInterface(Components.interfaces.nsIRDFResource).Value;
-			
-			var keyword=this._getLiteral(resource,this._shortcutUrlArc);
-			
-			dump(keyword + "/n");
-			
-			/*
-			name=name.replace(/\"/g,"\'");
-			name=name.replace(/[\\\/\*:<>\?\|]/g,"-");
-			var tempFile=folderset[0].clone();
 
-			if(this._rdfcUtils.IsContainer(this._ds,resource))
-			{
-				tempFile.append(name);
-				if(!tempFile.exists())
-					tempFile.create(1,0666);
-				foldersets.push([tempFile,resource]);
-			}
-			else if(this._ds.hasArcOut(resource,this._urlArc))
-			{
-				var url=this._getLiteral(resource,this._urlArc);
-				var fileContents="[InternetShortcut]\r\nURL="+url+"\r\n";
-				tempFile.append(name+".url");
-    		stream.init(tempFile, 0x20|0x02|0x08, 0666, 0);
-    		stream.write(fileContents, fileContents.length);
-    		stream.close();
-    	}
-    	*/
-	}	
-}
 
 
 
