@@ -35,7 +35,7 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 		onStateChange:function(aProgress,aRequest,aFlag,aStatus){},
 		onLocationChange:function(aProgress,aRequest,aLocation)
 		{
-			gPGTranslate.enableTranslate(aLocation.asciiSpec);
+		//	gPGTranslate.enableTranslate(aLocation.asciiSpec);
 		},
 		onProgressChange:function(a,b,c,d,e,f){},
 		onStatusChange:function(a,b,c,d){},
