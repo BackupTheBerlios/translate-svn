@@ -135,26 +135,28 @@ PGTranslate.prototype.enableTranslate  = function (aUri)
 	
 	var toolbarItem = document.getElementById("translate-pg");
 	var toolbarMenu = document.getElementById("translate-pg-menu");
+	var disableItem ;
 
 	if( ext == null)
 	{
-		toolbarItem.disabled = false;
-		toolbarMenu.disabled = false;
-		//alert("null: " + toolbarMenu.disabled);
+		disableItem = false;
 	}
 	else if ( ext[ext.length-1] == "gif" || ext[ext.length-1] == "png" || ext[ext.length-1] == "jpg")
 	{
-		toolbarItem.disabled = true;
-		toolbarMenu.disabled = true;
-		//toolbarMenu.allowevents = false;
-		//alert("dis: " + toolbarMenu.disabled);
+		disableItem = true;
 	}
 	else
 	{
-		toolbarItem.disabled = false;
-		toolbarMenu.disabled = false;
-		//alert("else: " + toolbarMenu.disabled);
+		disableItem = false;
 	}
+	
+	if(toolbarItem != null)
+		toolbarItem.disabled = disableItem;
+	
+	if(toolbarMenu != null)
+		toolbarMenu.disabled = disableItem;	
+	
+	
 }
 
 
@@ -348,7 +350,8 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
   			}
   	}
 	//set toolbar button class, which inturns sets the icon
-  	toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0] + " toolbarbutton-1");
+  	if(toolbarItem != null)
+  		toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0] + " toolbarbutton-1");
 }
 
 PGTranslate.prototype.onTranslatePopup = function ()
