@@ -113,6 +113,7 @@ function initMenus()
    var toolbarMenuItemElement;
 
    var toolMenu = document.getElementById("translate-tool-menu");
+   var toolMenuSeperator = document.getElementById("translate-options-separator");
    
 	 for(var i = 1; i < languagePairs[glocale].length ; i++)
    {
@@ -147,7 +148,7 @@ function initMenus()
     	toolbarMenuItemElement.setAttribute("oncommand",toolbarMenuItemOncommand);    	 	
 			
 			toolbarMenuPopupElement.appendChild(toolbarMenuItemElement);
-			toolMenu.appendChild(toolbarMenuItemElement);
+			toolMenu.insertBefore(toolbarMenuItemElement,toolMenuSeperator);
     	
     }
         
