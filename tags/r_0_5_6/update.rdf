@@ -13,6 +13,9 @@
         <li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.1"/>
         <li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.2"/>
         <li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.3"/>
+        <li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.4"/>
+        <li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.5"/>
+        <li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.6"/>
       </Seq>
     </em:updates>
   </RDF:Description>
@@ -97,7 +100,7 @@
         <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.3.xpi</em:updateLink>
       </Description>
     </em:targetApplication>
-  </RDF:Description>
+ </RDF:Description>
 
       <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.4">
     <em:version>0.5.4</em:version>
