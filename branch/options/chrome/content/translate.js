@@ -56,21 +56,22 @@ function translateInit()
   }
   
   
-  initOptionsMenu();
+ initOptionsMenu();
      	
   initMenus();
    
 }
 
-function initOptionsMenu();
+function initOptionsMenu()
 {
 	var menuPopup = document.getElementById("langSelect");
 	var menuItem ;
 	
-	
+	//alert(languagePairs.length);
 	for(var i = 1; i < languagePairs.length ; i++)
 	{
 	  menuItem = document.createElement("menuitem");
+	//  alert(languagePairs[i][0]);
 	  menuItem.setAttribute("label",languagePairs[i][0]);
 	  menuItem.setAttribute("name","languageSet");
 	  menuItem.setAttribute("oncommand","setLang("+ i +")");
