@@ -2,7 +2,6 @@
 <!ENTITY translate.prefs.groupbox.ui "Language">
 <!ENTITY translate.prefs "Translate">
 <!ENTITY translate.prefs.menus "Menus">
-<!ENTITY translate.prefs.menus.context "Menus">
 <!ENTITY translate.prefs.menus.tool "Display Tools menu">
 <!ENTITY translate.prefs.menus.context "Display Context menu">
 <!ENTITY translate.prefs.menus.language "Select your langauge">
