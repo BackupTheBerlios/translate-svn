@@ -45,19 +45,19 @@ function onTranslatePopup()
        
         
         var menuPopupElement = document.createElement("menupopup");
-    
+    alert(languagePairs[lang].length);
 for(var i = 1; i < languagePairs[lang].length ; i++)
     {
 	
-    	
+    	alert("for ok");
     	var languagePair = languagePairs[lang][i] + "_" + languagePairs[lang][0];
-    	
+    	alert(languagePair);
     	var menuItemLabel = "&translate.context.menu." + languagePair + ".label;";
-    	
+    	alert(menuItemLabel);
 		var menuItemTooltiptext = "&translate." + languagePair + ".tooltip;" ;
-    	
+    	alert(menuItemTooltiptext);
 		var menuItemOncommand = "translateSelection('" + languagePair + "');";
-    	
+    	alert(menuItemOncommand);
 		var menuItemElement = document.createElement("menuitem");
     	
     	   	
