@@ -7,52 +7,50 @@ const PGTRANSLATE_SECONDARG = "lp";
 const PGTRANSLATE_EQUALS = "=";
 const PGTRANSLATE_AMP = "&";
 
-
-String.prototype.trim = function() {
-
- // skip leading and trailing whitespace
- // and return everything in between
+String.prototype.trim = function() 
+{
   var x=this;
   x=x.replace(/^\s*(.*)/, "$1");
   x=x.replace(/(.*?)\s*$/, "$1");
   return x;
 }
-	
+
+// Contructor to set up some variables and preferences
 function PGTranslate() // lets initialise some of the variables that we are going to use
 {
-	/*
-	this.pref_theLanguage;
-	this.pref_displayContextMenu ;
-	this.pref_displayToolMenu ;
-	*/
 	this.translateBundle;  //holds variable found in translate.properties
-	
-	this.PGTranslate_prefs = new PGTranslate_prefs();
-	
-	
+	this.PGTranslate_prefs = new PGTranslate_prefs();		
 	this.myListener =           //listens for page refreshs, if the page refreshed is an image then translate is disabled
 	{
-		onStateChange:function(aProgress,aRequest,aFlag,aStatus){},
+		onStateChange:function(aProgress,aRequest,aFlag,aStatus)
+		{
+			gPGTranslate.detectLang(aFlag);	
+		},
 		onLocationChange:function(aProgress,aRequest,aLocation)
 		{
-			//gPGTranslate.enableTranslate(aLocation.asciiSpec);
+			gPGTranslate.enableTranslate(aLocation.asciiSpec);
 		},
 		onProgressChange:function(a,b,c,d,e,f){},
-		onStatusChange:function(a,b,c,d){},
+		onStatusChange:function(a,b,c,d)
+		{
+			
+			
+		},
 		onSecurityChange:function(a,b,c){},
 		onLinkIconAvailable:function(a){}
-	}
-	
+	}	
 	this.initPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_LANGUAGE , "int", 0);
 }
-                  
-
-
-PGTranslate.prototype.initPref = function (aPrefName, aPrefType, aDefaultValue){
-
-  switch (aPrefType) {
+   
+// Code written by Doron R.
+//
+// Method to initalise preferences                  
+PGTranslate.prototype.initPref = function (aPrefName, aPrefType, aDefaultValue)
+{
+  switch (aPrefType) 
+  {
     case "bool" :
       var prefExists = this.PGTranslate_prefs.getBoolPref(aPrefName);
       if (prefExists == null)
@@ -73,67 +71,32 @@ PGTranslate.prototype.initPref = function (aPrefName, aPrefType, aDefaultValue){
   }
 }
 
-
-
+//  Sets up listeners (progress and context menu)
+//  Gets string bundle
+//  Initalises the menus
 PGTranslate.prototype.onLoad = function()
 {
-	PREFERENCESSERVICE = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
-	const NOTIFY_LOCATION =  Components.interfaces.nsIWebProgress.NOTIFY_LOCATION;
-	
-	
-		//	this.PGTranslate_prefs.getBoolPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED);
-	//alert(this.PGTranslate_prefs.getBoolPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED));
-	//alert(this.PGTranslate_prefs.getBoolPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED));
-	//alert(gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE));
-	
-	window.getBrowser().addProgressListener(gPGTranslate.myListener , NOTIFY_LOCATION);
+	const NOTIFY_ALL =  Components.interfaces.nsIWebProgress.NOTIFY_ALL;
+	window.getBrowser().addProgressListener(gPGTranslate.myListener , NOTIFY_ALL);
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",gPGTranslate.onTranslatePopup,false);
-	// get the variables strong in translate.properties
+	
+	// get the variables stored in translate.properties
 	gPGTranslate.translateBundle = document.getElementById("bundle-translate");
 	if (! gPGTranslate.translateBundle)
 	{
 		alert("no bundle");  // alert if tranlate.properties is invalid
 	}
-
-	// read the preferences file and set the language if their is one
-	/*
-	if(PREFERENCESSERVICE.prefHasUserValue("translate.userlanguage"))
-	{
-  		gPGTranslate.setTheLanguage(PREFERENCESSERVICE.getIntPref("translate.userlanguage"));
-	}
-	else
-	{
-		gPGTranslate.setTheLanguage(0) ;
-	}
-	if(PREFERENCESSERVICE.prefHasUserValue("translate.displayContextMenu"))
-	{
-  		PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) = PREFERENCESSERVICE.getBoolPref("translate.displayContextMenu");
-	}
-	else
-	{
-		PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) = true;
-	}
-	if(PREFERENCESSERVICE.prefHasUserValue("translate.displayToolMenu"))
-	{
-  		gPGTranslate.pref_displayToolMenu = PREFERENCESSERVICE.getBoolPref("translate.displayToolMenu");
-	}
-	else
-	{
-		gPGTranslate.pref_displayToolMenu = true;
-	}
-	
-	*/
 	gPGTranslate.initMenus();
 }
 
+// This method is excuted after each page refresh
+// Checks to see if the document ins't html, if so, diasbales the translate button
 PGTranslate.prototype.enableTranslate  = function (aUri)
 {
 	if(aUri != null)
 	{
 		var ext = aUri.toLowerCase();
-		ext = ext.split(".");
-		//alert(ext);
-		
+		ext = ext.split(".");	
 		var toolbarItem = document.getElementById("translate-pg");
 		var toolbarMenu = document.getElementById("translate-pg-menu");
 		var disableItem ;
@@ -158,7 +121,66 @@ PGTranslate.prototype.enableTranslate  = function (aUri)
 			toolbarMenu.disabled = disableItem;	
 	}
 	
+	
+	
+	//var nsIFileView = Components.interfaces.nsIWebBrowserFind; 
+	//var english = 0;
+	//var french = 0;
+	//var german = 0;
+	
+	/*
+	var english = new Array ("the","with","that","though","you","all","and","is","can","than");
+	var french = new Array ("le","la","les","avec","vous","avez","est","et","une","un");
+	var german = new Array ("haben ","sie","Ihrer","und","im","nach","nicht","eine","mit","über");
+	
+	
+	dump("++english:"+ gPGTranslate.count(english)+"++");
+	dump("++french:"+ gPGTranslate.count(french)+"++");
+	dump("++german:"+ gPGTranslate.count(german)+"++\n");
+	*/
+	/*
+	var fv = Components.classes["@mozilla.org/embedcomp/find;1"].createInstance();
+	if (fv) fv.QueryInterface(Components.interfaces.nsIWebBrowserFind);
+
+	fv.searchString = " the ";
+	fv.findNext();*/
 }
+
+PGTranslate.prototype.detectLang = function (aStatus)
+{
+	const STATE_STOP =  Components.interfaces.nsIWebProgressListener.STATE_STOP;
+	
+	if((aStatus & STATE_STOP) == STATE_STOP)
+	{
+		var english = new Array ("the","with","that","though","you","all","and","is","can","than");
+		var french = new Array ("le","la","les","avec","vous","avez","est","et","une","un");
+		var german = new Array ("haben ","sie","Ihrer","und","im","nach","nicht","eine","mit","über");
+		dump("++english:"+ gPGTranslate.count(english)+"++");
+		dump("++french:"+ gPGTranslate.count(french)+"++");
+		dump("++german:"+ gPGTranslate.count(german)+"++\n");
+	}
+	
+	
+}
+
+
+
+PGTranslate.prototype.count = function (aWordlist)
+{
+	var daBrowser = getBrowser().webBrowserFind;
+	daBrowser.entireWord = true;
+	var counter = 0;
+	//dump("aWordlist.length: " + aWordlist.length);
+	for(i = 0 ; i < aWordlist.length ; i++)
+	{
+		daBrowser.searchString = aWordlist[i];
+		if(daBrowser.findNext())
+			counter++;	
+	}
+	
+	return counter;
+}
+
 
 
 PGTranslate.prototype.quickTranslate = function ()
@@ -172,18 +194,6 @@ PGTranslate.prototype.quickTranslate = function ()
 		gPGTranslate.translateFrom("en_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0]);
 	}
 }
-
-
-
-PGTranslate.prototype.savePrefs = function ()
-{ /*
-	preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
-	preferencesService.setIntPref("translate.userlanguage", this.PGTranslate_prefs.getIntPref(this.PGTranslate_prefs.PREF_LANGUAGE));
-	preferencesService.setBoolPref("translate.displayContextMenu", gPGTranslate.pref_displayContextMenu);
-	preferencesService.setBoolPref("translate.displayToolMenu", gPGTranslate.pref_displayToolMenu);
-	*/
-}
-
 
 PGTranslate.prototype.fillToolbutton = function ()
 {
@@ -200,7 +210,6 @@ PGTranslate.prototype.fillToolbutton = function ()
    	{
 		toolbarMenuPopupElement.removeChild(toolbarMenuPopupElement.firstChild);
 	}
-
 
    	for(var i = 1; i < PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)].length ; i++)
 	{
@@ -306,33 +315,22 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
     		if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED))
     			contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
 
-
     		// deals with adding languages to the tool menu, basically we add a clone of the toolbar menu.
-    		// Tricky part is to remove existing menuitems
-    		
-    		
-    		
-    		
+    		// Tricky part is to remove existing menuitems   		
     		if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED))
 			{
-    		
 	    		var toolChildren = toolMenu.childNodes;
-	
 	    	 	for (var i in toolChildren)
 	    	 	{
 	    	 		if(toolChildren[i].nodeName == "menuitem" && toolChildren[i].id != "translate-options")
 	    	 			toolMenu.removeChild(toolChildren[i]);    	 		
 	    	 	}
-	
 	    	 	var nodeLength = toolMenuPopupElement.childNodes.length;
 	    		for( var i = 0 ; i < nodeLength  ;i++)
 	    		{
 	    			toolMenu.insertBefore(toolMenuPopupElement.childNodes[0],toolMenuSeperator);
 	    		}
-    		}
- 
-    		
-    		
+    		}	
     }
     else
   	{
@@ -340,7 +338,6 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
   			if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED))
   		  		contextItem.appendChild(contextMenuPopupElement);
 
-    			
     		if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED))  // creates list of translation languages in the tool menu  	
 			{
 	    		var nodeLength = toolMenuPopupElement.childNodes.length;
@@ -360,10 +357,7 @@ PGTranslate.prototype.onTranslatePopup = function ()
 	// Get the selected text
  	var item = document.getElementById("translate-context");
     var sep = document.getElementById("translateSeparator");
-	/*
-	item.hidden = !PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED);
-	sep.hidden = !PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED);
-	*/
+
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var selection = focusedWindow.__proto__.getSelection.call(focusedWindow);
 	
@@ -391,8 +385,7 @@ PGTranslate.prototype.onTranslatePopup = function ()
 	}
 	else
 	{
-	    	//no text selected so hide the context menu
-	       	
+	    	//no text selected so hide the context menu	       	
 	        sep.hidden = true;
 	        item.hidden = true;
 	}
@@ -419,8 +412,8 @@ PGTranslate.prototype.translateSelection = function(aLanguage)
 PGTranslate.prototype.onClose = function()
 {
 	window.getBrowser().removeProgressListener(this.myListener);
+	document.getElementById("contentAreaContextMenu").removeEventListener("popupshowing",gPGTranslate.onTranslatePopup,false);
 	gPGTranslate = null;
-	//gPGTranslate.savePrefs();
 }
 
 
