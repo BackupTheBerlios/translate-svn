@@ -34,6 +34,17 @@ var gTranslateBundle;
 // Attach translateInit to the window "load" event
 window.addEventListener("load",translateInit,false);
 
+
+function setLang(languageTo)
+{
+	
+	glocale = languageTo;
+	initMenus();
+}
+
+
+
+
 function translateInit()
 {
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",onTranslatePopup,false);
@@ -43,7 +54,7 @@ function translateInit()
   {
       alert("no bundle");
   }
-     
+     	
   initMenus();
    
 }
@@ -77,14 +88,21 @@ function initMenus()
    var toolbarMenuItemTooltiptext;
    var toolbarMenuItemOncommand ;
    var toolbarMenuItemElement;
+
+   
    
 	 for(var i = 1; i < languagePairs[glocale].length ; i++)
    {
 	
     	languagePair = languagePairs[glocale][i] + "_" + languagePairs[glocale][0];
     	
+    	
+    	
+    	
     	//setup up context menu
     	contextMenuItemLabel = gTranslateBundle.getString("context.menu." + languagePair + ".label");
+      
+      
       contextMenuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
     	contextMenuItemOncommand = "translateSelection('" + languagePair + "');";
    		
@@ -118,10 +136,21 @@ function initMenus()
     toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom('en_" + languagePairs[glocale][0] + "');");
     
     
-    // add menus      
-    contextItem.appendChild(contextMenuPopupElement);
-    toolbarItem.appendChild(toolbarMenuPopupElement);
-        
+    // add menus  
+
+    if(contextItem.hasChildNodes())
+    { 
+    contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
+    toolbarItem.replaceChild(toolbarMenuPopupElement,toolbarItem.firstChild);
+    }
+  else
+  	{   
+  		  	contextItem.appendChild(contextMenuPopupElement);
+    toolbarItem.appendChild(toolbarMenuPopupElement); 	
+
+    
+
+  	}   
 }
 
 function onTranslatePopup()
