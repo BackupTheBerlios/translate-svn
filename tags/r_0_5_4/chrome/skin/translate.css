@@ -1,0 +1,106 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#translate-pg
+{
+    list-style-image: url("chrome://translate/skin/toolbar_32.png");
+}
+
+toolbar[iconsize="small"] #translate-pg
+{
+  list-style-image: url("chrome://translate/skin/toolbar_16.png");
+}
+
+.translate-tool-en { -moz-image-region: rect(0px 24px 24px 0px); }
+.translate-tool-fr { -moz-image-region: rect(0px 48px 24px 24px); }
+.translate-tool-de { -moz-image-region: rect(0px 72px 24px 48px); }
+.translate-tool-es { -moz-image-region: rect(0px 96px 24px 72px); }
+.translate-tool-it { -moz-image-region: rect(0px 120px 24px 96px); }
+.translate-tool-el { -moz-image-region: rect(0px 144px 24px 120px); }
+.translate-tool-ko { -moz-image-region: rect(0px 168px 24px 144px); }
+.translate-tool-ja { -moz-image-region: rect(0px 192px 24px 168px); }
+.translate-tool-zh { -moz-image-region: rect(0px 216px 24px 192px); }
+.translate-tool-zt { -moz-image-region: rect(0px 240px 24px 216px); }
+.translate-tool-nl { -moz-image-region: rect(0px 264px 24px 240px); }
+.translate-tool-ru { -moz-image-region: rect(0px 288px 24px 264px); }
+.translate-tool-pt { -moz-image-region: rect(0px 312px 24px 288px); }
+
+
+
+.translate-tool-en:hover { -moz-image-region: rect(24px 24px 48px 0px); }
+.translate-tool-fr:hover { -moz-image-region: rect(24px 48px 48px 24px); }
+.translate-tool-de:hover { -moz-image-region: rect(24px 72px 48px 48px); }
+.translate-tool-es:hover { -moz-image-region: rect(24px 96px 48px 72px); }
+.translate-tool-it:hover { -moz-image-region: rect(24px 120px 48px 96px); }
+.translate-tool-el:hover { -moz-image-region: rect(24px 144px 48px 120px); }
+.translate-tool-ko:hover { -moz-image-region: rect(24px 168px 48px 144px); }
+.translate-tool-ja:hover { -moz-image-region: rect(24px 192px 48px 168px); }
+.translate-tool-zh:hover { -moz-image-region: rect(24px 216px 48px 192px); }
+.translate-tool-zt:hover { -moz-image-region: rect(24px 240px 48px 216px); }
+.translate-tool-nl:hover { -moz-image-region: rect(24px 264px 48px 240px); }
+.translate-tool-ru:hover { -moz-image-region: rect(24px 288px 48px 264px); }
+.translate-tool-pt:hover { -moz-image-region: rect(24px 312px 48px 288px); }
+
+
+
+.translate-tool-disable-en { -moz-image-region: rect(48px 24px 72px 0px); }
+.translate-tool-disable-fr { -moz-image-region: rect(48px 48px 72px 24px); }
+.translate-tool-disable-de { -moz-image-region: rect(48px 72px 72px 48px); }
+.translate-tool-disable-es { -moz-image-region: rect(48px 96px 72px 72px); }
+.translate-tool-disable-it { -moz-image-region: rect(48px 120px 72px 96px); }
+.translate-tool-disable-el { -moz-image-region: rect(48px 144px 72px 120px); }
+.translate-tool-disable-ko { -moz-image-region: rect(48px 168px 72px 144px); }
+.translate-tool-disable-ja { -moz-image-region: rect(48px 192px 72px 168px); }
+.translate-tool-disable-zh { -moz-image-region: rect(48px 216px 72px 192px); }
+.translate-tool-disable-zt { -moz-image-region: rect(48px 240px 72px 216px); }
+.translate-tool-disable-nl { -moz-image-region: rect(48px 264px 72px 240px); }
+.translate-tool-disable-ru { -moz-image-region: rect(48px 288px 72px 264px); }
+.translate-tool-disable-pt { -moz-image-region: rect(48px 312px 72px 288px); }
+
+
+
+
+toolbar[iconsize="small"] .translate-tool-en { -moz-image-region: rect(0px 16px 16px 0px); }
+toolbar[iconsize="small"] .translate-tool-fr { -moz-image-region: rect(0px 32px 16px 16px); }
+toolbar[iconsize="small"] .translate-tool-de { -moz-image-region: rect(0px 48px 16px 32px); }
+toolbar[iconsize="small"] .translate-tool-es { -moz-image-region: rect(0px 64px 16px 48px); }
+toolbar[iconsize="small"] .translate-tool-it { -moz-image-region: rect(0px 80px 16px 64px); }
+toolbar[iconsize="small"] .translate-tool-el { -moz-image-region: rect(0px 96px 16px 80px); }
+toolbar[iconsize="small"] .translate-tool-ko { -moz-image-region: rect(0px 112px 16px 96px); }
+toolbar[iconsize="small"] .translate-tool-ja { -moz-image-region: rect(0px 128px 16px 112px); }
+toolbar[iconsize="small"] .translate-tool-zh { -moz-image-region: rect(0px 144px 16px 128px); }
+toolbar[iconsize="small"] .translate-tool-zt { -moz-image-region: rect(0px 160px 16px 144px); }
+toolbar[iconsize="small"] .translate-tool-nl { -moz-image-region: rect(0px 176px 16px 160px); }
+toolbar[iconsize="small"] .translate-tool-ru { -moz-image-region: rect(0px 192px 16px 176px); }
+toolbar[iconsize="small"] .translate-tool-pt { -moz-image-region: rect(0px 208px 16px 192px); }
+
+
+
+toolbar[iconsize="small"] .translate-tool-en:hover { -moz-image-region: rect(16px 16px 32px 0px); }
+toolbar[iconsize="small"] .translate-tool-fr:hover { -moz-image-region: rect(16px 32px 32px 16px); }
+toolbar[iconsize="small"] .translate-tool-de:hover { -moz-image-region: rect(16px 48px 32px 32px); }
+toolbar[iconsize="small"] .translate-tool-es:hover { -moz-image-region: rect(16px 64px 32px 48px); }
+toolbar[iconsize="small"] .translate-tool-it:hover { -moz-image-region: rect(16px 80px 32px 64px); }
+toolbar[iconsize="small"] .translate-tool-el:hover { -moz-image-region: rect(16px 96px 32px 80px); }
+toolbar[iconsize="small"] .translate-tool-ko:hover { -moz-image-region: rect(16px 112px 32px 96px); }
+toolbar[iconsize="small"] .translate-tool-ja:hover { -moz-image-region: rect(16px 128px 32px 112px); }
+toolbar[iconsize="small"] .translate-tool-zh:hover { -moz-image-region: rect(16px 144px 32px 128px); }
+toolbar[iconsize="small"] .translate-tool-zt:hover { -moz-image-region: rect(16px 160px 32px 144px); }
+toolbar[iconsize="small"] .translate-tool-nl:hover { -moz-image-region: rect(16px 176px 32px 160px); }
+toolbar[iconsize="small"] .translate-tool-ru:hover { -moz-image-region: rect(16px 192px 32px 176px); }
+toolbar[iconsize="small"] .translate-tool-pt:hover { -moz-image-region: rect(16px 208px 32px 192px); }
+
+
+
+toolbar[iconsize="small"] .translate-tool-disable-en { -moz-image-region: rect(32px 16px 48px 0px); }
+toolbar[iconsize="small"] .translate-tool-disable-fr { -moz-image-region: rect(32px 32px 48px 16px); }
+toolbar[iconsize="small"] .translate-tool-disable-de { -moz-image-region: rect(32px 48px 48px 32px); }
+toolbar[iconsize="small"] .translate-tool-disable-es { -moz-image-region: rect(32px 64px 48px 48px); }
+toolbar[iconsize="small"] .translate-tool-disable-it { -moz-image-region: rect(32px 80px 48px 64px); }
+toolbar[iconsize="small"] .translate-tool-disable-el { -moz-image-region: rect(32px 96px 48px 80px); }
+toolbar[iconsize="small"] .translate-tool-disable-ko { -moz-image-region: rect(32px 112px 48px 96px); }
+toolbar[iconsize="small"] .translate-tool-disable-ja { -moz-image-region: rect(32px 128px 48px 112px); }
+toolbar[iconsize="small"] .translate-tool-disable-zh { -moz-image-region: rect(32px 144px 48px 128px); }
+toolbar[iconsize="small"] .translate-tool-disable-zt { -moz-image-region: rect(32px 160px 48px 144px); }
+toolbar[iconsize="small"] .translate-tool-disable-nl { -moz-image-region: rect(32px 176px 48px 160px); }
+toolbar[iconsize="small"] .translate-tool-disable-ru { -moz-image-region: rect(32px 192px 48px 176px); }
+toolbar[iconsize="small"] .translate-tool-disable-pt { -moz-image-region: rect(32px 208px 48px 192px); }
