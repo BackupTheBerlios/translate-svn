@@ -12,14 +12,9 @@
         <stringbundle id="bundle-translate" src="chrome://translate/locale/translate.properties"/>
 </stringbundleset>
 
-  <commandset id="mainCommandSet">
-    <command id="cmd_checkSubMenus" oncommand="checkJustDraged();"/>
-    </commandset>
-
     <menupopup id="menu_ToolsPopup">
-        <menu label="&translate.menu.label;"  insertbefore="prefSep">
+        <menu id="translate-pg-menu" label="&translate.menu.label;"  insertbefore="prefSep">
             <menupopup id="translate-tool-menu">
-               <!-- <menuitem label="fr" id="useragentswitcher-default-menu"/> -->
                 <menuseparator id="translate-options-separator"/>
                 <menu label="&translate.menu.options.label;">
                     <menupopup id="langSelect">
@@ -30,7 +25,6 @@
             </menupopup>
         </menu>
     </menupopup>
-
 
 
 <toolbarpalette id="BrowserToolbarPalette" >
