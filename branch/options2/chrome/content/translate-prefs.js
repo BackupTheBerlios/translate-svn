@@ -1,88 +1,78 @@
-function PGTranslate_prefs
-{
-	//  We need to reference the gPGTranslate object 
-	//  so we therefore need to reference the window
-	//  that contains gPGTranslate.
-	//  The user can access the preferences from 2 places, 
-	//  extensions window and the Tool Menu.
-	if(window.opener.opener == null)
-	{
-		this.openingWindow = window.opener;  // user will have arrive here from the Tool menu
-	} 
-	else
-	{
-		this.openingWindow = window.opener.opener; // user will have arrive here from the Extensions
-	}
+function PGTranslate_prefs(){
+  this.prefBranch = null;
+  
+  // pref values
+  this.PREF_CONTEXTMENU_ENABLED     = "translate.displayContextMenu"; // oops, sidebar?
+  this.PREF_TOOLMENU_ENABLED        = "translate.displayToolMenu";
+  this.PREF_LANGUAGE        = "translate.userlanguage";
+}
+
+PGTranslate_prefs.prototype.getPrefBranch = function(){
+  if (!this.prefBranch){ 
+    this.prefBranch = Components.classes['@mozilla.org/preferences-service;1'];
+    this.prefBranch = this.prefBranch.getService();
+    this.prefBranch = this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch);
+  }
+  
+  return this.prefBranch;
+}
+
+PGTranslate_prefs.prototype.setBoolPref = function(aName, aValue){
+  var myPrefs = this.getPrefBranch();
+  
+  myPrefs.setBoolPref(aName, aValue);
 }
 
 
-/**
- * This method is run when the user clicks on OK.   
- * Updates the settngs in the gPGTranslate object.
- * Saves the settings, then re-initialises the menus.
- */
-PGTranslate_prefs.prototype.accept = function()
-{
-	var listbox = document.getElementById("translate.prefs.language.selection");
-	var displayContextCheckbox = document.getElementById("translate.prefs.contextMenu");
-	var displayToolsCheckbox = document.getElementById("translate.prefs.displayTools");
+PGTranslate_prefs.prototype.getBoolPref = function(aName){
+  var myPrefs = this.getPrefBranch();
+  var rv = null;
 
-	gPGTranslate_prefs.openingWindow.gPGTranslate.changeLang(listbox.selectedIndex);
-	gPGTranslate_prefs.openingWindow.gPGTranslate.pref_displayContextMenu = displayContextCheckbox.checked  ;
-	gPGTranslate_prefs.openingWindow.gPGTranslate.pref_displayToolMenu = displayToolsCheckbox.checked  ;
-	
-	gPGTranslate_prefs.openingWindow.gPGTranslate.savePrefs();
-	gPGTranslate_prefs.openingWindow.gPGTranslate.initMenus();
+  try{
+    rv = myPrefs.getBoolPref(aName);
+  } catch (e){
+  
+  }
+  
+  return rv;
 }
 
-PGTranslate_prefs.prototype.onload = function()
-{
-	gPGTranslate_prefs.initListBox();
-	gPGTranslate_prefs.initValues();
+PGTranslate_prefs.prototype.setIntPref = function(aName, aValue){
+  var myPrefs = this.getPrefBranch();
+  
+  myPrefs.setIntPref(aName, aValue);
 }
 
 
-/**
- * Initialises the listbox with   
- * all the possible languages.
- * 
- */
-PGTranslate_prefs.prototype.initListBox = function()
-{
-	var listbox = document.getElementById("translate.prefs.language.selection");
-	var menupopup = document.createElement("menupopup");
-	var listitem ;
+PGTranslate_prefs.prototype.getIntPref = function(aName){
+  var myPrefs = this.getPrefBranch();
+  var rv = null;
 
-	for(var i = 0;i < PGTRANSLATE_LANGUAGEPAIRS.length ; i++)
-	{
-		
-	  listitem = document.createElement("menuitem");
-	  listitem.setAttribute("label",PGTRANSLATE_LANGUAGEUNICODE[i]);
-	  //listitem.setAttribute("name","languageSet");
-	  //listitem.setAttribute("tooltiptext", gPGTranslateBundle.getString("tool.menu."+PGTRANSLATE_LANGUAGEPAIRS[i][0]+".tooltip"));
-	  //listitem.setAttribute("oncommand","window.opener.opener.gPGTranslate.changeLang(i);");
-	  listitem.setAttribute("value",i);
-
-  	  menupopup.appendChild(listitem);
-	}
-
-	listbox.appendChild(menupopup);
+  try{
+    rv = myPrefs.getIntPref(aName);
+  } catch (e){
+  
+  }
+  
+  return rv;
 }
 
-/**
- * Prefil the form with initial values stored
- * in the pPGTranslate object.
- * 
- */
-PGTranslate_prefs.prototype.initValues = function()
-{	
-	var listbox = document.getElementById("translate.prefs.language.selection");
-	var displayContextCheckbox = document.getElementById("translate.prefs.contextMenu");
-	var displayToolsCheckbox = document.getElementById("translate.prefs.displayTools");
-	
-	listbox.selectedIndex = gPGTranslate_prefs.openingWindow.gPGTranslate.getTheLanguage();
-	displayContextCheckbox.checked = gPGTranslate_prefs.openingWindow.gPGTranslate.pref_displayContextMenu  ;
-	displayToolsCheckbox.checked = gPGTranslate_prefs.openingWindow.gPGTranslate.pref_displayToolMenu  ;
+PGTranslate_prefs.prototype.setCharPref = function(aName, aValue){
+  var myPrefs = this.getPrefBranch();
+  
+  myPrefs.setCharPref(aName, aValue);
 }
 
-gPGTranslate_prefs = new PGTranslate_prefs(); 
+
+PGTranslate_prefs.prototype.getCharPref = function(aName){
+  var myPrefs = this.getPrefBranch();
+  var rv = null;
+
+  try{
+    rv = myPrefs.getCharPref(aName);
+  } catch (e){
+  
+  }
+  
+  return rv;
+}

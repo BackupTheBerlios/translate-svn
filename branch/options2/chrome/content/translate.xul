@@ -5,7 +5,9 @@
 
 <overlay id="translateToolbarOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <script type="application/x-javascript" src="chrome://translate/content/language_pairs.js"/>
+<script type="application/x-javascript" src="chrome://translate/content/translate-prefs.js"/>
 <script type="application/x-javascript" src="chrome://translate/content/translate.js"/>
+
 
 
 <stringbundleset id="stringbundleset">
