@@ -15,6 +15,82 @@ String.prototype.trim = function()
   return x;
 }
 
+
+var _BookmarksFolder = null;
+var	_FavoritesFolder = null;
+
+var	_rdfService = null;
+var	_ds = null;
+var	_Container = null;
+var	_urlArc = null;
+var	_nameArc = null;
+var	_descArc = null;
+
+function init ()
+{
+		this._rdfService = Components.classes["@mozilla.org/rdf/rdf-service;1"]
+											.getService(Components.interfaces.nsIRDFService);
+		this._Container = Components.classes["@mozilla.org/rdf/container;1"]
+										.getService(Components.interfaces.nsIRDFContainer);
+		this._ds=this._rdfService.GetDataSourceBlocking("rdf:bookmarks");
+		this._ds.QueryInterface(Components.interfaces.nsIBookmarksService);
+		this._rdfcUtils = Components.classes['@mozilla.org/rdf/container-utils;1']
+						.getService(Components.interfaces.nsIRDFContainerUtils);
+		this._Container.Init(this._ds,this._rdfService.GetResource("NC:BookmarksRoot"));
+
+		this._urlArc=this._rdfService.GetResource( "http://home.netscape.com/NC-rdf#URL");
+		this._nameArc=this._rdfService.GetResource( "http://home.netscape.com/NC-rdf#Name");
+		this._descArc=this._rdfService.GetResource("http://home.netscape.com/NC-rdf#Description");
+    this._typeArc=this._rdfService.GetResource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+    this._shortcutUrlArc=this._rdfService.GetResource( "http://home.netscape.com/NC-rdf#ShortcutURL"); 
+    
+    
+    export();   
+}
+
+function export ()
+{
+	var elements=this._Container.GetElements();
+	while(elements.hasMoreElements())
+	{
+			var resource=elements.getNext();
+			resource.QueryInterface(Components.interfaces.nsIRDFResource).Value;
+			
+			var keyword=this._getLiteral(resource,this._shortcutUrlArc);
+			
+			dump(keyword + "/n");
+			
+			/*
+			name=name.replace(/\"/g,"\'");
+			name=name.replace(/[\\\/\*:<>\?\|]/g,"-");
+			var tempFile=folderset[0].clone();
+
+			if(this._rdfcUtils.IsContainer(this._ds,resource))
+			{
+				tempFile.append(name);
+				if(!tempFile.exists())
+					tempFile.create(1,0666);
+				foldersets.push([tempFile,resource]);
+			}
+			else if(this._ds.hasArcOut(resource,this._urlArc))
+			{
+				var url=this._getLiteral(resource,this._urlArc);
+				var fileContents="[InternetShortcut]\r\nURL="+url+"\r\n";
+				tempFile.append(name+".url");
+    		stream.init(tempFile, 0x20|0x02|0x08, 0666, 0);
+    		stream.write(fileContents, fileContents.length);
+    		stream.close();
+    	}
+    	*/
+	}	
+}
+
+
+
+
+
+
+
 // Contructor to set up some variables and preferences
 function PGTranslate() // lets initialise some of the variables that we are going to use
 {
@@ -87,6 +163,7 @@ PGTranslate.prototype.onLoad = function()
 		alert("no bundle");  // alert if tranlate.properties is invalid
 	}
 	gPGTranslate.initMenus();
+	init();
 }
 
 // This method is excuted after each page refresh
