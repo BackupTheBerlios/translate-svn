@@ -65,26 +65,29 @@ function enableTranslate(uri)
 	ext = ext.split(".");
 
 	var toolbarItem = document.getElementById("translate-pg");
-	var toolbarMenu = document.getElementById("transate-pg-menu");
+	var toolbarMenu = document.getElementById("translate-pg-menu");
+
 
 
 	if( ext == null)
 	{
 		toolbarItem.disabled = false;
 		toolbarMenu.disabled = false;
-		//alert("null: " + toolbarItem.disabled);
+		//alert("null: " + toolbarMenu.disabled);
 	}
 	else if ( ext[ext.length-1] == "gif" || ext[ext.length-1] == "png" || ext[ext.length-1] == "jpg")
 	{
 		toolbarItem.disabled = true;
 		toolbarMenu.disabled = true;
-		//alert("dis: " + toolbarItem.disabled);
+		//toolbarMenu.allowevents = false;
+
+		//alert("dis: " + toolbarMenu.disabled);
 	}
 	else
 	{
 		toolbarItem.disabled = false;
 		toolbarMenu.disabled = false;
-		//alert("else: " +toolbarItem.disabled);
+		//alert("else: " + toolbarMenu.disabled);
 	}
 
 }
