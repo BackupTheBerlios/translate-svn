@@ -1,0 +1,11 @@
+function translate_saveOptions()
+{
+	
+}
+
+
+
+translate_changeLang(userLang)
+{
+	
+}
