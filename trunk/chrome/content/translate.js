@@ -1,4 +1,4 @@
-const quicktranslationSite = "http://translate.google.com/translate_c?u=;
+const quicktranslationSite = "http://translate.google.com/translate_c?u=";
 const translationSite = "http://babelfish.altavista.com/babelfish/trurl_load?";
 const selectionSite = "http://babelfish.altavista.com/babelfish/tr?"
 const firstArg = "url";
