@@ -88,11 +88,22 @@ function initMenus()  //initialises the context menu and the toolbar menu
    
    //set up toolbar variables
    var toolbarItem = document.getElementById("translate-pg");
-   var toolbarMenuPopupElement = document.createElement("menupopup");  
-   var toolbarMenuItemLabel;
-   var toolbarMenuItemTooltiptext;
-   var toolbarMenuItemOncommand ;
-   var toolbarMenuItemElement;
+   if( toolbarItem)
+   {  		
+   		var isToolbar = true;
+	}
+	else
+	{
+		var isToolbar = false;
+	}
+	
+	   	var toolbarMenuPopupElement = document.createElement("menupopup");  
+   		var toolbarMenuItemLabel;
+   		var toolbarMenuItemTooltiptext;
+   		var toolbarMenuItemOncommand ;
+   		var toolbarMenuItemElement;
+	
+	
 
    var toolMenu = document.getElementById("translate-tool-menu");
    var toolMenuSeperator = document.getElementById("translate-options-separator");
@@ -126,27 +137,32 @@ function initMenus()  //initialises the context menu and the toolbar menu
 		toolbarMenuPopupElement.appendChild(toolbarMenuItemElement);
     }
         
-        
-    //set toolbar button class, which inturns sets the icon    
-    toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[glocale][0]); 
     
-    //setup quick translate  (english uses googles quick translate, all other languages default to english translation)
+    if(isToolbar)
+    {    
+    	//set toolbar button class, which inturns sets the icon    
+    	toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[glocale][0]); 
     
-    if(glocale == 0)
-    {
-    	toolbarItem.setAttribute("oncommand","if (event.target==this)   quick_translate();");
-    }
-    else
-    {
-    	toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom(\'en_" + glanguagePairs[glocale][0] + "\');");
-    }
+    	//setup quick translate  (english uses googles quick translate, all other languages default to english translation)
+    
+    	if(glocale == 0)
+    	{
+    		toolbarItem.setAttribute("oncommand","if (event.target==this)   quick_translate();");
+    	}
+    	else
+    	{
+    		toolbarItem.setAttribute("oncommand","if (event.target==this)   translateFrom(\'en_" + glanguagePairs[glocale][0] + "\');");
+    	}
+	}
     
     // here's where we add menus if they aren't already there, if they are, then we remove them then add the new ones 
     if(contextItem.hasChildNodes())  //if Firefox has already started, then replace existing childnodes, otherwise append them
     { 
     		contextItem.replaceChild(contextMenuPopupElement,contextItem.firstChild);
-    		toolbarItem.replaceChild(toolbarMenuPopupElement,toolbarItem.firstChild);
-    		
+    		if(isToolbar)
+    		{
+    			toolbarItem.replaceChild(toolbarMenuPopupElement,toolbarItem.firstChild);
+    		}
     		
     		// deals with adding languages to the tool menu, basically we add a clone of the toolbar menu.
     		// Tricky part is to remove existing menuitems
@@ -166,17 +182,16 @@ function initMenus()  //initialises the context menu and the toolbar menu
     		for( var i = 0 ; i < nodeLength  ;i++)
     		{
     			toolMenu.insertBefore(cloneMenu.childNodes[0],toolMenuSeperator);
-    		}
-    		
-    	
-    		
+    		}    		
     }
     else
   	{
   			// adds both context menu and toolbar menu   
   		  	contextItem.appendChild(contextMenuPopupElement);
-    		toolbarItem.appendChild(toolbarMenuPopupElement); 
-    		
+  		  	if(isToolbar)
+  		  	{
+  		  		toolbarItem.appendChild(toolbarMenuPopupElement); 
+    		}
     		// creates list of translation languages in the tool menu	
     		var cloneMenu = toolbarMenuPopupElement.cloneNode(true);  // use a clone because insertBefore moves elements and does NOT copy
     		var nodeLength = cloneMenu.childNodes.length;
