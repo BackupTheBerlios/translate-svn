@@ -8,7 +8,7 @@ var selectFirstArg = "urltext";
 var secondArg = "lp";
 var equals = "=";
 var amp = "&";
-var glocale ;
+var glocale =2 ;
 
 var languagePairs = new Array();
 languagePairs[0] = new Array("en","fr", "de", "es", "it","nl", "pt", "el", "ko","ja", "zh", "zt", "ru");
@@ -45,9 +45,8 @@ function translateInit()
    
   
    
-  readPrefs();
-  initContextMenu();
-  initToolbarMenu();
+
+  initMenus();
    
    
 }
@@ -61,60 +60,77 @@ function readPrefs()
 
 function initToolbarMenu()
 {
-	 glocale = 2;
-   var item = document.getElementById("translate-pg");  
-   var menuPopupElement = document.createElement("menupopup");
+	 
+   
   
-	 for(var i = 1; i < languagePairs[glocale].length ; i++)
-   {
+  
+	 
 	
-    	var languagePair = languagePairs[glocale][i] + "_" + languagePairs[glocale][0];
-    	var menuItemLabel = gTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
-      var menuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
-    	var menuItemOncommand = "translateFrom('" + languagePair + "');";
-   		var menuItemElement = document.createElement("menuitem");
     	
-    	   	
+
     	
-    	menuItemElement.setAttribute("label",menuItemLabel);
-    	menuItemElement.setAttribute("tooltiptext",menuItemTooltiptext);
-    	menuItemElement.setAttribute("oncommand",menuItemOncommand);
-    	 	
-			menuPopupElement.appendChild(menuItemElement);
-    	
-    }
+ 
         
-    item.appendChild(menuPopupElement);
+   
 	
 	
 }
 
-function initContextMenu()
+function initMenus()
 {
-   glocale = 2;
-   var item = document.getElementById("translate-context");  
-   var menuPopupElement = document.createElement("menupopup");
-  
+   var languagePair;
+   
+   var contextItem = document.getElementById("translate-context");
+   
+   var contextMenuPopupElement = document.createElement("menupopup");
+   
+   var contextMenuItemLabel;
+   var contextMenuItemTooltiptext;
+   var contextMenuItemOncommand;
+   
+   var contextMenuItemElement;
+   
+   var toolbarItem = document.getElementById("translate-pg");
+   var toolbarMenuPopupElement = document.createElement("menupopup");  
+   var toolbarMenuItemLabel;
+   var toolbarMenuItemTooltiptext;
+   var toolbarMenuItemOncommand ;
+   var toolbarMenuItemElement;
+   
 	 for(var i = 1; i < languagePairs[glocale].length ; i++)
    {
 	
-    	var languagePair = languagePairs[glocale][i] + "_" + languagePairs[glocale][0];
-    	var menuItemLabel = gTranslateBundle.getString("context.menu." + languagePair + ".label");
-      var menuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
-    	var menuItemOncommand = "translateSelection('" + languagePair + "');";
-   		var menuItemElement = document.createElement("menuitem");
+    	languagePair = languagePairs[glocale][i] + "_" + languagePairs[glocale][0];
     	
-    	   	
-    	
-    	menuItemElement.setAttribute("label",menuItemLabel);
-    	menuItemElement.setAttribute("tooltiptext",menuItemTooltiptext);
-    	menuItemElement.setAttribute("oncommand",menuItemOncommand);
-    	 	
-			menuPopupElement.appendChild(menuItemElement);
+    	//setup up context menu
+    	contextMenuItemLabel = gTranslateBundle.getString("context.menu." + languagePair + ".label");
+      contextMenuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
+    	contextMenuItemOncommand = "translateSelection('" + languagePair + "');";
+   		
+   		contextMenuItemElement = document.createElement("menuitem");    	
+    	contextMenuItemElement.setAttribute("label",contextMenuItemLabel);
+    	contextMenuItemElement.setAttribute("tooltiptext",contextMenuItemTooltiptext);
+    	contextMenuItemElement.setAttribute("oncommand",contextMenuItemOncommand);
+			
+			contextMenuPopupElement.appendChild(contextMenuItemElement);
+			
+			//setup toolbutton menu
+			toolbarMenuItemLabel = gTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
+      toolbarMenuItemTooltiptext = 	gTranslateBundle.getString(languagePair + ".tooltip");
+    	toolbarMenuItemOncommand = "translateFrom('" + languagePair + "');";
+   		
+   		toolbarMenuItemElement = document.createElement("menuitem");   	
+    	toolbarMenuItemElement.setAttribute("label",toolbarMenuItemLabel);
+    	toolbarMenuItemElement.setAttribute("tooltiptext",toolbarMenuItemTooltiptext);
+    	toolbarMenuItemElement.setAttribute("oncommand",toolbarMenuItemOncommand);    	 	
+			
+			toolbarMenuPopupElement.appendChild(toolbarMenuItemElement);
+			
     	
     }
         
-    item.appendChild(menuPopupElement);
+    contextItem.appendChild(contextMenuPopupElement);
+    toolbarItem.appendChild(toolbarMenuPopupElement);
         
 }
 
