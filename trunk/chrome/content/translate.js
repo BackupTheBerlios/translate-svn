@@ -73,7 +73,6 @@ PGTranslate.prototype.initPref = function (aPrefName, aPrefType, aDefaultValue){
   }
 }
 
- 
 
 
 PGTranslate.prototype.onLoad = function()
@@ -128,15 +127,6 @@ PGTranslate.prototype.onLoad = function()
 }
 
 PGTranslate.prototype.enableTranslate  = function (aUri)
-
-
-
-
-
-
-
-
-
 {
 	
 	var ext = aUri.toLowerCase();
