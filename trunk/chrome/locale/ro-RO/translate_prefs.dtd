@@ -1,0 +1,7 @@
+﻿<!ENTITY translate.prefs.name "Translate preferences">
+<!ENTITY translate.prefs.groupbox.ui "Limbă">
+<!ENTITY translate.prefs "Translate">
+<!ENTITY translate.prefs.menus "Menu-uri">
+<!ENTITY translate.prefs.menus.tool "Afişează meniul tools">
+<!ENTITY translate.prefs.menus.context "Afişează meniul context">
+<!ENTITY translate.prefs.menus.language "Seletaţi limbajul dvs.">
