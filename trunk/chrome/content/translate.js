@@ -156,7 +156,7 @@ function initMenus()
     //setup quick translate
     if(glocale == 0)
     {
-    	toolbarItem.setAttribute("oncommand","quick_translate();");
+    	toolbarItem.setAttribute("oncommand","if (event.target==this)   quick_translate();");
     }
     else
     {
