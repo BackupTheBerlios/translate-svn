@@ -4,7 +4,7 @@
 <?xml-stylesheet href="chrome://translate/skin/translate.css" type="text/css"?>
 
 <overlay id="translateToolbarOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-<script type="application/x-javascript" src="chrome://translate/content/language_pairs.js"/>  
+<script type="application/x-javascript" src="chrome://translate/content/language_pairs.js"/>
 <script type="application/x-javascript" src="chrome://translate/content/translate.js"/>
 
   
@@ -34,7 +34,7 @@
 
 
 <toolbarpalette id="BrowserToolbarPalette" >
-	<toolbarbutton  label="&translate.toolbar.label;"  class="translate-tool-en" id="translate-pg"  tooltiptext="&translate.toolbar.tooltip;" type="menu-button" oncommand="if (event.target==this)   quickTranslate();">
+	<toolbarbutton  label="&translate.toolbar.label;"  class="translate-tool-en toolbarbutton-1" id="translate-pg"  tooltiptext="&translate.toolbar.tooltip;" type="menu-button" oncommand="if (event.target==this)   quickTranslate();">
 	 <menupopup id="translate-toolbutton-menupopup" onpopupshowing="fillToolbutton();" />
 	</toolbarbutton>
 </toolbarpalette>
@@ -47,7 +47,7 @@
 		<menuitem label="&translate.context.menu.fr_en.label;" tooltiptext="&translate.fr_en.tooltip;" oncommand="translateSelection('fr_en');"/>
 		<menuitem label="&translate.context.menu.es_en.label;" tooltiptext="&translate.es_en.tooltip;" oncommand="translateSelection('es_en');"/>
 		<menuitem label="&translate.context.menu.it_en.label;" tooltiptext="&translate.it_en.tooltip;" oncommand="translateSelection('it_en');"/>
-		<menuitem label="&translate.context.menu.pt_en.label;" tooltiptext="&translate.pt_en.tooltip;" oncommand="translateSelection('pt_en');"/>		
+		<menuitem label="&translate.context.menu.pt_en.label;" tooltiptext="&translate.pt_en.tooltip;" oncommand="translateSelection('pt_en');"/>
 		<menuitem label="&translate.context.menu.de_en.label;" tooltiptext="&translate.de_en.tooltip;" oncommand="translateSelection('de_en');"/>
 		<menuitem label="&translate.context.menu.ru_en.label;" tooltiptext="&translate.ru_en.tooltip;" oncommand="translateSelection('ru_en');"/>
 		<menuitem label="&translate.context.menu.ja_en.label;" tooltiptext="&translate.ja_en.tooltip;" oncommand="translateSelection('ja_en');"/>

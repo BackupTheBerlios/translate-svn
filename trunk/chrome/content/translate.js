@@ -24,7 +24,7 @@ function quickTranslate()
 	}
 	else
 	{
-		translateFrom("en_" + glanguagePairs[gPGTranslateLocale][0]);
+		translateFrom("en_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][0]);
 	}
 }
 
@@ -58,10 +58,10 @@ function fillToolbutton()
 	}
 
 
-   	for(var i = 1; i < glanguagePairs[gPGTranslateLocale].length ; i++)
+   	for(var i = 1; i < PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale].length ; i++)
 	{
 
-		languagePair = glanguagePairs[gPGTranslateLocale][i] + "_" + glanguagePairs[gPGTranslateLocale][0];
+		languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][i] + "_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][0];
 		//add menuitems to the toolbutton menu
 		toolbarMenuItemLabel = gPGTranslateBundle.getString("toolbar.menu." + languagePair + ".label");
       	toolbarMenuItemTooltiptext = 	gPGTranslateBundle.getString(languagePair + ".tooltip");
@@ -107,12 +107,12 @@ function initOptionsMenu()  //read through the array found in languagePairs and 
 	var menuPopup = document.getElementById("langSelect");
 	var menuItem ;
 
-	for(var i = 0;i < glanguagePairs.length ; i++)
+	for(var i = 0;i < PGTRANSLATE_LANGUAGEPAIRS.length ; i++)
 	{
 	  menuItem = document.createElement("menuitem");
-	  menuItem.setAttribute("label",glanguageUnicode[i]);
+	  menuItem.setAttribute("label",PGTRANSLATE_LANGUAGEUNICODE[i]);
 	  menuItem.setAttribute("name","languageSet");
-	  menuItem.setAttribute("tooltiptext", gPGTranslateBundle.getString("tool.menu."+glanguagePairs[i][0]+".tooltip"));
+	  menuItem.setAttribute("tooltiptext", gPGTranslateBundle.getString("tool.menu."+PGTRANSLATE_LANGUAGEPAIRS[i][0]+".tooltip"));
 	  menuItem.setAttribute("oncommand","setLang("+ i +")");
 	  menuItem.setAttribute("type","radio");
 
@@ -151,9 +151,9 @@ function initMenus()  //initialises the context menu and the toolbar menu
 
 
 
-   for(var i = 1; i < glanguagePairs[gPGTranslateLocale].length ; i++)
+   for(var i = 1; i < PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale].length ; i++)
    {
-		languagePair = glanguagePairs[gPGTranslateLocale][i] + "_" + glanguagePairs[gPGTranslateLocale][0];
+		languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][i] + "_" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][0];
 
     	//add menuitems to the  context menu
     	contextMenuItemLabel = gPGTranslateBundle.getString("context.menu." + languagePair + ".label");
@@ -228,7 +228,7 @@ function initMenus()  //initialises the context menu and the toolbar menu
 
 
 	//set toolbar button class, which inturns sets the icon
-  	toolbarItem.setAttribute("class","translate-tool-" + glanguagePairs[gPGTranslateLocale][0] + " toolbarbutton-1");
+  	toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslateLocale][0] + " toolbarbutton-1");
 
 
 
