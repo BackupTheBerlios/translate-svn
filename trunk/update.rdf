@@ -4,7 +4,7 @@
 
 	<RDF:Description RDF:about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}">
 		<em:version>0.5.0</em:version>
-		<em:updateLink>http://www.ctomer.com/extensions/translate/translate.xpi</em:updateLink>
+		<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.0.xpi</em:updateLink>
 	</RDF:Description>
 
 </RDF:RDF>
