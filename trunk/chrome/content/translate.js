@@ -52,7 +52,10 @@ function translateInit()
   }
   
   const preferencesService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("");
-  glocale = preferencesService.getIntPref("translate.userlanguage");
+  if(preferencesService.prefHasUserValue("translate.userlanguage"))
+  {
+  	glocale = preferencesService.getIntPref("translate.userlanguage");
+	}
   
   initOptionsMenu();
      	
