@@ -14,16 +14,14 @@
 
 
     <menupopup id="menu_ToolsPopup">
-        <menu label="&useragentswitcher.name;" accesskey="&useragentswitcher.key;" insertbefore="prefSep">
-            <menupopup onpopupshowing="useragentswitcher_displayUserAgentSwitcherMenu(this)">
-                <menuitem label="&useragentswitcher.default.label;" accesskey="&useragentswitcher.default.key;" id="useragentswitcher-default-menu" type="radio" oncommand="useragentswitcher_reset()"/>
-                <menuseparator/>
+        <menu label="&translate.menu.label;">
+            <menupopup>
+                <menuitem label="useragentswitcher.default.label" accesskey="useragentswitcher.default.key" id="useragentswitcher-default-menu" type="radio"/>
                 <menuseparator id="useragentswitcher-options-separator"/>
-                <menu label="&useragentswitcher.options.label;" accesskey="&useragentswitcher.options.key;">
-                    <menupopup>
-                        <menuitem label="&useragentswitcher.options.menu.label;" accesskey="&useragentswitcher.options.menu.key;" oncommand="useragentswitcher_options()"/>
-                        <menuseparator/>
-                        <menuitem label="&useragentswitcher.about.label;" accesskey="&useragentswitcher.about.key;" oncommand="useragentswitcher_about()"/>
+                <menu label="&translate.menu.options.label;">
+                    <menupopup id="langSelect">
+                        <menuitem label="EN" name="languageSet" oncommand="setLang(0)" type="checkbox"/>
+                        <menuitem label="DE" name="languageSet" oncommand="setLang(2)" type="checkbox"/>
                     </menupopup>
                 </menu>
             </menupopup>
