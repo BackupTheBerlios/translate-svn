@@ -8,7 +8,7 @@
 		<em:creator>Paul Grave</em:creator>
 		<em:homepageURL>http://ctomer.com/</em:homepageURL>
 		<em:file>
-			<Description about="urn:mozilla:extension:file:kontextKeywords.jar">
+			<Description about="urn:mozilla:extension:file:kontextkeywords.jar">
 				<em:package>content/</em:package>
 			</Description>
 		</em:file>
