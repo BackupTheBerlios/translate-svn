@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<overlay id="translateToolbarOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script type="application/x-javascript" src="chrome://kontextkeywords/content/kontextkeywords.js"/>
+<popup id="contentAreaContextMenu">
+	<menuseparator id="tempSeparator"/>
+		<menu label="Keyword"  id="temp-context">
+		<!-- menuitems added dynamically here  -->
+	</menu>
+</popup>
+</overlay>
+
