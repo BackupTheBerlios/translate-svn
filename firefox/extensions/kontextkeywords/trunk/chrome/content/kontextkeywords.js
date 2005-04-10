@@ -58,7 +58,7 @@ PgKontextKeywords.prototype.createMenuItems = function(aElements, aSelectedText)
 					if(contextMenuItemTooltiptext = "")			
 						contextMenuItemTooltiptext = contextMenuItemLabel;
 					
-					contextMenuItemOncommand = "gPgKontextkeywords.addKontextCommand('"+keywordURL+"','"+ aSelectedText +"');";
+					contextMenuItemOncommand = "gPgKontextKeywords.addKontextCommand('"+keywordURL+"','"+ aSelectedText +"');";
 					contextMenuItemImage = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Icon");
 										
 					contextMenuItemElement = document.createElement("menuitem");
@@ -95,7 +95,7 @@ PgKontextKeywords.prototype.kontextPopup = function()
 	if(selection != "")
 	{
 		var selectedText = selection.toString() ;
-		initmenu(selectedText);		
+		gPgKontextKeywords.initmenu(selectedText);		
 		selectedText = selectedText.trim();
 		if (selectedText.length > 15)  // crop selected text if necessary
 		{
