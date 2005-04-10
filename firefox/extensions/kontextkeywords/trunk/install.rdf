@@ -3,7 +3,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>{76BA124D-D343-4eab-8A4D-31331E824574}</em:id>
 		<em:name>Kontext Keywords</em:name>
-		<em:version>0.1.1</em:version>
+		<em:version>0.1.2</em:version>
 		<em:description>Adds keywords to the context menu</em:description>
 		<em:creator>Paul Grave</em:creator>
 		<em:homepageURL>http://ctomer.com/</em:homepageURL>

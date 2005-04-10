@@ -20,7 +20,7 @@
 	</RDF:Seq>
 
 	<RDF:Description RDF:about="urn:mozilla:package:kontextkeywords"
-		chrome:displayName="Kontext Keywords 0.1.1"		
+		chrome:displayName="Kontext Keywords 0.1.2"		
 		chrome:author="Paul Grave"
 		chrome:authorURL="mailto:paul@ctomer.com"
 		chrome:name="kontextkeywords"
