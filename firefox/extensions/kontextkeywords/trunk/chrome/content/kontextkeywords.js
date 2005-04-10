@@ -19,7 +19,6 @@ function tempClose()
 function countElements(aElements, selectedText)  //returns an array of menuItems
 {
 	var menuItems = new Array();
-	var count = 0;
 	
 	while (aElements.hasMoreElements()) 
 	{
@@ -46,6 +45,9 @@ function countElements(aElements, selectedText)  //returns an array of menuItems
 					
 					contextMenuItemLabel = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Name");
 					contextMenuItemTooltiptext = 	BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Description");
+					if(contextMenuItemTooltiptext = "")			
+						contextMenuItemTooltiptext = contextMenuItemLabel;
+					
 					contextMenuItemOncommand = "gotoSearch('"+keywordURL+"','"+selectedText+"');";
 					contextMenuItemImage = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Icon");
 										
