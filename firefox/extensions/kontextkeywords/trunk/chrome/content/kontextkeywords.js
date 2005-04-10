@@ -6,48 +6,29 @@ String.prototype.trim = function()
   return x;
 }
 
-var grdfService = RDF; //Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
-var gbookmarkDS = BMDS; //grdfService.GetDataSource("rdf:bookmarks");
+//var grdfService = RDF; //Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
+//var gbookmarkDS = BMDS; //grdfService.GetDataSource("rdf:bookmarks");
 
-gkRDFCContractID  = kRDFCContractID; //"@mozilla.org/rdf/container;1";
-gkRDFCIID         = kRDFCIID ; //Components.interfaces.nsIRDFContainer;
-gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance(gkRDFCIID);
-
-
-
+//gkRDFCContractID  = kRDFCContractID; //"@mozilla.org/rdf/container;1";
+//gkRDFCIID         = kRDFCIID ; //Components.interfaces.nsIRDFContainer;
+//gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance(gkRDFCIID);
 
 function tempLoad()
 {
-//	alert("temLoad");
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",tempPopup,false);
-	
-	
-	
 }	
-
-
 
 function tempClose()
 {
-//	alert("tempunloaded");
 	document.getElementById("contentAreaContextMenu").removeEventListener("popupshowing",tempPopup,false);
 }
-
-
-
 
 function countElements(aElements, selectedText)  //returns an array of menuItems
 {
 
-	 grdfService = RDF; //Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
-gbookmarkDS = BMDS; //grdfService.GetDataSource("rdf:bookmarks");
-
-gkRDFCContractID  = kRDFCContractID; //"@mozilla.org/rdf/container;1";
-gkRDFCIID         = kRDFCIID ; //Components.interfaces.nsIRDFContainer;
-gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance(gkRDFCIID);
-
-	
-	//var count = 0;
+//	 grdfService = RDF; //Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
+//gbookmarkDS = BMDS; //grdfService.GetDataSource("rdf:bookmarks");
+//gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance(gkRDFCIID);
 	var menuItems = new Array();
 	var count = 0;
 	
@@ -58,8 +39,8 @@ gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance
 		{
 			if(BookmarksUtils.resolveType(currentElement) == "Folder")
 			{	
-				gRDFC.Init(gbookmarkDS, currentElement);
-				menuItems = menuItems.concat( countElements(gRDFC.GetElements(), selectedText));
+				RDFC.Init(BMDS, currentElement);
+				menuItems = menuItems.concat( countElements(RDFC.GetElements(), selectedText));
 				//alert("concating");		
 			}
 			else  //it's a bookmark
@@ -75,22 +56,18 @@ gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance
 					var contextMenuItemImage;
 					var contextMenuItemElement;
 					
-					
 					contextMenuItemLabel = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Name");
 					contextMenuItemTooltiptext = 	BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Description");
 					contextMenuItemOncommand = "gotoSearch('"+keywordURL+"','"+selectedText+"');";
 					contextMenuItemImage = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Icon");
-					
-					
+										
 					contextMenuItemElement = document.createElement("menuitem");
 					contextMenuItemElement.setAttribute("label",contextMenuItemLabel);
 					contextMenuItemElement.setAttribute("tooltiptext",contextMenuItemTooltiptext);
 					contextMenuItemElement.setAttribute("oncommand",contextMenuItemOncommand);
 					contextMenuItemElement.setAttribute("image",contextMenuItemImage);
 					contextMenuItemElement.setAttribute("class","menuitem-iconic");
-					//alert("pushing");
-					menuItems.push(contextMenuItemElement);
-					
+					menuItems.push(contextMenuItemElement);	
 				}
 			}	
 		}
@@ -100,21 +77,15 @@ gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance
 
 function gotoSearch(keywordURL, selectedText)
 {
-	re = /%s/;
-	
+	re = /%s/;	
 	uri = keywordURL.replace(re, selectedText);
-	
 	getBrowser().addTab(uri);
 }
 
 function tempPopup()
 {
-
-//	alert("popup");
-	  initServices();
-  initBMService();
-	
-	
+	initServices();
+  	initBMService();
 	var item = document.getElementById("temp-context");
 	var sep = document.getElementById("tempSeparator");
 	
@@ -130,8 +101,7 @@ function tempPopup()
 	{
 	    selectedText = selectedText.substr(0,15) + "...";
 	}
-	var menuText;
-	
+	var menuText;	
 	
 	sep.hidden = false;  //display separator
 	item.hidden = false; //display menu
@@ -143,28 +113,15 @@ function tempPopup()
 
 function initmenu(selectedText)
 {
-//	alert("initmenu");
-	 grdfService = RDF; //Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
-gbookmarkDS = BMDS; //grdfService.GetDataSource("rdf:bookmarks");
-
-gkRDFCContractID  = kRDFCContractID; //"@mozilla.org/rdf/container;1";
-gkRDFCIID         = kRDFCIID ; //Components.interfaces.nsIRDFContainer;
-gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance(gkRDFCIID);
-
 	grTarget = RDF.GetResource("NC:BookmarksRoot");
-	gRDFC.Init(gbookmarkDS, grTarget);	
+	RDFC.Init(BMDS, grTarget);	
    var contextItem = document.getElementById("temp-context");
-   
    var contextMenuPopupElement = document.createElement("menupopup");
-   var itemArray = countElements(gRDFC.GetElements() , selectedText);
-  // alert(itemArray.length);
+   var itemArray = countElements(RDFC.GetElements() , selectedText);
    for(var i = 0 ; i < itemArray.length ; i++)
    { 
 		contextMenuPopupElement.appendChild(itemArray[i]);
 	}
-	
-	
-	
 	
  if(contextItem.hasChildNodes())  //if Firefox has already started, then replace existing childnodes, otherwise append them
     {
@@ -173,15 +130,10 @@ gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance
     else
   	{
   		  		contextItem.appendChild(contextMenuPopupElement);
-
-  	}
-	
-	
-	
-	
-	
-  	
+  	}  	
 }
+
+
 //alert("loaded");
 window.addEventListener("load",tempLoad,false);
 window.addEventListener("close", tempClose, false);
