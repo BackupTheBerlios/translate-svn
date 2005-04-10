@@ -6,13 +6,6 @@ String.prototype.trim = function()
   return x;
 }
 
-//var grdfService = RDF; //Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
-//var gbookmarkDS = BMDS; //grdfService.GetDataSource("rdf:bookmarks");
-
-//gkRDFCContractID  = kRDFCContractID; //"@mozilla.org/rdf/container;1";
-//gkRDFCIID         = kRDFCIID ; //Components.interfaces.nsIRDFContainer;
-//gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance(gkRDFCIID);
-
 function tempLoad()
 {
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",tempPopup,false);
@@ -25,10 +18,6 @@ function tempClose()
 
 function countElements(aElements, selectedText)  //returns an array of menuItems
 {
-
-//	 grdfService = RDF; //Components.classes["@mozilla.org/rdf/rdf-service;1"].getService(Components.interfaces.nsIRDFService);
-//gbookmarkDS = BMDS; //grdfService.GetDataSource("rdf:bookmarks");
-//gRDFC             = RDFC ; //Components.classes[gkRDFCContractID].createInstance(gkRDFCIID);
 	var menuItems = new Array();
 	var count = 0;
 	
@@ -41,7 +30,6 @@ function countElements(aElements, selectedText)  //returns an array of menuItems
 			{	
 				RDFC.Init(BMDS, currentElement);
 				menuItems = menuItems.concat( countElements(RDFC.GetElements(), selectedText));
-				//alert("concating");		
 			}
 			else  //it's a bookmark
 			{
@@ -140,7 +128,5 @@ function initmenu(selectedText)
   	}  	
 }
 
-
-//alert("loaded");
 window.addEventListener("load",tempLoad,false);
 window.addEventListener("close", tempClose, false);
