@@ -21,12 +21,24 @@
 			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.4"/>
 			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.5"/>
 			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.6"/>
-			<RDF:li resource="urn:mozilla:extension:{76BA124D-D343-4eab-8A4D-31331E824574}:0.1.0"/>
-			<RDF:li resource="urn:mozilla:extension:{76BA124D-D343-4eab-8A4D-31331E824574}:0.1.1"/>
-			
 			</RDF:Seq>
 		</em:updates>
+		<em:version>0.6.0.6</em:version>
+    	<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.6-fx.xpi</em:updateLink>
 	</RDF:Description>
+ 
+ 	<RDF:Description about="urn:mozilla:extension:{76BA124D-D343-4eab-8A4D-31331E824574}">
+		<em:updates>
+			<RDF:Seq>
+			<RDF:li resource="urn:mozilla:extension:{76BA124D-D343-4eab-8A4D-31331E824574}:0.1.0"/>
+			<RDF:li resource="urn:mozilla:extension:{76BA124D-D343-4eab-8A4D-31331E824574}:0.1.1"/>
+			</RDF:Seq>
+		</em:updates>
+		<em:version>0.1.1</em:version>
+    	<em:updateLink>http://www.ctomer.com/extensions/kontextkeywords/kontextkeywords-0.1.1-fx.xpi</em:updateLink>
+	</RDF:Description>
+ 
+ 
  
 	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.6">
 		<em:version>0.6.0.6</em:version>
