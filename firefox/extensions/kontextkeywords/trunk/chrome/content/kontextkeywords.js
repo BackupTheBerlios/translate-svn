@@ -55,7 +55,7 @@ PgKontextKeywords.prototype.createMenuItems = function(aElements, aSelectedText)
 					
 					contextMenuItemLabel = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Name");
 					contextMenuItemTooltiptext = 	BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Description");
-					if(contextMenuItemTooltiptext = "")			
+					if(contextMenuItemTooltiptext.trim() == "")			
 						contextMenuItemTooltiptext = contextMenuItemLabel;
 					
 					contextMenuItemOncommand = "gPgKontextKeywords.addKontextCommand('"+keywordURL+"','"+ aSelectedText +"');";
