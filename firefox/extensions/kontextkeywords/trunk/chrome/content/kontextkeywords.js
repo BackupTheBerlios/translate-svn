@@ -6,17 +6,27 @@ String.prototype.trim = function()
   return x;
 }
 
-function tempLoad()
+function PgKontextKeywords()
 {
-	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",tempPopup,false);
-}	
-
-function tempClose()
-{
-	document.getElementById("contentAreaContextMenu").removeEventListener("popupshowing",tempPopup,false);
+	// not much to initialise here
 }
 
-function countElements(aElements, selectedText)  //returns an array of menuItems
+PgKontextKeywords.prototype.onLoad = function()
+{
+	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",gPgKontextKeywords.kontextPopup,false);
+}	
+
+PgKontextKeywords.prototype.onClose = function()
+{
+	document.getElementById("contentAreaContextMenu").removeEventListener("popupshowing",gPgKontextKeywords.kontextPopup,false);
+}
+
+/*
+This function recursively goes throught the users bookmarks, looking for bookmarks that
+have a shortcutURL (or keyword), and also a URL that contains the text "%s".  Results are
+added to an array of menuItems for adding later to the context menu.
+*/
+PgKontextKeywords.prototype.createMenuItems = function(aElements, aSelectedText)  //returns an array of menuItems
 {
 	var menuItems = new Array();
 	
@@ -28,7 +38,7 @@ function countElements(aElements, selectedText)  //returns an array of menuItems
 			if(BookmarksUtils.resolveType(currentElement) == "Folder")
 			{	
 				RDFC.Init(BMDS, currentElement);
-				menuItems = menuItems.concat( countElements(RDFC.GetElements(), selectedText));
+				menuItems = menuItems.concat( gPgKontextKeywords.createMenuItems(RDFC.GetElements(), aSelectedText));
 			}
 			else  //it's a bookmark
 			{
@@ -48,7 +58,7 @@ function countElements(aElements, selectedText)  //returns an array of menuItems
 					if(contextMenuItemTooltiptext = "")			
 						contextMenuItemTooltiptext = contextMenuItemLabel;
 					
-					contextMenuItemOncommand = "gotoSearch('"+keywordURL+"','"+selectedText+"');";
+					contextMenuItemOncommand = "gPgKontextkeywords.addKontextCommand('"+keywordURL+"','"+ aSelectedText +"');";
 					contextMenuItemImage = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Icon");
 										
 					contextMenuItemElement = document.createElement("menuitem");
@@ -65,14 +75,14 @@ function countElements(aElements, selectedText)  //returns an array of menuItems
 	return  menuItems;
 }
 
-function gotoSearch(keywordURL, selectedText)
+PgKontextKeywords.prototype.addKontextCommand = function(aKeywordURL, aSelectedText)
 {
 	re = /%s/;	
-	uri = keywordURL.replace(re, selectedText);
+	uri = aKeywordURL.replace(re, aSelectedText);
 	getBrowser().addTab(uri);
 }
 
-function tempPopup()
+PgKontextKeywords.prototype.kontextPopup = function()
 {
 	initServices();
   	initBMService();
@@ -96,7 +106,7 @@ function tempPopup()
 		sep.hidden = false;  //display separator
 		item.hidden = false; //display menu
 		
-		menuText = "Keyword Query " + "\"" + selectedText + "\""; 
+		menuText = "Kontext Keyword " + "\"" + selectedText + "\""; 
 		item.setAttribute("label", menuText);
 	}
 	else
@@ -107,14 +117,13 @@ function tempPopup()
 	}
 }
 
-
-function initmenu(selectedText)
+PgKontextKeywords.prototype.initmenu = function(aSelectedText)
 {
 	grTarget = RDF.GetResource("NC:BookmarksRoot");
 	RDFC.Init(BMDS, grTarget);	
    var contextItem = document.getElementById("temp-context");
    var contextMenuPopupElement = document.createElement("menupopup");
-   var itemArray = countElements(RDFC.GetElements() , selectedText);
+   var itemArray = gPgKontextKeywords.createMenuItems(RDFC.GetElements() , aSelectedText);
    for(var i = 0 ; i < itemArray.length ; i++)
    { 
 		contextMenuPopupElement.appendChild(itemArray[i]);
@@ -130,5 +139,9 @@ function initmenu(selectedText)
   	}  	
 }
 
-window.addEventListener("load",tempLoad,false);
-window.addEventListener("close", tempClose, false);
+if(window.location == "chrome://browser/content/browser.xul")
+{
+	var gPgKontextKeywords = new PgKontextKeywords();
+	window.addEventListener("load",gPgKontextKeywords.onLoad,false);
+	window.addEventListener("close", gPgKontextKeywords.onClose, false);
+}
