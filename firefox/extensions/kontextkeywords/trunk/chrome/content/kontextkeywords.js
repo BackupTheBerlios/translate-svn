@@ -92,22 +92,29 @@ function tempPopup()
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var selection = focusedWindow.__proto__.getSelection.call(focusedWindow);
 	
-	var selectedText = selection.toString() ;
-	
-	initmenu(selectedText);
-	
-	selectedText = selectedText.trim();
-	if (selectedText.length > 15)  // crop selected text if necessary
+	if(selection != "")
 	{
-	    selectedText = selectedText.substr(0,15) + "...";
+		var selectedText = selection.toString() ;
+		initmenu(selectedText);		
+		selectedText = selectedText.trim();
+		if (selectedText.length > 15)  // crop selected text if necessary
+		{
+		    selectedText = selectedText.substr(0,15) + "...";
+		}
+		var menuText;	
+		
+		sep.hidden = false;  //display separator
+		item.hidden = false; //display menu
+		
+		menuText = "Keyword Query " + "\"" + selectedText + "\""; 
+		item.setAttribute("label", menuText);
 	}
-	var menuText;	
-	
-	sep.hidden = false;  //display separator
-	item.hidden = false; //display menu
-	
-	menuText = "Keyword Query " + "\"" + selectedText + "\""; 
-	item.setAttribute("label", menuText);	
+	else
+	{
+	    	//no text selected so hide the context menu	       	
+	        sep.hidden = true;
+	        item.hidden = true;
+	}
 }
 
 
