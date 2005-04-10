@@ -86,8 +86,8 @@ PgKontextKeywords.prototype.kontextPopup = function()
 {
 	initServices();
   	initBMService();
-	var item = document.getElementById("temp-context");
-	var sep = document.getElementById("tempSeparator");
+	var item = document.getElementById("kontextKeywordsMenu");
+	var sep = document.getElementById("kontextKeywordsSeparator");
 	
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var selection = focusedWindow.__proto__.getSelection.call(focusedWindow);
@@ -121,7 +121,7 @@ PgKontextKeywords.prototype.initmenu = function(aSelectedText)
 {
 	grTarget = RDF.GetResource("NC:BookmarksRoot");
 	RDFC.Init(BMDS, grTarget);	
-   var contextItem = document.getElementById("temp-context");
+   var contextItem = document.getElementById("kontextKeywordsMenu");
    var contextMenuPopupElement = document.createElement("menupopup");
    var itemArray = gPgKontextKeywords.createMenuItems(RDFC.GetElements() , aSelectedText);
    for(var i = 0 ; i < itemArray.length ; i++)
