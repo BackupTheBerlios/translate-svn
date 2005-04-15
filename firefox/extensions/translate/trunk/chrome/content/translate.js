@@ -375,25 +375,32 @@ PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage
        var searchStr = focusedWindow.getSelection();
        var aURL = PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
 
-       var httpReq = new XMLHttpRequest();
-       httpReq.open("GET", aURL, false);
-
-       try 
-       {
-               httpReq.send(null);
-               var responseTextMatch = httpReq.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
-               if(responseTextMatch)
-               {
-					document.getElementById(contextMenuItemID).setAttribute("tooltiptext",
-					responseTextMatch[1]);
-               }
-       } 
-       catch(err) 
-       {
-       }
+		var req = new XMLHttpRequest();
+		req.onreadystatechange = processReqChange(contextMenuItemID);
+		req.open("GET", aURL, true);
+		req.send(null);
   }
 }
 
+PGTranslate.prototype.processReqChange = function(contextMenuItemID) 
+{
+	    // only if req shows "loaded"
+	    if (req.readyState == 4) {
+	        // only if "OK"
+	        if (req.status == 200) 
+	        {
+	                var responseTextMatch = httpReq.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+			        if(responseTextMatch)
+			        {
+						document.getElementById(contextMenuItemID).setAttribute("tooltiptext",responseTextMatch[1]);
+			        }     
+	            
+	        } else 
+	        {
+	           
+	        }
+	    }
+}
 
 
 PGTranslate.prototype.onTranslatePopup = function ()
