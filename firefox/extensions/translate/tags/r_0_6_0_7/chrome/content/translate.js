@@ -406,7 +406,7 @@ PGTranslate.prototype.onTranslatePopup = function ()
 
 PGTranslate.prototype.quick_translate = function()
 {
-	window.content.document.location.href = PGTRANSLATE_QUICKTRANSLATIONSITE + window.content.document.location.href;
+	window.content.document.location.href = PGTRANSLATE_QUICKTRANSLATIONSITE + encodeURIComponent(window.content.document.location.href);
 }
 
 PGTranslate.prototype.translateFrom = function(aLanguage)
