@@ -42,7 +42,7 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 	this.initPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_LANGUAGE , "int", 0);
-    this.initPref(this.PGTranslate_prefs.PREF_ORIGIN_LANGUAGE , "int", 1);
+    this.initPref(this.PGTranslate_prefs.PREF_ORIGIN_LANGUAGE , "int", 0);
 }
    
 // Code written by Doron R.
@@ -403,7 +403,7 @@ PGTranslate.prototype.onTranslatePopup = function ()
     var sep = document.getElementById("translateSeparator");
 
 	var focusedWindow = document.commandDispatcher.focusedWindow;
-	var selection = focusedWindow.__proto__.getSelection.call(focusedWindow);
+	var selection = focusedWindow.getSelection();
 	
 	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) && selection!="")
 	{
@@ -460,7 +460,7 @@ PGTranslate.prototype.translateFrom = function(aLanguage)
 PGTranslate.prototype.translateSelection = function(aLanguage)
 {
 	var focusedWindow = document.commandDispatcher.focusedWindow;
-	var searchStr = focusedWindow.__proto__.getSelection.call(focusedWindow);
+	var searchStr = focusedWindow.getSelection();
 	getBrowser().addTab(PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString()));
 }
 PGTranslate.prototype.onClose = function()
