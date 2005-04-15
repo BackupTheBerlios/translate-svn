@@ -42,6 +42,7 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 	this.initPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_LANGUAGE , "int", 0);
+    this.initPref(this.PGTranslate_prefs.PREF_ORIGIN_LANGUAGE , "int", 1);
 }
    
 // Code written by Doron R.
@@ -286,11 +287,23 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
 	    	contextMenuItemLabel = gPGTranslate.translateBundle.getString("context.menu." + languagePair + ".label");
 	   		contextMenuItemTooltiptext = 	gPGTranslate.translateBundle.getString(languagePair + ".tooltip");
 	    	contextMenuItemOncommand = "gPGTranslate.translateSelection('" + languagePair + "');";
-	
+	    	
+			
 	   		contextMenuItemElement = document.createElement("menuitem");
 	    	contextMenuItemElement.setAttribute("label",contextMenuItemLabel);
 	    	contextMenuItemElement.setAttribute("tooltiptext",contextMenuItemTooltiptext);
 	    	contextMenuItemElement.setAttribute("oncommand",contextMenuItemOncommand);
+	    	
+	    	/**
+	    	*
+	    	*/
+	    	contextMenuItemID = "translate-context-" + languagePair;
+			contextMenuItemElement.setAttribute("id",contextMenuItemID);
+			contextMenuItemElement.setAttribute("onmouseover","gPGTranslate.contextOnMouseOver('"+ contextMenuItemID + "', '" + languagePair + "')");
+			/**
+			*
+			*/
+
 	
 			contextMenuPopupElement.appendChild(contextMenuItemElement);
 		}
@@ -353,6 +366,36 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
   		toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0] + " toolbarbutton-1");
 }
 
+
+PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage)
+{
+   if(document.getElementById(contextMenuItemID) && aLanguage)
+   {
+       var focusedWindow = document.commandDispatcher.focusedWindow;
+       var searchStr = focusedWindow.__proto__.getSelection.call(focusedWindow);
+       var aURL = PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
+
+       var httpReq = new XMLHttpRequest();
+       httpReq.open("GET", aURL, false);
+
+       try 
+       {
+               httpReq.send(null);
+               var responseTextMatch = httpReq.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+               if(responseTextMatch)
+               {
+					document.getElementById(contextMenuItemID).setAttribute("tooltiptext",
+					responseTextMatch[1]);
+               }
+       } 
+       catch(err) 
+       {
+       }
+  }
+}
+
+
+
 PGTranslate.prototype.onTranslatePopup = function ()
 {
 	// Get the selected text
@@ -406,7 +449,7 @@ PGTranslate.prototype.onTranslatePopup = function ()
 
 PGTranslate.prototype.quick_translate = function()
 {
-	window.content.document.location.href = PGTRANSLATE_QUICKTRANSLATIONSITE + window.content.document.location.href;
+	window.content.document.location.href = PGTRANSLATE_QUICKTRANSLATIONSITE + encodeURIComponent(window.content.document.location.href);
 }
 
 PGTranslate.prototype.translateFrom = function(aLanguage)

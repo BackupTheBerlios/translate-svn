@@ -25,7 +25,13 @@
 		<caption label="&translate.prefs.groupbox.ui;"/>
 		<hbox align="center">
 			<label value="&translate.prefs.menus.language;"/>    
-			<menulist id="translate.prefs.language.selection">
+			<menulist id="translate.prefs.language.selection" onChange="fillDefaultBox(this.selectedIndex)">
+				<!-- PGTranslate_prefs.prototype.initListBox fills the listbox with listitems  -->
+			</menulist>   
+		</hbox> 
+		<hbox align="center">
+			<label value="&translate.prefs.menus.language.origin;"/>    
+			<menulist id="translate.prefs.language.origin.selection">
 				<!-- PGTranslate_prefs.prototype.initListBox fills the listbox with listitems  -->
 			</menulist>   
 		</hbox> 

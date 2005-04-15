@@ -5,6 +5,7 @@ function PGTranslate_prefs(){
   this.PREF_CONTEXTMENU_ENABLED     = "translate.displayContextMenu"; // oops, sidebar?
   this.PREF_TOOLMENU_ENABLED        = "translate.displayToolMenu";
   this.PREF_LANGUAGE        = "translate.userlanguage";
+  this.PREF_ORIGIN_LANGUAGE       = "translate.origin.userlanguage";
 }
 
 PGTranslate_prefs.prototype.getPrefBranch = function(){
