@@ -372,7 +372,7 @@ PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage
    if(document.getElementById(contextMenuItemID) && aLanguage)
    {
        var focusedWindow = document.commandDispatcher.focusedWindow;
-       var searchStr = focusedWindow.__proto__.getSelection.call(focusedWindow);
+       var searchStr = focusedWindow.getSelection();
        var aURL = PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
 
        var httpReq = new XMLHttpRequest();
