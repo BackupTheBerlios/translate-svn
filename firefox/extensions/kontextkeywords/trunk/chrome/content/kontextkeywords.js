@@ -22,8 +22,8 @@ PgKontextKeywords.prototype.onClose = function()
 }
 
 /*
-This function recursively goes throught the users bookmarks, looking for bookmarks that
-have a shortcutURL (or keyword), and also a URL that contains the text "%s".  Results are
+This function recursively goes through the user's bookmarks, looking for ones that
+have a shortcutURL (or keyword) also containing the text "%s".  Results are
 added to an array of menuItems for adding later to the context menu.
 */
 PgKontextKeywords.prototype.createMenuItems = function(aElements, aSelectedText)  //returns an array of menuItems
@@ -90,7 +90,7 @@ PgKontextKeywords.prototype.kontextPopup = function()
 	var sep = document.getElementById("kontextKeywordsSeparator");
 	
 	var focusedWindow = document.commandDispatcher.focusedWindow;
-	var selection = focusedWindow.__proto__.getSelection.call(focusedWindow);
+	var selection = focusedWindow.getSelection();
 	
 	if(selection != "")
 	{
