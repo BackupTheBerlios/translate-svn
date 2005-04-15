@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}">
+		<em:updates>
+			<RDF:Seq>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.4.2"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.4.3"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.0"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.1"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.2"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.3"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.4"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.5"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.6"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.7"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.8"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.1"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.2"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.3"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.4"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.5"/>
+			<RDF:li resource="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.6"/>
+			</RDF:Seq>
+		</em:updates>
+		<em:version>0.6.0.6</em:version>
+		<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.6-fx.xpi</em:updateLink>
+	</RDF:Description>
+ 
+	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.6">
+		<em:version>0.6.0.6</em:version>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>1.0</em:maxVersion>
+				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.6-fx.xpi</em:updateLink>
+			</Description>
+		</em:targetApplication>
+	</RDF:Description> 
+	
+	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.5">
+		<em:version>0.6.0.5</em:version>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>1.0</em:maxVersion>
+				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.5.xpi</em:updateLink>
+			</Description>
+		</em:targetApplication>
+	</RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.4.2">
+    <em:version>0.4.2</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>1.0</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.4.2.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.4.3">
+    <em:version>0.4.3</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>1.0</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.4.3.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.0">
+    <em:version>0.5.0</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>1.0</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.0.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.1">
+    <em:version>0.5.1</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>1.0</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.1.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.2">
+    <em:version>0.5.2</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>1.0</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.2.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.3">
+    <em:version>0.5.3</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>1.0</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.3.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.4">
+    <em:version>0.5.4</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>1.0</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.4.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+      <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.5">
+    <em:version>0.5.5</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>0.10</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.5.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.6">
+    <em:version>0.5.6</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>0.10</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.6.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.7">
+    <em:version>0.5.7</em:version>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>0.9</em:minVersion>
+        <em:maxVersion>0.10</em:maxVersion>
+        <em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.7.xpi</em:updateLink>
+      </Description>
+    </em:targetApplication>
+  </RDF:Description>
+
+  <RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.5.8">
+		<em:version>0.5.8</em:version>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>0.10</em:maxVersion>
+				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.5.8.xpi</em:updateLink>
+			</Description>
+		</em:targetApplication>
+  </RDF:Description>
+
+	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0">
+		<em:version>0.6.0</em:version>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>0.10</em:maxVersion>
+				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.xpi</em:updateLink>
+			</Description>
+		</em:targetApplication>
+	</RDF:Description>
+	
+	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.1">
+		<em:version>0.6.0.1</em:version>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>1.0</em:maxVersion>
+				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.1.xpi</em:updateLink>
+			</Description>
+		</em:targetApplication>
+	</RDF:Description>
+	
+	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.2">
+		<em:version>0.6.0.2</em:version>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>1.0</em:maxVersion>
+				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.2.xpi</em:updateLink>
+			</Description>
+		</em:targetApplication>
+	</RDF:Description>
+	
+	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.3">
+		<em:version>0.6.0.3</em:version>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>1.0</em:maxVersion>
+				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.3.xpi</em:updateLink>
+			</Description>
+		</em:targetApplication>
+	</RDF:Description>
+	
+	<RDF:Description about="urn:mozilla:extension:{4E38B095-A1A0-46cd-9BA2-B3708444965A}:0.6.0.4">
+		<em:version>0.6.0.4</em:version>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>1.0</em:maxVersion>
+				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.4.xpi</em:updateLink>
+			</Description>
+		</em:targetApplication>
+	</RDF:Description>
+		
+	
+
+
+
+</RDF:RDF>
