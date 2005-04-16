@@ -287,24 +287,17 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
 	    	contextMenuItemLabel = gPGTranslate.translateBundle.getString("context.menu." + languagePair + ".label");
 	   		contextMenuItemTooltiptext = 	gPGTranslate.translateBundle.getString(languagePair + ".tooltip");
 	    	contextMenuItemOncommand = "gPGTranslate.translateSelection('" + languagePair + "');";
-	    	
 			
 	   		contextMenuItemElement = document.createElement("menuitem");
 	    	contextMenuItemElement.setAttribute("label",contextMenuItemLabel);
 	    	contextMenuItemElement.setAttribute("tooltiptext",contextMenuItemTooltiptext);
 	    	contextMenuItemElement.setAttribute("oncommand",contextMenuItemOncommand);
-	    	
-	    	/**
-	    	*
-	    	*/
-	    	contextMenuItemID = "translate-context-" + languagePair;
-			contextMenuItemElement.setAttribute("id",contextMenuItemID);
-			contextMenuItemElement.setAttribute("onmouseover","gPGTranslate.contextOnMouseOver('"+ contextMenuItemID + "', '" + languagePair + "')");
-			/**
-			*
-			*/
+	    	contextMenuItemElement.setAttribute("id",languagePair);
 
-	
+	    	//contextMenuItemID = "translate-context-" + languagePair;
+			//contextMenuItemElement.setAttribute("id",contextMenuItemID);
+			//contextMenuItemElement.setAttribute("onmouseover","gPGTranslate.contextOnMouseOver('"+ contextMenuItemID + "', '" + languagePair + "')");
+
 			contextMenuPopupElement.appendChild(contextMenuItemElement);
 		}
 		if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_TOOLMENU_ENABLED))
@@ -366,38 +359,58 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
   		toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0] + " toolbarbutton-1");
 }
 
-
-PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage)
-{
-   if(document.getElementById(contextMenuItemID) && aLanguage)
-   {
-       var focusedWindow = document.commandDispatcher.focusedWindow;
-       var searchStr = focusedWindow.getSelection();
+//var req ;
+	
+PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage, searchStr)
+{  	
+       //var focusedWindow = document.commandDispatcher.focusedWindow;
+      // var searchStr = focusedWindow.getSelection();
        var aURL = PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
-
-		var req = new XMLHttpRequest();
-		req.onreadystatechange = processReqChange(contextMenuItemID);
+		dump(aURL + "\n");
+		req =  new XMLHttpRequest();
+		req.onreadystatechange = function()
+		{
+			if (req.readyState == 4) {
+	        // only if "OK"
+	        if (req.status == 200) 
+	        {
+	        	dump("200\n");
+	                var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+			        if(responseTextMatch)
+			        {
+			        	dump(responseTextMatch[1] + "\n");
+						contextMenuItemID.setAttribute("tooltiptext",responseTextMatch[1]);
+			        }     
+	            
+	        } else 
+		        {
+		         dump('bad hhttp requests\n'); 
+		        }
+	    	}	
+		};
 		req.open("GET", aURL, true);
 		req.send(null);
-  }
+  
 }
 
-PGTranslate.prototype.processReqChange = function(contextMenuItemID) 
+PGTranslate.prototype.processReqChange = function( contextMenuItemID) 
 {
 	    // only if req shows "loaded"
 	    if (req.readyState == 4) {
 	        // only if "OK"
 	        if (req.status == 200) 
 	        {
-	                var responseTextMatch = httpReq.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+	        	dump("200");
+	                var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
 			        if(responseTextMatch)
 			        {
-						document.getElementById(contextMenuItemID).setAttribute("tooltiptext",responseTextMatch[1]);
+			        	dump(responseTextMatch[1]);
+						contextMenuItemID.setAttribute("tooltiptext",responseTextMatch[1]);
 			        }     
 	            
 	        } else 
 	        {
-	           
+	         dump('bad hhttp requests'); 
 	        }
 	    }
 }
@@ -410,16 +423,16 @@ PGTranslate.prototype.onTranslatePopup = function ()
     var sep = document.getElementById("translateSeparator");
 
 	var focusedWindow = document.commandDispatcher.focusedWindow;
-	var selection = focusedWindow.getSelection();
 	
+	var winWrapper = new XPCNativeWrapper(contentWindow,'document', 'getSelection()');
+	var selection =  winWrapper.getSelection();
+	var selectedText = selection.toString() ;
+
 	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) && selection!="")
 	{
-		
-		
 	    // if the selected text is blank then don't display the context menu, otherwise, display the first 14 characters + ...
-   
     	//text selected so display the context menu
-    	var selectedText = selection.toString() ;
+    	
     	selectedText = selectedText.trim();
         if (selectedText.length > 15)  // crop selected text if necessary
         {
@@ -437,11 +450,8 @@ PGTranslate.prototype.onTranslatePopup = function ()
         }
     	else
     	{
- 
         	menuText = "\"" + selectedText + "\"" + " " +  gPGTranslate.translateBundle.getString("context.menu.prefix") ;
-    	}
-        
-        
+    	}       
         item.setAttribute("label", menuText);
 	}
 	else
@@ -451,6 +461,18 @@ PGTranslate.prototype.onTranslatePopup = function ()
 	        item.hidden = true;
 	}
 	
+	
+	//  add tooltips
+	//var contextItem = document.getElementById("translate-context");
+	//var contextMenuPopupElement = contextItem.firstChild.childNodes;
+	//dump(contextMenuPopupElement.length);
+	//for(var i = 0 ; i < contextMenuPopupElement.length ; i++ )
+//	{
+		//dump(contextMenuPopupElement[i].getAttribute("id"));
+		
+	//	gPGTranslate.contextOnMouseOver(contextMenuPopupElement[i],contextMenuPopupElement[i].getAttribute("id"),selectedText);
+	
+	//}
 }
 
 
@@ -466,8 +488,10 @@ PGTranslate.prototype.translateFrom = function(aLanguage)
 
 PGTranslate.prototype.translateSelection = function(aLanguage)
 {
-	var focusedWindow = document.commandDispatcher.focusedWindow;
-	var searchStr = focusedWindow.getSelection();
+	
+	var winWrapper = new XPCNativeWrapper(contentWindow,'document', 'getSelection()');
+	var searchStr =  winWrapper.getSelection();
+	
 	getBrowser().addTab(PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString()));
 }
 PGTranslate.prototype.onClose = function()
