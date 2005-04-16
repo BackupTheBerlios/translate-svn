@@ -89,9 +89,9 @@ PgKontextKeywords.prototype.kontextPopup = function()
 	var item = document.getElementById("kontextKeywordsMenu");
 	var sep = document.getElementById("kontextKeywordsSeparator");
 	
-	var focusedWindow = document.commandDispatcher.focusedWindow;
-	var selection = focusedWindow.getSelection();
-	
+	var winWrapper = new XPCNativeWrapper(contentWindow,'document', 'getSelection()');
+	var selection =  winWrapper.getSelection();
+		
 	if(selection != "")
 	{
 		var selectedText = selection.toString() ;
