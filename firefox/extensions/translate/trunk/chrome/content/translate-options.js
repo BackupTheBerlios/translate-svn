@@ -7,21 +7,27 @@ function pg_prefs_load()
 	document.getElementById("translate.prefs.language.selection").selectedIndex = defaultLanguage;
 	document.getElementById("translate.prefs.contextMenu").checked = PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED);     
 	document.getElementById("translate.prefs.displayTools").checked = PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_TOOLMENU_ENABLED);
-	
 
 	initOriginBox(defaultLanguage);
 	document.getElementById("translate.prefs.language.origin.selection").selectedIndex = PGTranslate_prefs.getIntPref(PGTranslate_prefs.PREF_ORIGIN_LANGUAGE);
-
-	
 }
 
+function resetOriginLang(aLanguage)
+{
+	PGTranslate_prefs.setIntPref(PGTranslate_prefs.PREF_ORIGIN_LANGUAGE,0);
+	
+	listbox = document.getElementById("translate.prefs.language.origin.selection");
+ 	listbox.removeChild(listbox.firstChild);    	 		
+
+	initOriginBox(aLanguage);
+}
 
 function initOriginBox(aLanguage)
 {
 	listbox = document.getElementById("translate.prefs.language.origin.selection");
 	var menupopup = document.createElement("menupopup");
 	var listitem ;
-	
+		
 	listitem = document.createElement("menuitem");
 	listitem.setAttribute("label","{none}");
 	listitem.setAttribute("value",0);
@@ -40,7 +46,7 @@ function initOriginBox(aLanguage)
 function initListBox()
 {
 	var listbox = document.getElementById("translate.prefs.language.selection");
-	var menupopup = document.createElement("menupopup");
+	var menupopup = listbox.firstChild;
 	var listitem ;
 	for(var i = 0;i < PGTRANSLATE_LANGUAGEPAIRS.length ; i++)
 	{	
