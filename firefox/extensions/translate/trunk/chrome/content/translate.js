@@ -18,6 +18,7 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 	this.PGTRANSLATE_EQUALS = "=";
 	this.PGTRANSLATE_AMP = "&";
 	
+	this.request = null;
 	
 	this.translateBundle;  //holds variable found in translate.properties
 	this.PGTranslate_prefs = new PGTranslate_prefs();		
@@ -362,59 +363,93 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
 
 //var req ;
 	
-PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage, searchStr)
-{  	
-       //var focusedWindow = document.commandDispatcher.focusedWindow;
-      // var searchStr = focusedWindow.getSelection();
-       var aURL = gPGTranslate.PGTRANSLATE_SELECTIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_SELECTFIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
-		dump(aURL + "\n");
-		req =  new XMLHttpRequest();
-		req.onreadystatechange = function()
-		{
-			if (req.readyState == 4) {
-	        // only if "OK"
-	        if (req.status == 200) 
-	        {
-	        	dump("200\n");
-	                var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
-			        if(responseTextMatch)
-			        {
-			        	dump(responseTextMatch[1] + "\n");
-						contextMenuItemID.setAttribute("tooltiptext",responseTextMatch[1]);
-			        }     
-	            
-	        } else 
-		        {
-		         dump('bad hhttp requests\n'); 
-		        }
-	    	}	
-		};
-		req.open("GET", aURL, true);
-		req.send(null);
-  
+//PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage, searchStr)
+//{  	
+//       //var focusedWindow = document.commandDispatcher.focusedWindow;
+//      // var searchStr = focusedWindow.getSelection();
+//       var aURL = gPGTranslate.PGTRANSLATE_SELECTIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_SELECTFIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
+//		dump(aURL + "\n");
+//		req =  new XMLHttpRequest();
+//		req.onreadystatechange = function()
+//		{
+//			if (req.readyState == 4) {
+//	        // only if "OK"
+//	        if (req.status == 200) 
+//	        {
+//	        	dump("200\n");
+//	                var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+//			        if(responseTextMatch)
+//			        {
+//			        	dump(responseTextMatch[1] + "\n");
+//						contextMenuItemID.setAttribute("tooltiptext",responseTextMatch[1]);
+//			        }     
+//	            
+//	        } else 
+//		        {
+//		         dump('bad hhttp requests\n'); 
+//		        }
+//	    	}	
+//		};
+//		req.open("GET", aURL, true);
+//		req.send(null);
+//  
+//}
+
+//PGTranslate.prototype.processReqChange = function( contextMenuItemID) 
+//{
+//	    // only if req shows "loaded"
+//	    if (req.readyState == 4) {
+//	        // only if "OK"
+//	        if (req.status == 200) 
+//	        {
+//	        	dump("200");
+//	                var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+//			        if(responseTextMatch)
+//			        {
+//			        	dump(responseTextMatch[1]);
+//						contextMenuItemID.setAttribute("tooltiptext",responseTextMatch[1]);
+//			        }     
+//	            
+//	        } else 
+//	        {
+//	         dump('bad hhttp requests'); 
+//	        }
+//	    }
+//}
+
+
+PGTranslate.prototype.load_xml = function(aURL) 
+{
+		gPGTranslate.request = new XMLHttpRequest();
+		gPGTranslate.request.onreadystatechange = gPGTranslate.process_request;
+		gPGTranslate.request.open("GET", aURL, true);
+		gPGTranslate.request.send(null);	
 }
 
-PGTranslate.prototype.processReqChange = function( contextMenuItemID) 
+PGTranslate.prototype.process_request = function ()
 {
-	    // only if req shows "loaded"
-	    if (req.readyState == 4) {
-	        // only if "OK"
-	        if (req.status == 200) 
-	        {
-	        	dump("200");
-	                var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
-			        if(responseTextMatch)
-			        {
-			        	dump(responseTextMatch[1]);
-						contextMenuItemID.setAttribute("tooltiptext",responseTextMatch[1]);
-			        }     
-	            
-	        } else 
-	        {
-	         dump('bad hhttp requests'); 
-	        }
-	    }
+
+
+	if (gPGTranslate.request.readyState == 4 && gPGTranslate.request.status == 200) 
+	{
+		var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+		if(responseTextMatch)
+		{
+			dump(responseTextMatch[1]);
+			document.getElementById("translate-pg-status").setAttribute("label",responseTextMatch[1]);
+		}     		
+	}
 }
+
+
+
+PGTranslate.prototype.onTranslatePopup = function (aSelectedText)
+{
+	var aURL = gPGTranslate.PGTRANSLATE_SELECTIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_SELECTFIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(aSelectedText);
+	gPGTranslate.load_xml(aURL);
+}
+
+
 
 
 PGTranslate.prototype.onTranslatePopup = function ()
@@ -426,6 +461,11 @@ PGTranslate.prototype.onTranslatePopup = function ()
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var selection = focusedWindow.getSelection();
 	var selectedText = selection.toString() ;
+	
+	//fill status bar
+	
+	
+	
 	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) && selection!="")
 	{
 	    // if the selected text is blank then don't display the context menu, otherwise, display the first 14 characters + ...
