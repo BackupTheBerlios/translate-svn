@@ -7,7 +7,7 @@
 <script type="application/x-javascript" src="chrome://translate/content/language_pairs.js"/>
 <script type="application/x-javascript" src="chrome://translate/content/translate-prefs.js"/>
 <script type="application/x-javascript" src="chrome://translate/content/translate.js"/>
-
+<script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
 
 
 <stringbundleset id="stringbundleset">
@@ -43,7 +43,9 @@
 </menu>
 </popup>
 
-
+<statusbar id="status-bar">
+<statusbarpanel   insertafter="statusbar-display"  id="translate-pg-status" label="Translating..."/>
+</statusbar>
 
 
 </overlay>
