@@ -1,12 +1,3 @@
-const PGTRANSLATE_QUICKTRANSLATIONSITE = "http://translate.google.com/translate_c?u=";
-const PGTRANSLATE_TRANSLATIONSITE = "http://babelfish.altavista.com/babelfish/trurl_pagecontent?";
-const PGTRANSLATE_SELECTIONSITE = "http://babelfish.altavista.com/babelfish/tr?"
-const PGTRANSLATE_FIRSTARG = "url";
-const PGTRANSLATE_SELECTFIRSTARG = "urltext";
-const PGTRANSLATE_SECONDARG = "lp";
-const PGTRANSLATE_EQUALS = "=";
-const PGTRANSLATE_AMP = "&";
-
 String.prototype.trim = function() 
 {
   var x=this;
@@ -18,6 +9,16 @@ String.prototype.trim = function()
 // Contructor to set up some variables and preferences
 function PGTranslate() // lets initialise some of the variables that we are going to use
 {
+	this.PGTRANSLATE_QUICKTRANSLATIONSITE = "http://translate.google.com/translate_c?u=";
+	this.PGTRANSLATE_TRANSLATIONSITE = "http://babelfish.altavista.com/babelfish/trurl_pagecontent?";
+	this.PGTRANSLATE_SELECTIONSITE = "http://babelfish.altavista.com/babelfish/tr?"
+	this.PGTRANSLATE_FIRSTARG = "url";
+	this.PGTRANSLATE_SELECTFIRSTARG = "urltext";
+	this.PGTRANSLATE_SECONDARG = "lp";
+	this.PGTRANSLATE_EQUALS = "=";
+	this.PGTRANSLATE_AMP = "&";
+	
+	
 	this.translateBundle;  //holds variable found in translate.properties
 	this.PGTranslate_prefs = new PGTranslate_prefs();		
 	this.myListener =           //listens for page refreshs, if the page refreshed is an image then translate is disabled
@@ -365,7 +366,7 @@ PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage
 {  	
        //var focusedWindow = document.commandDispatcher.focusedWindow;
       // var searchStr = focusedWindow.getSelection();
-       var aURL = PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
+       var aURL = gPGTranslate.PGTRANSLATE_SELECTIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_SELECTFIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
 		dump(aURL + "\n");
 		req =  new XMLHttpRequest();
 		req.onreadystatechange = function()
@@ -423,11 +424,8 @@ PGTranslate.prototype.onTranslatePopup = function ()
     var sep = document.getElementById("translateSeparator");
 
 	var focusedWindow = document.commandDispatcher.focusedWindow;
-	
-	var winWrapper = new XPCNativeWrapper(contentWindow,'document', 'getSelection()');
-	var selection =  winWrapper.getSelection();
+	var selection = focusedWindow.getSelection();
 	var selectedText = selection.toString() ;
-
 	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) && selection!="")
 	{
 	    // if the selected text is blank then don't display the context menu, otherwise, display the first 14 characters + ...
@@ -450,6 +448,7 @@ PGTranslate.prototype.onTranslatePopup = function ()
         }
     	else
     	{
+ 
         	menuText = "\"" + selectedText + "\"" + " " +  gPGTranslate.translateBundle.getString("context.menu.prefix") ;
     	}       
         item.setAttribute("label", menuText);
@@ -478,21 +477,19 @@ PGTranslate.prototype.onTranslatePopup = function ()
 
 PGTranslate.prototype.quick_translate = function()
 {
-	window.content.document.location.href = PGTRANSLATE_QUICKTRANSLATIONSITE + encodeURIComponent(window.content.document.location.href);
+	window.content.document.location.href = gPGTranslate.PGTRANSLATE_QUICKTRANSLATIONSITE + encodeURIComponent(window.content.document.location.href);
 }
 
 PGTranslate.prototype.translateFrom = function(aLanguage)
 {
-	window.content.document.location.href = PGTRANSLATE_TRANSLATIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_FIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(window.content.document.location.href);
+	window.content.document.location.href = gPGTranslate.PGTRANSLATE_TRANSLATIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_FIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(window.content.document.location.href);
 }
 
 PGTranslate.prototype.translateSelection = function(aLanguage)
 {
-	
-	var winWrapper = new XPCNativeWrapper(contentWindow,'document', 'getSelection()');
-	var searchStr =  winWrapper.getSelection();
-	
-	getBrowser().addTab(PGTRANSLATE_SELECTIONSITE + PGTRANSLATE_SECONDARG + PGTRANSLATE_EQUALS + aLanguage + PGTRANSLATE_AMP + PGTRANSLATE_SELECTFIRSTARG + PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString()));
+	var focusedWindow = document.commandDispatcher.focusedWindow;
+	var searchStr = focusedWindow.getSelection();
+	getBrowser().addTab(gPGTranslate.PGTRANSLATE_SELECTIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_SELECTFIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString()));
 }
 PGTranslate.prototype.onClose = function()
 {
