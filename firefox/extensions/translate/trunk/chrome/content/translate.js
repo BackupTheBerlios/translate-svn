@@ -40,7 +40,20 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 		},
 		onSecurityChange:function(a,b,c){},
 		onLinkIconAvailable:function(a){}
-	}	
+	}
+	
+	
+	this.mySelectionListener =           //listens for page refreshs, if the page refreshed is an image then translate is disabled
+	{
+		
+		notifySelectionChanged:function (aDoc, aSelection , aReason)
+		{
+			alert(aSelection); 
+		}
+		
+	}
+	
+		
 	this.initPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_LANGUAGE , "int", 0);
@@ -81,6 +94,9 @@ PGTranslate.prototype.onLoad = function()
 {
 	const NOTIFY_ALL =  Components.interfaces.nsIWebProgress.NOTIFY_ALL;
 	window.getBrowser().addProgressListener(gPGTranslate.myListener , NOTIFY_ALL);
+	
+	//document.addSelectionListener(gPGTranslate.mySelectionListener);
+	
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",gPGTranslate.onTranslatePopup,false);
 	
 	// get the variables stored in translate.properties
@@ -433,10 +449,10 @@ PGTranslate.prototype.process_request = function ()
 
 	if (gPGTranslate.request.readyState == 4 && gPGTranslate.request.status == 200) 
 	{
-		var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+		var responseTextMatch = gPGTranslate.request.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
 		if(responseTextMatch)
 		{
-			dump(responseTextMatch[1] + "\n";);
+			dump(responseTextMatch[1] + "\n");
 			document.getElementById("translate-pg-status").setAttribute("label",responseTextMatch[1]);
 		}     		
 	}
@@ -444,7 +460,7 @@ PGTranslate.prototype.process_request = function ()
 
 
 
-PGTranslate.prototype.onTranslatePopup = function (aSelectedText)
+PGTranslate.prototype.fillStatusbar = function (aSelectedText, aLanguage)
 {
 	var aURL = gPGTranslate.PGTRANSLATE_SELECTIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_SELECTFIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(aSelectedText);
 	gPGTranslate.load_xml(aURL);
@@ -464,7 +480,12 @@ PGTranslate.prototype.onTranslatePopup = function ()
 	var selectedText = selection.toString() ;
 	
 	//fill status bar
-	
+	var languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)]
+												[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_ORIGIN_LANGUAGE)] + 
+												"_" + 
+						PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)]
+												[0];
+	gPGTranslate.fillStatusbar(selectedText, languagePair);
 	
 	
 	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) && selection!="")
@@ -535,6 +556,7 @@ PGTranslate.prototype.translateSelection = function(aLanguage)
 PGTranslate.prototype.onClose = function()
 {
 	window.getBrowser().removeProgressListener(this.myListener);
+	window.getBrowser().removeSelectionListener(this.mySelectionListener);
 	document.getElementById("contentAreaContextMenu").removeEventListener("popupshowing",gPGTranslate.onTranslatePopup,false);
 	gPGTranslate = null;
 }
