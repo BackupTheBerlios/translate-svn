@@ -420,10 +420,11 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
 
 PGTranslate.prototype.load_xml = function(aURL) 
 {
-		gPGTranslate.request = new XMLHttpRequest();
-		gPGTranslate.request.onreadystatechange = gPGTranslate.process_request;
-		gPGTranslate.request.open("GET", aURL, true);
-		gPGTranslate.request.send(null);	
+	dump(aURL + "\n");
+	gPGTranslate.request = new XMLHttpRequest();
+	gPGTranslate.request.onreadystatechange = gPGTranslate.process_request;
+	gPGTranslate.request.open("GET", aURL, true);
+	gPGTranslate.request.send(null);	
 }
 
 PGTranslate.prototype.process_request = function ()
@@ -435,7 +436,7 @@ PGTranslate.prototype.process_request = function ()
 		var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
 		if(responseTextMatch)
 		{
-			dump(responseTextMatch[1]);
+			dump(responseTextMatch[1] + "\n";);
 			document.getElementById("translate-pg-status").setAttribute("label",responseTextMatch[1]);
 		}     		
 	}
