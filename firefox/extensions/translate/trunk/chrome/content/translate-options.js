@@ -14,11 +14,11 @@ function pg_prefs_load()
 
 function resetOriginLang(aLanguage)
 {
-	PGTranslate_prefs.setIntPref(PGTranslate_prefs.PREF_ORIGIN_LANGUAGE,0);
-	
 	listbox = document.getElementById("translate.prefs.language.origin.selection");
- 	listbox.removeChild(listbox.firstChild);    	 		
+	PGTranslate_prefs.setIntPref(PGTranslate_prefs.PREF_ORIGIN_LANGUAGE,0);
+ 	listbox.selectedIndex = 0;
 
+ 	listbox.removeChild(listbox.firstChild);    	 		
 	initOriginBox(aLanguage);
 }
 
@@ -32,12 +32,12 @@ function initOriginBox(aLanguage)
 	listitem.setAttribute("label","{none}");
 	listitem.setAttribute("value",0);
 	menupopup.appendChild(listitem);
-	
 	for(var i = 1 ; i < PGTRANSLATE_LANGUAGEPAIRS[aLanguage].length ; i++)
 	{	
 		listitem = document.createElement("menuitem");
 		listitem.setAttribute("label",PGTRANSLATE_LANGUAGEPAIRS[aLanguage][i].toUpperCase());
 		listitem.setAttribute("value",i);
+		
 		menupopup.appendChild(listitem);
 	}
 	listbox.appendChild(menupopup);
@@ -53,6 +53,7 @@ function initListBox()
 		listitem = document.createElement("menuitem");
 		listitem.setAttribute("label",PGTRANSLATE_LANGUAGEUNICODE[i]);
 		listitem.setAttribute("value",i);
+		//listitem.setAttribute("oncommand","resetOriginLang(i)");
 		menupopup.appendChild(listitem);
 	}
 	listbox.appendChild(menupopup);

@@ -5,3 +5,4 @@
 <!ENTITY translate.prefs.menus.tool "Display Tools menu">
 <!ENTITY translate.prefs.menus.context "Display Context menu">
 <!ENTITY translate.prefs.menus.language "Select your language">
+<!ENTITY translate.prefs.menus.language.origin "Select a default origin language">

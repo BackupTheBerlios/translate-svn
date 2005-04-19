@@ -43,16 +43,6 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 	}
 	
 	
-	this.mySelectionListener =           //listens for page refreshs, if the page refreshed is an image then translate is disabled
-	{
-		
-		notifySelectionChanged:function (aDoc, aSelection , aReason)
-		{
-			alert(aSelection); 
-		}
-		
-	}
-	
 		
 	this.initPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED , "bool", true);
@@ -90,12 +80,36 @@ PGTranslate.prototype.initPref = function (aPrefName, aPrefType, aDefaultValue)
 //  Sets up listeners (progress and context menu)
 //  Gets string bundle
 //  Initalises the menus
+
+PGTranslate.prototype.onTextSelected = function()
+{
+	var focusedWindow = document.commandDispatcher.focusedWindow;
+	var selection = focusedWindow.getSelection();
+	var selectedText = selection.toString() ;
+	dump("onTextSelected: " + selectedText);
+	if(selectedText.length != null || selectedText.length > 0 )
+	{
+		//fill status bar
+		var languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)]
+													[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_ORIGIN_LANGUAGE)] + 
+													"_" + 
+							PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)]
+													[0];
+													
+		// fill the statusbar with the translated word									
+		gPGTranslate.fillStatusbar(selectedText.split(" ")[0], languagePair);  //I'm spliting the selected text because the statusbar is 
+	}																	// only design to translate one word, not multiple words			
+	
+}
+
+
 PGTranslate.prototype.onLoad = function()
 {
 	const NOTIFY_ALL =  Components.interfaces.nsIWebProgress.NOTIFY_ALL;
 	window.getBrowser().addProgressListener(gPGTranslate.myListener , NOTIFY_ALL);
 	
-	//document.addSelectionListener(gPGTranslate.mySelectionListener);
+	//var file = Components.classes["@mozilla.org/content/dom-selection;1"].createInstance(Components.interfaces.nsISelectionPrivate);
+	//file.addSelectionListener(gPGTranslate.mySelectionListener);
 	
 	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing",gPGTranslate.onTranslatePopup,false);
 	
@@ -139,68 +153,8 @@ PGTranslate.prototype.enableTranslate  = function (aUri)
 		if(toolbarMenu != null)
 			toolbarMenu.disabled = disableItem;	
 	}
-	
-	
-	
-	//var nsIFileView = Components.interfaces.nsIWebBrowserFind; 
-	//var english = 0;
-	//var french = 0;
-	//var german = 0;
-	
-	/*
-	var english = new Array ("the","with","that","though","you","all","and","is","can","than");
-	var french = new Array ("le","la","les","avec","vous","avez","est","et","une","un");
-	var german = new Array ("haben ","sie","Ihrer","und","im","nach","nicht","eine","mit","über");
-	
-	
-	dump("++english:"+ gPGTranslate.count(english)+"++");
-	dump("++french:"+ gPGTranslate.count(french)+"++");
-	dump("++german:"+ gPGTranslate.count(german)+"++\n");
-	*/
-	/*
-	var fv = Components.classes["@mozilla.org/embedcomp/find;1"].createInstance();
-	if (fv) fv.QueryInterface(Components.interfaces.nsIWebBrowserFind);
-
-	fv.searchString = " the ";
-	fv.findNext();*/
 }
 
-/*
-PGTranslate.prototype.detectLang = function (aStatus)
-{
-	const STATE_STOP =  Components.interfaces.nsIWebProgressListener.STATE_STOP;
-	
-	if((aStatus & STATE_STOP) == STATE_STOP)
-	{
-		var english = new Array ("the","with","that","though","you","all","and","is","can","than");
-		var french = new Array ("le","la","les","avec","vous","avez","est","et","une","un");
-		var german = new Array ("haben ","sie","Ihrer","und","im","nach","nicht","eine","mit","über");
-		dump("++english:"+ gPGTranslate.count(english)+"++");
-		dump("++french:"+ gPGTranslate.count(french)+"++");
-		dump("++german:"+ gPGTranslate.count(german)+"++\n");
-	}
-	
-	
-}
-
-
-
-PGTranslate.prototype.count = function (aWordlist)
-{
-	var daBrowser = getBrowser().webBrowserFind;
-	daBrowser.entireWord = true;
-	var counter = 0;
-	//dump("aWordlist.length: " + aWordlist.length);
-	for(i = 0 ; i < aWordlist.length ; i++)
-	{
-		daBrowser.searchString = aWordlist[i];
-		if(daBrowser.findNext())
-			counter++;	
-	}
-	
-	return counter;
-}
-*/
 
 
 PGTranslate.prototype.quickTranslate = function ()
@@ -377,66 +331,13 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
   		toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0] + " toolbarbutton-1");
 }
 
-//var req ;
-	
-//PGTranslate.prototype.contextOnMouseOver = function(contextMenuItemID, aLanguage, searchStr)
-//{  	
-//       //var focusedWindow = document.commandDispatcher.focusedWindow;
-//      // var searchStr = focusedWindow.getSelection();
-//       var aURL = gPGTranslate.PGTRANSLATE_SELECTIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_SELECTFIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(searchStr.toString());
-//		dump(aURL + "\n");
-//		req =  new XMLHttpRequest();
-//		req.onreadystatechange = function()
-//		{
-//			if (req.readyState == 4) {
-//	        // only if "OK"
-//	        if (req.status == 200) 
-//	        {
-//	        	dump("200\n");
-//	                var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
-//			        if(responseTextMatch)
-//			        {
-//			        	dump(responseTextMatch[1] + "\n");
-//						contextMenuItemID.setAttribute("tooltiptext",responseTextMatch[1]);
-//			        }     
-//	            
-//	        } else 
-//		        {
-//		         dump('bad hhttp requests\n'); 
-//		        }
-//	    	}	
-//		};
-//		req.open("GET", aURL, true);
-//		req.send(null);
-//  
-//}
-
-//PGTranslate.prototype.processReqChange = function( contextMenuItemID) 
-//{
-//	    // only if req shows "loaded"
-//	    if (req.readyState == 4) {
-//	        // only if "OK"
-//	        if (req.status == 200) 
-//	        {
-//	        	dump("200");
-//	                var responseTextMatch = req.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
-//			        if(responseTextMatch)
-//			        {
-//			        	dump(responseTextMatch[1]);
-//						contextMenuItemID.setAttribute("tooltiptext",responseTextMatch[1]);
-//			        }     
-//	            
-//	        } else 
-//	        {
-//	         dump('bad hhttp requests'); 
-//	        }
-//	    }
-//}
 
 
 PGTranslate.prototype.load_xml = function(aURL) 
 {
 	dump(aURL + "\n");
+	document.getElementById("translate-pg-progressbar").setAttribute("style","visibility:visible;");
+	document.getElementById("translate-pg-status").setAttribute("style","visibility:collapse;");
 	gPGTranslate.request = new XMLHttpRequest();
 	gPGTranslate.request.onreadystatechange = gPGTranslate.process_request;
 	gPGTranslate.request.open("GET", aURL, true);
@@ -445,17 +346,43 @@ PGTranslate.prototype.load_xml = function(aURL)
 
 PGTranslate.prototype.process_request = function ()
 {
-
-
-	if (gPGTranslate.request.readyState == 4 && gPGTranslate.request.status == 200) 
-	{
-		var responseTextMatch = gPGTranslate.request.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
-		if(responseTextMatch)
+	switch (gPGTranslate.request.readyState){
+   case 0 :
+      document.getElementById("translate-pg-progressbar").setAttribute("value","5%");
+      break;
+   case 1 :
+      document.getElementById("translate-pg-progressbar").setAttribute("value","25%");
+      break;
+   case 2 :
+      document.getElementById("translate-pg-progressbar").setAttribute("value","50%");
+      break;
+   case 3 :
+      document.getElementById("translate-pg-progressbar").setAttribute("value","75%");
+      break;
+   case 4 :
+   		var responseTextMatch = gPGTranslate.request.responseText.match(/\<td bgcolor\=white class\=s\>\<div style\=padding\:10px\;\>([^\<]*)\<\/div\>\<\/td\>/)
+      	if (gPGTranslate.request.status == 200 && responseTextMatch) 
 		{
-			dump(responseTextMatch[1] + "\n");
-			document.getElementById("translate-pg-status").setAttribute("label",responseTextMatch[1]);
-		}     		
-	}
+			{
+				dump(responseTextMatch[1] + "\n");
+				document.getElementById("translate-pg-status").setAttribute("style","padding: 0 0 0 "+ responseTextMatch[1].length + 1 +" em;");
+				document.getElementById("translate-pg-status").setAttribute("value",responseTextMatch[1]);			
+			}     		
+		} 
+		else
+		{
+			document.getElementById("translate-pg-status").setAttribute("style","padding: 0 0 0 15em;");
+			document.getElementById("translate-pg-status").setAttribute("value","Translation Failed.");
+		}
+		document.getElementById("translate-pg-progressbar").setAttribute("value","100%");
+		document.getElementById("translate-pg-progressbar").setAttribute("style","visibility:collapse;");
+		document.getElementById("translate-pg-status").setAttribute("style","visibility:visible;");
+      break;
+   
+}
+
+
+
 }
 
 
@@ -479,20 +406,11 @@ PGTranslate.prototype.onTranslatePopup = function ()
 	var selection = focusedWindow.getSelection();
 	var selectedText = selection.toString() ;
 	
-	//fill status bar
-	var languagePair = PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)]
-												[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_ORIGIN_LANGUAGE)] + 
-												"_" + 
-						PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)]
-												[0];
-	gPGTranslate.fillStatusbar(selectedText, languagePair);
-	
 	
 	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED) && selection!="")
 	{
 	    // if the selected text is blank then don't display the context menu, otherwise, display the first 14 characters + ...
     	//text selected so display the context menu
-    	
     	selectedText = selectedText.trim();
         if (selectedText.length > 15)  // crop selected text if necessary
         {
@@ -556,7 +474,7 @@ PGTranslate.prototype.translateSelection = function(aLanguage)
 PGTranslate.prototype.onClose = function()
 {
 	window.getBrowser().removeProgressListener(this.myListener);
-	window.getBrowser().removeSelectionListener(this.mySelectionListener);
+	//window.getBrowser().removeSelectionListener(this.mySelectionListener);
 	document.getElementById("contentAreaContextMenu").removeEventListener("popupshowing",gPGTranslate.onTranslatePopup,false);
 	gPGTranslate = null;
 }
@@ -569,4 +487,7 @@ if(window.location == "chrome://browser/content/browser.xul")
 	var gPGTranslate = new PGTranslate(); 
 	window.addEventListener("load",gPGTranslate.onLoad,false);
 	window.addEventListener("close", gPGTranslate.onClose, false);
+	
+	window.onmouseup = gPGTranslate.onTextSelected;
+	//window.addEventListener("onmouseup", gPGTranslate.onTextSelected, false);	
 }

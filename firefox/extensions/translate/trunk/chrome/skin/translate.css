@@ -10,7 +10,11 @@ toolbar[iconsize="small"] #translate-pg
   list-style-image: url("chrome://translate/skin/toolbar_16.png");
 }
 
-
+#translate-pg-image 
+{ 
+  list-style-image: url("chrome://translate/skin/toolbar_16.png");
+  -moz-image-region: rect(0px 16px 16px 0px);
+}
 
 
 .translate-tool-en { -moz-image-region: rect(0px 24px 24px 0px); }
