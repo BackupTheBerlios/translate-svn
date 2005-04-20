@@ -58,7 +58,7 @@ PgKontextKeywords.prototype.createMenuItems = function(aElements, aSelectedText)
 					if(contextMenuItemTooltiptext.trim() == "")			
 						contextMenuItemTooltiptext = contextMenuItemLabel;
 					
-					contextMenuItemOncommand = "gPgKontextKeywords.addKontextCommand('"+keywordURL+"','"+ aSelectedText +"');";
+					contextMenuItemOncommand = "gPgKontextKeywords.addKontextCommand('"+keywordURL+"','"+ escape(aSelectedText) +"');";
 					contextMenuItemImage = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Icon");
 										
 					contextMenuItemElement = document.createElement("menuitem");
@@ -79,6 +79,7 @@ PgKontextKeywords.prototype.addKontextCommand = function(aKeywordURL, aSelectedT
 {
 	re = /%s/;	
 	uri = aKeywordURL.replace(re, aSelectedText);
+	
 	getBrowser().addTab(uri);
 }
 
@@ -89,12 +90,13 @@ PgKontextKeywords.prototype.kontextPopup = function()
 	var item = document.getElementById("kontextKeywordsMenu");
 	var sep = document.getElementById("kontextKeywordsSeparator");
 	
-	var winWrapper = new XPCNativeWrapper(contentWindow,'document', 'getSelection()');
-	var selection =  winWrapper.getSelection();
-		
-	if(selection != "")
+	var focusedWindow = document.commandDispatcher.focusedWindow;
+	var selection = focusedWindow.getSelection();
+	var selectedText = selection.toString();
+	
+	if(selectedText != "")
 	{
-		var selectedText = selection.toString() ;
+		
 		gPgKontextKeywords.initmenu(selectedText);		
 		selectedText = selectedText.trim();
 		if (selectedText.length > 15)  // crop selected text if necessary
