@@ -3,7 +3,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>{76BA124D-D343-4eab-8A4D-31331E824574}</em:id>
 		<em:name>Kontext Keywords</em:name>
-		<em:version>0.1.4</em:version>
+		<em:version>0.1.5</em:version>
 		<em:description>Adds keywords to the context menu</em:description>
 		<em:creator>Paul Grave</em:creator>
 		<em:homepageURL>http://ctomer.com/</em:homepageURL>
@@ -17,7 +17,7 @@
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 				<em:minVersion>0.9</em:minVersion>
-				<em:maxVersion>1.0</em:maxVersion>
+				<em:maxVersion>1.0+</em:maxVersion>
 			</Description>
 		</em:targetApplication>		
 	</Description>
