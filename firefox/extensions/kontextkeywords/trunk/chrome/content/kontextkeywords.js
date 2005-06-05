@@ -44,8 +44,10 @@ PgKontextKeywords.prototype.createMenuItems = function(aElements, aSelectedText)
 			{
 				var keyword = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#ShortcutURL");
 				var keywordURL = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#URL");
-
-				if(keyword != "" && keywordURL.indexOf("%s") > 0)
+				var postData = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#PostData");
+				
+				//dump(postData + "\n");
+				if(keyword != "" && (keywordURL.indexOf("%s") > 0 || postData != ""))
 				{
 					var contextMenuItemLabel;
 					var contextMenuItemTooltiptext;
@@ -58,7 +60,7 @@ PgKontextKeywords.prototype.createMenuItems = function(aElements, aSelectedText)
 					if(contextMenuItemTooltiptext.trim() == "")			
 						contextMenuItemTooltiptext = contextMenuItemLabel;
 					
-					contextMenuItemOncommand = "gPgKontextKeywords.addKontextCommand('"+keywordURL+"','"+ escape(aSelectedText) +"');";
+					contextMenuItemOncommand = "gPgKontextKeywords.addKontextCommand('"+keywordURL+"','"+ escape(aSelectedText) +"','" + postData +"');";
 					contextMenuItemImage = BookmarksUtils.getProperty(currentElement, "http://home.netscape.com/NC-rdf#Icon");
 										
 					contextMenuItemElement = document.createElement("menuitem");
@@ -75,12 +77,26 @@ PgKontextKeywords.prototype.createMenuItems = function(aElements, aSelectedText)
 	return  menuItems;
 }
 
-PgKontextKeywords.prototype.addKontextCommand = function(aKeywordURL, aSelectedText)
+PgKontextKeywords.prototype.addKontextCommand = function(aKeywordURL, aSelectedText, aPostData)
 {
-	re = /%s/;	
-	uri = aKeywordURL.replace(re, aSelectedText);
 	
-	getBrowser().addTab(uri);
+	if(aPostData)
+	{
+		aPostData = unescape(aPostData);
+        aPostDataRef = getPostDataStream(aPostData, aSelectedText, "application/x-www-form-urlencoded");
+		dump(aKeywordURL + "\n");
+		//re=/%25s/;
+		//postData = aPostData.replace(re, aSelectedText);
+		//dump(postData + "\n");
+		gBrowser.addTab(aKeywordURL, null, null, aPostDataRef)
+
+	} else
+	{
+		re = /%s/;	
+		uri = aKeywordURL.replace(re, aSelectedText);
+		getBrowser().addTab(uri);
+		
+	}
 }
 
 PgKontextKeywords.prototype.kontextPopup = function()
