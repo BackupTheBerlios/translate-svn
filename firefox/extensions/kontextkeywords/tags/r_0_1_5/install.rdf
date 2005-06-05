@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+	<Description about="urn:mozilla:install-manifest">
+		<em:id>{76BA124D-D343-4eab-8A4D-31331E824574}</em:id>
+		<em:name>Kontext Keywords</em:name>
+		<em:version>0.1.5</em:version>
+		<em:description>Adds keywords to the context menu</em:description>
+		<em:creator>Paul Grave</em:creator>
+		<em:homepageURL>http://ctomer.com/</em:homepageURL>
+		<em:file>
+			<Description about="urn:mozilla:extension:file:kontextkeywords.jar">
+				<em:package>content/</em:package>
+			</Description>
+		</em:file>
+		<em:updateURL>http://www.ctomer.com/extensions/update.rdf</em:updateURL>
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>0.9</em:minVersion>
+				<em:maxVersion>1.0+</em:maxVersion>
+			</Description>
+		</em:targetApplication>		
+	</Description>
+</RDF>
