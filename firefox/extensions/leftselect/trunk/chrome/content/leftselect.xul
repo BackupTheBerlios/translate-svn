@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0"?>
 <overlay id="leftSelectOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <script type="application/x-javascript" src="chrome://leftselect/content/leftselect.js"/>
-
-
+<popup id="contentAreaContextMenu">
+	
+</popup>
 </overlay>
 
