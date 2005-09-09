@@ -6,6 +6,7 @@ function PGTranslate_prefs(){
   this.PREF_TOOLMENU_ENABLED        = "translate.displayToolMenu";
   this.PREF_LANGUAGE        = "translate.userlanguage";
   this.PREF_ORIGIN_LANGUAGE       = "translate.origin.userlanguage";
+  this.PREF_STATUSBAR_ENABLED       = "translate.statusbar";
 }
 
 PGTranslate_prefs.prototype.getPrefBranch = function(){

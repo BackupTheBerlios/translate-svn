@@ -13,8 +13,25 @@ toolbar[iconsize="small"] #translate-pg
 #translate-pg-image 
 { 
   list-style-image: url("chrome://translate/skin/toolbar_16.png");
-  -moz-image-region: rect(0px 16px 16px 0px);
 }
+
+.translate-status-en { -moz-image-region: rect(0px 16px 16px 0px); }
+.translate-status-fr { -moz-image-region: rect(0px 32px 16px 16px); }
+.translate-status-de { -moz-image-region: rect(0px 48px 16px 32px); }
+.translate-status-es { -moz-image-region: rect(0px 64px 16px 48px); }
+.translate-status-it { -moz-image-region: rect(0px 80px 16px 64px); }
+.translate-status-el { -moz-image-region: rect(0px 96px 16px 80px); }
+.translate-status-ko { -moz-image-region: rect(0px 112px 16px 96px); }
+.translate-status-ja { -moz-image-region: rect(0px 128px 16px 112px); }
+.translate-status-zh { -moz-image-region: rect(0px 144px 16px 128px); }
+.translate-status-zt { -moz-image-region: rect(0px 160px 16px 144px); }
+.translate-status-nl { -moz-image-region: rect(0px 176px 16px 160px); }
+.translate-status-ru { -moz-image-region: rect(0px 192px 16px 176px); }
+.translate-status-pt { -moz-image-region: rect(0px 208px 16px 192px); }
+
+
+
+
 
 
 .translate-tool-en { -moz-image-region: rect(0px 24px 24px 0px); }

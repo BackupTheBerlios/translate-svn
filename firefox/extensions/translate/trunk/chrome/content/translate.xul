@@ -55,9 +55,9 @@
 
 
 <statusbar id="status-bar">
-<statusbarpanel   insertafter="statusbar-display"  context="translate-statusbar-context" >
-	<image src="" id="translate-pg-image" />
-	<label value="Translating..." id="translate-pg-status" />
+<statusbarpanel   insertafter="statusbar-display"  context="translate-statusbar-context" id="translate-pg-statusbar" >
+	<image src="" id="translate-pg-image" onclick="gPGTranslate.copyToClip(event);" tooltip="Click to copy to clipboard" />
+	<label value="Translate" id="translate-pg-status" onclick="gPGTranslate.copyToClip(event);" tooltip="Click to copy to clipboard"/>
 	<progressmeter style="visibility: collapse;" id="translate-pg-progressbar" mode="determined" value="0%"/>
 </statusbarpanel>
 </statusbar>

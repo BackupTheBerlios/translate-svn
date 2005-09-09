@@ -46,6 +46,7 @@ function PGTranslate() // lets initialise some of the variables that we are goin
 		
 	this.initPref(this.PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_TOOLMENU_ENABLED , "bool", true);
+    this.initPref(this.PGTranslate_prefs.PREF_STATUSBAR_ENABLED , "bool", true);
     this.initPref(this.PGTranslate_prefs.PREF_LANGUAGE , "int", 0);
     this.initPref(this.PGTranslate_prefs.PREF_ORIGIN_LANGUAGE , "int", 0);
 }
@@ -81,12 +82,12 @@ PGTranslate.prototype.initPref = function (aPrefName, aPrefType, aDefaultValue)
 //  Gets string bundle
 //  Initalises the menus
 
-PGTranslate.prototype.onTextSelected = function()
+PGTranslate.prototype.onTextSelected = function(e)
 {
 	var focusedWindow = document.commandDispatcher.focusedWindow;
 	var selection = focusedWindow.getSelection();
 	var selectedText = selection.toString() ;
-	dump("onTextSelected: " + selectedText);
+	dump("onTextSelected: " + e.target.nodeType + "\n");
 	if(selectedText.length != null || selectedText.length > 0 )
 	{
 		//fill status bar
@@ -208,8 +209,25 @@ PGTranslate.prototype.openPrefs = function()
 	window.openDialog("chrome://translate/content/translate-preferences.xul", "_blank", "chrome,resizable=no,dependent=yes");
 }
 
+
+PGTranslate.prototype.setupStatusbar = function()
+{
+	if(gPGTranslate.PGTranslate_prefs.getBoolPref(gPGTranslate.PGTranslate_prefs.PREF_STATUSBAR_ENABLED))
+	{
+		document.getElementById("translate-pg-statusbar").setAttribute("style","visibility: visible")
+	}else
+	{
+		document.getElementById("translate-pg-statusbar").setAttribute("style","visibility: collapse")
+	}	
+}
+
+
 PGTranslate.prototype.initMenus = function()  //initialises the context menu and the toolbar menu
 {
+	
+	
+	gPGTranslate.setupStatusbar();
+	
    var languagePair;
 
    // set up context menu variables
@@ -329,14 +347,17 @@ PGTranslate.prototype.initMenus = function()  //initialises the context menu and
 	//set toolbar button class, which inturns sets the icon
   	if(toolbarItem != null)
   		toolbarItem.setAttribute("class","translate-tool-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0] + " toolbarbutton-1");
+	
+	var statusBarImage = document.getElementById("translate-pg-image");
+	statusBarImage.setAttribute("class","translate-status-" + PGTRANSLATE_LANGUAGEPAIRS[gPGTranslate.PGTranslate_prefs.getIntPref(gPGTranslate.PGTranslate_prefs.PREF_LANGUAGE)][0]) ;
 }
 
 
 
-PGTranslate.prototype.load_xml = function(aURL) 
+PGTranslate.prototype.load_xml = function(aURL,aSelectedText) 
 {
-	dump(aURL + "\n");
-	document.getElementById("translate-pg-progressbar").setAttribute("style","visibility:visible;");
+	//dump(aURL + "\n");
+	document.getElementById("translate-pg-progressbar").setAttribute("style","visibility:visible;width:"+ aSelectedText.length + "em;");
 	document.getElementById("translate-pg-status").setAttribute("style","visibility:collapse;");
 	gPGTranslate.request = new XMLHttpRequest();
 	gPGTranslate.request.onreadystatechange = gPGTranslate.process_request;
@@ -390,7 +411,7 @@ PGTranslate.prototype.process_request = function ()
 PGTranslate.prototype.fillStatusbar = function (aSelectedText, aLanguage)
 {
 	var aURL = gPGTranslate.PGTRANSLATE_SELECTIONSITE + gPGTranslate.PGTRANSLATE_SECONDARG + gPGTranslate.PGTRANSLATE_EQUALS + aLanguage + gPGTranslate.PGTRANSLATE_AMP + gPGTranslate.PGTRANSLATE_SELECTFIRSTARG + gPGTranslate.PGTRANSLATE_EQUALS + encodeURIComponent(aSelectedText);
-	gPGTranslate.load_xml(aURL);
+	gPGTranslate.load_xml(aURL,aSelectedText);
 }
 
 
@@ -453,7 +474,27 @@ PGTranslate.prototype.onTranslatePopup = function ()
 	
 	//}
 }
-
+PGTranslate.prototype.copyToClip = function(e)
+{
+	if(e.button == 0)
+	{
+		var translatedText = document.getElementById("translate-pg-status").getAttribute("value");
+		dump("Copying to clipboard: " + translatedText + " mouse: "+ e.button + "\n");
+		if (translatedText) 
+		{
+		try 
+		{
+			const clipURI = "@mozilla.org/widget/clipboardhelper;1";
+			const clipI = Components.interfaces.nsIClipboardHelper;
+			var clipboard = Components.classes[clipURI].getService(clipI);
+			clipboard.copyString(translatedText);
+		} catch (ex) 
+		{
+			// Unable to copy anything, die quietly
+		}
+		}	
+	}
+}
 
 PGTranslate.prototype.quick_translate = function()
 {
@@ -488,6 +529,6 @@ if(window.location == "chrome://browser/content/browser.xul")
 	window.addEventListener("load",gPGTranslate.onLoad,false);
 	window.addEventListener("close", gPGTranslate.onClose, false);
 	
-	window.onmouseup = gPGTranslate.onTextSelected;
+	document.ondblclick = gPGTranslate.onTextSelected;
 	//window.addEventListener("onmouseup", gPGTranslate.onTextSelected, false);	
 }

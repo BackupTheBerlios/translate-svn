@@ -14,13 +14,7 @@
 
 	<description value="&translate.prefs.name;" style="background-color:white; min-width:400px; padding:5px; margin:0px; font-size:1.2em;"/>
 	
-	<groupbox>
-	<caption label="&translate.prefs.menus;"/>
-		<hbox align="center">
-			<checkbox label="&translate.prefs.menus.tool;"  id="translate.prefs.displayTools"/>
-			<checkbox label="&translate.prefs.menus.context;" id="translate.prefs.contextMenu" />
-		</hbox>
-	</groupbox>
+
 	<groupbox>
 		<caption label="&translate.prefs.groupbox.ui;"/>
 		<hbox align="center">
@@ -30,12 +24,27 @@
 				<!-- PGTranslate_prefs.prototype.initListBox fills the listbox with listitems  -->
 			</menulist>   
 		</hbox> 
+	
+	</groupbox>
+	<groupbox>
+	<caption label="&translate.prefs.menus;"/>
 		<hbox align="center">
-			<label value="&translate.prefs.menus.language.origin;"/>    
-			<menulist id="translate.prefs.language.origin.selection">
-				
-				<!-- PGTranslate_prefs.prototype.initListBox fills the listbox with listitems  -->
-			</menulist>   
-		</hbox> 
+			<checkbox label="&translate.prefs.menus.tool;"  id="translate.prefs.displayTools"/>
+			<checkbox label="&translate.prefs.menus.context;" id="translate.prefs.contextMenu" />
+		</hbox>
+	</groupbox>
+	<groupbox>
+	<caption label="Statusbar"/>
+		<hbox align="center">
+			
+		
+				<checkbox label="Statusbar enabled" id="translate.prefs.statusbar" />
+					<label value="&translate.prefs.menus.language.origin;"/>    
+					<menulist id="translate.prefs.language.origin.selection">
+						
+						<!-- PGTranslate_prefs.prototype.initListBox fills the listbox with listitems  -->
+					</menulist>  
+					
+		</hbox>
 	</groupbox>
 </dialog>

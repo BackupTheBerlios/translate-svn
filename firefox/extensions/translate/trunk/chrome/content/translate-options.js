@@ -7,7 +7,7 @@ function pg_prefs_load()
 	document.getElementById("translate.prefs.language.selection").selectedIndex = defaultLanguage;
 	document.getElementById("translate.prefs.contextMenu").checked = PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED);     
 	document.getElementById("translate.prefs.displayTools").checked = PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_TOOLMENU_ENABLED);
-
+	document.getElementById("translate.prefs.statusbar").checked = PGTranslate_prefs.getBoolPref(PGTranslate_prefs.PREF_STATUSBAR_ENABLED);
 	initOriginBox(defaultLanguage);
 	document.getElementById("translate.prefs.language.origin.selection").selectedIndex = PGTranslate_prefs.getIntPref(PGTranslate_prefs.PREF_ORIGIN_LANGUAGE);
 }
@@ -28,9 +28,6 @@ function initOriginBox(aLanguage)
 	var menupopup = document.createElement("menupopup");
 	var listitem ;
 		
-	listitem = document.createElement("menuitem");
-	listitem.setAttribute("label","{none}");
-	listitem.setAttribute("value",0);
 	menupopup.appendChild(listitem);
 	for(var i = 1 ; i < PGTRANSLATE_LANGUAGEPAIRS[aLanguage].length ; i++)
 	{	
@@ -63,9 +60,16 @@ function pg_prefs_accept()
 {
 	PGTranslate_prefs.setBoolPref(PGTranslate_prefs.PREF_CONTEXTMENU_ENABLED, document.getElementById("translate.prefs.contextMenu").checked)
 	PGTranslate_prefs.setBoolPref(PGTranslate_prefs.PREF_TOOLMENU_ENABLED, document.getElementById("translate.prefs.displayTools").checked);
+	PGTranslate_prefs.setBoolPref(PGTranslate_prefs.PREF_STATUSBAR_ENABLED, document.getElementById("translate.prefs.statusbar").checked);
 	PGTranslate_prefs.setIntPref(PGTranslate_prefs.PREF_LANGUAGE, document.getElementById("translate.prefs.language.selection").selectedIndex);
-	PGTranslate_prefs.setIntPref(PGTranslate_prefs.PREF_ORIGIN_LANGUAGE, document.getElementById("translate.prefs.language.origin.selection").selectedIndex);
 	
+	if(document.getElementById("translate.prefs.language.origin.selection").selectedIndex != -1)
+	{
+		PGTranslate_prefs.setIntPref(PGTranslate_prefs.PREF_ORIGIN_LANGUAGE, document.getElementById("translate.prefs.language.origin.selection").selectedIndex);
+	}else
+	{
+		PGTranslate_prefs.setIntPref(PGTranslate_prefs.PREF_ORIGIN_LANGUAGE, 0);
+	}
 	if(window.opener.opener)
 	{
 		window.opener.opener.gPGTranslate.initMenus();
