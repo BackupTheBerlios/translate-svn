@@ -37,7 +37,7 @@
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 				<em:minVersion>0.9</em:minVersion>
-				<em:maxVersion>1.0+</em:maxVersion>
+				<em:maxVersion>1.5</em:maxVersion>
 				<em:updateLink>http://www.ctomer.com/extensions/translate/translate-0.6.0.7-fx.xpi</em:updateLink>
 			</Description>
 		</em:targetApplication>
@@ -183,7 +183,7 @@
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 				<em:minVersion>0.9</em:minVersion>
-				<em:maxVersion>1.0+</em:maxVersion>
+				<em:maxVersion>1.5</em:maxVersion>
 				<em:updateLink>http://www.ctomer.com/extensions/kontextkeywords/kontextkeywords-0.1.5-fx.xpi</em:updateLink>
 			</Description>
 		</em:targetApplication>
